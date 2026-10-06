@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Synode — Fashion Photography</title>
+  <meta name="description" content="Synode: a single-scroll fashion photography journal. A gathering of light, cloth and stone.">
+  <link rel="canonical" href="https://synode.space/">
+  <meta property="og:title" content="Synode — Fashion Photography">
+  <meta property="og:url" content="https://synode.space/">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0C1821">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,600&family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;1,400&family=GFS+Didot&family=Spectral:ital@1&display=swap">
+
+  <link rel="stylesheet" href="css/site.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <script src="js/parallax.js" defer></script>
+</head>
+<body>
+
+  <!-- I. Hero — no navigation; the page is read top to bottom like a scroll -->
+  <header class="hero" id="top">
+    <div class="hero__plate" data-speed="0.35" aria-hidden="true">
+      <img src="https://picsum.photos/seed/synode-hero/2000/1400" alt="" fetchpriority="high">
+    </div>
+    <div class="hero__veil" aria-hidden="true"></div>
+
+    <div class="hero__inscription" data-speed="-0.12">
+      <p class="eyebrow eyebrow--gold">Volume I &middot; Autumn MMXXVI</p>
+      <h1 class="display">Synode</h1>
+      <p class="hero__greek" lang="el">Σύνοδος</p>
+      <p class="hero__lede">A gathering of light, cloth and stone.</p>
+    </div>
+
+    <a class="scroll-cue" href="#prologue" aria-label="Begin reading">
+      <span class="scroll-cue__label">Descend</span>
+      <span class="scroll-cue__line" aria-hidden="true"></span>
+    </a>
+  </header>
+
+  <main>
+
+    <!-- II. Prologue — wide-margin manuscript column -->
+    <section class="prologue folio" id="prologue" aria-labelledby="prologue-title">
+      <div class="folio__margin">
+        <p class="meta">Prologue</p>
+        <p class="meta meta--muted">Photographed on Thera, Naxos &amp; Delos</p>
+      </div>
+      <div class="folio__text">
+        <h2 class="section-title" id="prologue-title">On the meeting of garment and light</h2>
+        <p class="dropcap">Synode is the old word for a coming-together. Here it names the moment a garment meets the island light: linen that holds the afternoon, wool that remembers wind, silk that turns the colour of wet marble at dusk. Every plate in this volume was made outdoors, by available light, between the first and last hour of the sun.</p>
+        <p>We worked slowly. Each look was fitted on site and photographed in a single sitting, so that the folds you see were made by the walk to the frame and not by a stylist's pin. What follows is less a lookbook than a sequence: read it downward, as you would a manuscript.</p>
+        <hr class="rule">
+      </div>
+    </section>
+
+    <!-- III. Chapter I — sticky caption beside drifting plates -->
+    <section class="chapter" aria-labelledby="ch1-title">
+      <div class="chapter__sticky">
+        <p class="eyebrow">Chapter I</p>
+        <h2 class="section-title" id="ch1-title">Aegean</h2>
+        <p class="chapter__note">Indigo, salt-white and the blue hour. Cut close to the body, left loose at the hem.</p>
+        <p class="meta meta--muted">Plates 01 — 03</p>
+      </div>
+
+      <div class="chapter__plates">
+        <figure class="plate plate--tall" data-speed="0.08">
+          <div class="plate__frame"><img src="https://picsum.photos/seed/synode-aegean-1/1000/1400" alt="Model in an indigo linen column dress against a whitewashed wall" loading="lazy"></div>
+          <figcaption class="caption"><span class="caption__no">01</span> Indigo column dress, hand-loomed linen.</figcaption>
+        </figure>
+        <figure class="plate plate--offset" data-speed="-0.06">
+          <div class="plate__frame"><img src="https://picsum.photos/seed/synode-aegean-2/1000/1200" alt="Draped white cotton tunic photographed at the shoreline" loading="lazy"></div>
+          <figcaption class="caption"><span class="caption__no">02</span> Salt-white tunic, unbleached cotton.</figcaption>
+        </figure>
+        <figure class="plate plate--wide" data-speed="0.05">
+          <div class="plate__frame"><img src="https://picsum.photos/seed/synode-aegean-3/1400/950" alt="Two figures in layered blue silk walking along a harbour wall at dusk" loading="lazy"></div>
+          <figcaption class="caption"><span class="caption__no">03</span> Blue-hour layers, washed silk.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- IV. Interlude — full-bleed parallax band with an inscription -->
+    <section class="interlude" aria-label="Interlude">
+      <div class="interlude__plate" data-speed="0.2" aria-hidden="true">
+        <img src="https://picsum.photos/seed/synode-interlude/2000/1300" alt="" loading="lazy">
+      </div>
+      <div class="interlude__veil" aria-hidden="true"></div>
+      <blockquote class="inscription">
+        <p>“The cloth is only finished when the wind has worn it.”</p>
+        <cite class="meta meta--gold">Workshop saying, Naxos</cite>
+      </blockquote>
+    </section>
+
+    <!-- V. Chapter II — stacked sticky plates that settle over one another -->
+    <section class="stack" aria-labelledby="ch2-title">
+      <header class="stack__head folio">
+        <div class="folio__margin"><p class="eyebrow">Chapter II</p></div>
+        <div class="folio__text">
+          <h2 class="section-title" id="ch2-title">Terracotta</h2>
+          <p>Rust, ochre and the colour of fired clay. Three looks, laid one over the next like leaves of a folio.</p>
+        </div>
+      </header>
+
+      <article class="stack__leaf">
+        <div class="leaf">
+          <div class="leaf__image"><img src="https://picsum.photos/seed/synode-terra-1/1400/1000" alt="Rust wool coat photographed against an ochre stone wall" loading="lazy"></div>
+          <div class="leaf__text">
+            <p class="leaf__no">IV</p>
+            <h3 class="subhead">Amphora coat</h3>
+            <p>Boiled wool in fired-clay rust, single seam at the back, collar cut to fall open in the wind.</p>
+            <p class="caption">Shot at the quarry, 16:40.</p>
+          </div>
+        </div>
+      </article>
+      <article class="stack__leaf">
+        <div class="leaf leaf--reverse">
+          <div class="leaf__image"><img src="https://picsum.photos/seed/synode-terra-2/1400/1000" alt="Ochre pleated skirt in motion on a terraced hillside" loading="lazy"></div>
+          <div class="leaf__text">
+            <p class="leaf__no">V</p>
+            <h3 class="subhead">Ochre pleat</h3>
+            <p>Knife pleats pressed by hand, weighted at the hem so the skirt answers every step.</p>
+            <p class="caption">Terraces above Chora, 17:15.</p>
+          </div>
+        </div>
+      </article>
+      <article class="stack__leaf">
+        <div class="leaf">
+          <div class="leaf__image"><img src="https://picsum.photos/seed/synode-terra-3/1400/1000" alt="Clay-coloured silk shirt photographed in late raking light" loading="lazy"></div>
+          <div class="leaf__text">
+            <p class="leaf__no">VI</p>
+            <h3 class="subhead">Kiln shirt</h3>
+            <p>Sand-washed silk dyed with madder root, worn untucked and open at the throat.</p>
+            <p class="caption">Last light, 19:02.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- VI. Gallery — asymmetric contact sheet -->
+    <section class="gallery" aria-labelledby="ch3-title">
+      <header class="gallery__head">
+        <p class="eyebrow">Chapter III</p>
+        <h2 class="section-title" id="ch3-title">Laurel</h2>
+        <hr class="rule rule--short">
+      </header>
+      <div class="gallery__grid">
+        <figure class="g g--a" data-speed="0.06"><div class="plate__frame"><img src="https://picsum.photos/seed/synode-laurel-1/900/1200" alt="Olive knit dress in an olive grove" loading="lazy"></div><figcaption class="caption"><span class="caption__no">07</span> Olive knit.</figcaption></figure>
+        <figure class="g g--b" data-speed="-0.04"><div class="plate__frame"><img src="https://picsum.photos/seed/synode-laurel-2/900/700" alt="Detail of a laurel-green sleeve and gold cuff" loading="lazy"></div><figcaption class="caption"><span class="caption__no">08</span> Gilt cuff, detail.</figcaption></figure>
+        <figure class="g g--c" data-speed="0.1"><div class="plate__frame"><img src="https://picsum.photos/seed/synode-laurel-3/900/1300" alt="Long sage overcoat on a stone stairway" loading="lazy"></div><figcaption class="caption"><span class="caption__no">09</span> Sage overcoat.</figcaption></figure>
+        <figure class="g g--d" data-speed="-0.02"><div class="plate__frame"><img src="https://picsum.photos/seed/synode-laurel-4/1200/800" alt="Group portrait in muted green tailoring beside a ruined colonnade" loading="lazy"></div><figcaption class="caption"><span class="caption__no">10</span> The gathering, Delos.</figcaption></figure>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- VII. Colophon — the only exit from the scroll -->
+  <footer class="colophon">
+    <div class="colophon__inner">
+      <p class="eyebrow eyebrow--gold">Colophon</p>
+      <p class="colophon__title">Commissions &amp; editorial enquiries</p>
+      <a class="button" href="mailto:studio@synode.space">studio@synode.space</a>
+      <hr class="rule rule--short rule--gold">
+      <p class="meta meta--gold">Set in Cinzel, Bodoni Moda &amp; EB Garamond. Printed in light.</p>
+      <p class="meta meta--gold">&copy; 2026 Synode &middot; <a href="#top">Return to the beginning</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>

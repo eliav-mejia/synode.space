@@ -1,0 +1,304 @@
+/* ==========================================================================
+   Synode — layout.css  (v1.0.1)
+   Page structure, sticky sections and parallax layers.
+   Depends on tokens declared in site.css.
+   ========================================================================== */
+
+/* 1. Parallax primitives --------------------------------------------------- */
+/* js/parallax.js writes --py (px) on every [data-speed] element in view. */
+[data-speed] {
+  --py: 0px;
+  transform: translate3d(0, var(--py), 0);
+  will-change: transform;
+}
+
+/* Photographs are toned toward parchment so plates sit in one family. */
+.hero__plate img,
+.interlude__plate img,
+.plate__frame img,
+.leaf__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.82) sepia(0.12) contrast(1.04);
+}
+
+/* Plate frames clip a slightly oversized image so movement never shows an edge. */
+.plate__frame {
+  overflow: hidden;
+  background: color-mix(in srgb, var(--aegean-ink) 8%, var(--parchment-marble));
+}
+.plate__frame img {
+  transform: scale(1.04);
+  transition: transform 1600ms var(--ease-silk), filter 1600ms var(--ease-silk);
+}
+figure:hover .plate__frame img { transform: scale(1.08); filter: saturate(1) sepia(0.04); }
+
+/* 2. Hero ------------------------------------------------------------------ */
+.hero {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--aegean-ink);
+  color: var(--parchment-marble);
+  text-align: center;
+}
+.hero__plate {
+  position: absolute;
+  inset: -12% 0;           /* headroom for the slower layer */
+  z-index: -2;
+}
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at 50% 45%, transparent 0%, color-mix(in srgb, var(--aegean-ink) 55%, transparent) 70%),
+    linear-gradient(to bottom, color-mix(in srgb, var(--aegean-ink) 35%, transparent), color-mix(in srgb, var(--aegean-ink) 85%, transparent));
+}
+.hero__inscription { padding-inline: 16px; }
+.hero__greek {
+  margin: var(--space-2) auto 0;
+  font-family: var(--font-greek);
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  letter-spacing: 0.08em;
+  color: var(--hellenic-gold);
+}
+.hero__lede {
+  margin: var(--space-3) auto 0;
+  font-family: var(--font-meta);
+  font-style: italic;
+  font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.35rem);
+  opacity: 0.88;
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: clamp(1.5rem, 4vh, 3rem);
+  left: 50%;
+  translate: -50% 0;
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--hellenic-gold);
+}
+.scroll-cue__label {
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  margin-right: -0.35em;
+}
+.scroll-cue__line {
+  width: 1px;
+  height: 3.5rem;
+  background: linear-gradient(currentColor, transparent);
+  transform-origin: top;
+  animation: cue 2.6s var(--ease-silk) infinite;
+}
+@keyframes cue {
+  0%   { transform: scaleY(0); opacity: 1; }
+  60%  { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+
+/* 3. Folio — asymmetric manuscript grid ----------------------------------- */
+/* Narrow margin column (glosses), reading column, wide empty outer margin. */
+.folio {
+  display: grid;
+  grid-template-columns: minmax(9rem, 1fr) minmax(0, 40rem) minmax(0, 1.6fr);
+  column-gap: clamp(2rem, 4vw, 4rem);
+  padding: var(--space-6) 10% var(--space-6) 5%;
+}
+.folio__margin {
+  padding-top: 0.6rem;
+  border-top: 1px solid color-mix(in srgb, var(--hellenic-gold) 40%, transparent);
+  align-self: start;
+}
+.folio__margin .meta + .meta { margin-top: 0.4rem; }
+.folio__text { max-width: 40rem; }
+
+/* 4. Chapter — sticky caption, drifting plates ----------------------------- */
+.chapter {
+  display: grid;
+  grid-template-columns: minmax(14rem, 1fr) minmax(0, 1.9fr);
+  gap: clamp(2rem, 6vw, 7rem);
+  padding: var(--space-5) 10% var(--space-6) 5%;
+}
+.chapter__sticky {
+  position: sticky;
+  top: 18vh;
+  align-self: start;
+  padding-top: var(--space-2);
+  border-top: 1px solid color-mix(in srgb, var(--hellenic-gold) 40%, transparent);
+}
+.chapter__note { color: var(--laurel-leaf); max-width: 28ch; }
+
+.chapter__plates {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  row-gap: clamp(4rem, 10vw, 9rem);
+}
+.plate--tall   { grid-column: 1 / 5; }
+.plate--offset { grid-column: 3 / 7; }
+.plate--wide   { grid-column: 1 / 7; }
+.plate--tall   .plate__frame { aspect-ratio: 5 / 7; }
+.plate--offset .plate__frame { aspect-ratio: 5 / 6; }
+.plate--wide   .plate__frame { aspect-ratio: 3 / 2; }
+
+/* 5. Interlude — full-bleed parallax band --------------------------------- */
+.interlude {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 90vh;
+  min-height: 90svh;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--aegean-ink);
+  color: var(--parchment-marble);
+}
+.interlude__plate { position: absolute; inset: -25% 0; z-index: -2; }
+.interlude__veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--aegean-ink) 62%, transparent);
+}
+.inscription {
+  margin: 0;
+  padding: 0 16px;
+  text-align: center;
+}
+.inscription p {
+  max-width: 20ch;           /* measured in the quote's own size */
+  margin: 0 auto var(--space-3);
+  font-family: var(--font-section);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 1.2rem + 2.4vw, 3.25rem);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+.inscription cite { display: block; }
+
+/* 6. Stack — sticky leaves settling over one another ---------------------- */
+.stack { padding-bottom: var(--space-6); }
+.stack__head { padding-bottom: var(--space-4); }
+
+.stack__leaf {
+  position: sticky;
+  top: 0;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 6vh 5%;
+}
+/* Each leaf rests a little lower, leaving the previous edge visible like a folio. */
+.stack__leaf:nth-of-type(2) { padding-top: calc(6vh + 1.25rem); }
+.stack__leaf:nth-of-type(3) { padding-top: calc(6vh + 2.5rem); }
+
+.leaf {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  width: min(100%, 72rem);
+  background: var(--thera-white);
+  border: 1px solid color-mix(in srgb, var(--hellenic-gold) 40%, transparent);
+  box-shadow: 0 -1px 0 color-mix(in srgb, var(--aegean-ink) 4%, transparent),
+              0 30px 60px -30px color-mix(in srgb, var(--aegean-ink) 35%, transparent);
+}
+.leaf--reverse { grid-template-columns: 1fr 1.35fr; }
+.leaf--reverse .leaf__image { order: 2; }
+.leaf__image { aspect-ratio: 7 / 5; overflow: hidden; }
+.leaf__text {
+  align-self: center;
+  padding: clamp(1.5rem, 4vw, 4rem);
+}
+.leaf__no {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-section);
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--amphora-rust);
+}
+
+/* 7. Gallery — asymmetric contact sheet ----------------------------------- */
+.gallery { padding: var(--space-5) 10% var(--space-6) 5%; }
+.gallery__head { margin-bottom: var(--space-5); padding-left: calc(9rem + clamp(2rem, 4vw, 4rem)); }
+
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: clamp(1rem, 2.5vw, 2.5rem);
+  row-gap: clamp(3rem, 7vw, 6rem);
+  align-items: start;
+}
+.g--a { grid-column: 1 / 6; }
+.g--b { grid-column: 7 / 12; margin-top: 8rem; }
+.g--c { grid-column: 8 / 13; }
+.g--d { grid-column: 2 / 8; margin-top: -10rem; }
+.g--a .plate__frame { aspect-ratio: 3 / 4; }
+.g--b .plate__frame { aspect-ratio: 9 / 7; }
+.g--c .plate__frame { aspect-ratio: 9 / 13; }
+.g--d .plate__frame { aspect-ratio: 3 / 2; }
+
+/* 8. Colophon -------------------------------------------------------------- */
+.colophon {
+  background: var(--aegean-ink);
+  color: var(--parchment-marble);
+  padding: var(--space-6) 16px;
+  text-align: center;
+}
+.colophon__inner { display: grid; justify-items: center; gap: var(--space-2); }
+.colophon__inner p { max-width: none; }
+.colophon__title {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-section);
+  font-weight: 600;
+  font-size: var(--step-h2);
+  line-height: 1.2;
+  letter-spacing: var(--track-h2);
+}
+.colophon .rule { margin: var(--space-4) auto var(--space-2); }
+
+/* 9. Responsive ------------------------------------------------------------ */
+@media (max-width: 960px) {
+  .folio,
+  .chapter,
+  .gallery { padding-inline: max(16px, 6%); }
+
+  .folio { grid-template-columns: 1fr; row-gap: var(--space-3); }
+  .folio__margin { max-width: 40rem; }
+
+  .chapter { grid-template-columns: 1fr; }
+  .chapter__sticky { position: static; }
+
+  .gallery__head { padding-left: 0; }
+}
+
+@media (max-width: 720px) {
+  .chapter__plates { grid-template-columns: 1fr; row-gap: var(--space-5); }
+  .plate--tall, .plate--offset, .plate--wide { grid-column: 1 / -1; }
+
+  /* Sticky stacking needs height; on phones the leaves simply follow each other. */
+  .stack__leaf,
+  .stack__leaf:nth-of-type(n) { position: static; min-height: 0; padding: 0 16px var(--space-4); }
+  .leaf, .leaf--reverse { grid-template-columns: 1fr; }
+  .leaf--reverse .leaf__image { order: 0; }
+
+  .gallery__grid { grid-template-columns: 1fr 1fr; }
+  .g--a, .g--b, .g--c, .g--d { grid-column: auto; margin-top: 0; }
+  .g--d { grid-column: 1 / -1; }
+}
+
+/* 10. Reduced motion ------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  [data-speed] { transform: none !important; will-change: auto; }
+  .scroll-cue__line { animation: none; }
+  .plate__frame img { transition: none; }
+}
