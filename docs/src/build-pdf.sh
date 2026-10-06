@@ -1,10 +1,11 @@
 #!/bin/sh
-# Builds docs/synode-v1.0.1.pdf from docs/src/synode-v1.0.1.html with headless Chrome or Edge.
-# Run from the project root:  sh docs/src/build-pdf.sh
+# Builds docs/synode-vX.pdf from docs/src/synode-vX.html with headless Chrome or Edge.
+# Run from the project root:  sh docs/src/build-pdf.sh 1.0.2
 set -e
 HERE="$(cd "$(dirname "$0")" && pwd)"
-SRC="$HERE/synode-v1.0.1.html"
-OUT="$HERE/../synode-v1.0.1.pdf"
+VERSION="${1:-1.0.2}"
+SRC="$HERE/synode-v$VERSION.html"
+OUT="$HERE/../synode-v$VERSION.pdf"
 
 for b in "$CHROME" \
          "/c/Program Files/Google/Chrome/Application/chrome.exe" \

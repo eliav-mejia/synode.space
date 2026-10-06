@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Synode — layout.css  (v1.0.1)
+   Synode — layout.css  (v1.0.2)
    Page structure, sticky sections and parallax layers.
    Depends on tokens declared in site.css.
    ========================================================================== */
@@ -296,7 +296,63 @@ figure:hover .plate__frame img { transform: scale(1.08); filter: saturate(1) sep
   .g--d { grid-column: 1 / -1; }
 }
 
-/* 10. Reduced motion ------------------------------------------------------- */
+/* 10. Image protection (deterrent — see docs §5) -------------------------- */
+/* A transparent shield sits over every photograph, so "Save image as…",
+   drag-to-desktop and iOS long-press hit an empty layer, not the file. */
+.plate__frame,
+.leaf__image { position: relative; }
+.plate__frame::after,
+.leaf__image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.hero img,
+.interlude img,
+.plate__frame img,
+.leaf__image img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Photographs are not printed; a rights notice prints in their place. */
+@media print {
+  .hero__plate, .interlude__plate, .plate__frame, .leaf__image { visibility: hidden; }
+  .colophon { background: none; color: var(--aegean-ink); }
+  body::after {
+    content: "Photographs © 2026 Synode. All rights reserved. Not licensed for print reproduction.";
+    display: block;
+    padding: 2rem 0;
+    font-style: italic;
+    text-align: center;
+  }
+}
+
+/* 11. Terms page ----------------------------------------------------------- */
+.terms-head {
+  padding: var(--space-6) 16px var(--space-5);
+  background: var(--aegean-ink);
+  color: var(--parchment-marble);
+  text-align: center;
+}
+.terms-head p { margin-inline: auto; }
+.terms-head .display { font-size: clamp(2.25rem, 1.6rem + 3vw, 3.5rem); }
+.terms-head .meta { margin-top: var(--space-3); }
+.terms h2 { margin-top: var(--space-5); }
+.terms h2:first-child { margin-top: 0; }
+.terms ul, .terms ol { max-width: var(--measure); padding-left: 1.2em; margin: 0 0 1.1em; }
+.terms li { margin-bottom: 0.4em; }
+/* Bracketed fields the owner must complete before launch. */
+.fill {
+  color: var(--amphora-rust);
+  text-decoration: underline dashed 1px;
+  text-underline-offset: 0.2em;
+}
+
+/* 12. Reduced motion ------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   [data-speed] { transform: none !important; will-change: auto; }
   .scroll-cue__line { animation: none; }

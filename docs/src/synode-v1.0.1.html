@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,600&family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=GFS+Didot&family=Spectral:ital@1&display=block">
 <style>
   @page { size: A4; margin: 20mm 22mm 22mm 28mm; }
+  @page :first { margin: 0; }
   :root {
     --ink:#0C1821; --parch:#F7F4EE; --rust:#A34828; --gold:#C29B38; --laurel:#516053; --white:#FFFFFF;
   }
@@ -26,7 +27,7 @@
   td { border-bottom:1px solid rgba(194,155,56,.3); padding:4pt 6pt; vertical-align:top; }
   .sw { display:inline-block; width:10pt; height:10pt; vertical-align:-1pt; margin-right:5pt; border:1px solid rgba(12,24,33,.2); }
   .pass { color:#2f6b3a; font-weight:600; } .fail { color:var(--rust); font-weight:600; }
-  .cover { height:247mm; display:flex; flex-direction:column; justify-content:space-between; background:var(--ink); color:var(--parch); margin:-20mm -22mm 0 -28mm; padding:30mm 22mm 24mm 28mm; break-after:page; }
+  .cover { height:297mm; display:flex; flex-direction:column; justify-content:space-between; background:var(--ink); color:var(--parch); margin:0; padding:40mm 22mm 30mm 28mm; break-after:page; overflow:hidden; }
   .cover .greek { font:20pt "GFS Didot", serif; color:var(--gold); letter-spacing:.08em; margin-top:10pt; }
   .cover .lede { font:italic 14pt "Spectral", serif; margin-top:16pt; opacity:.9; }
   .cover .meta { color:var(--gold); }
@@ -36,6 +37,7 @@
   .score b { font:600 10pt "Bodoni Moda", serif; color:var(--rust); text-align:right; }
   .note { border-left:2px solid var(--rust); padding:4pt 0 4pt 10pt; margin:8pt 0 12pt; background:rgba(255,255,255,.6); break-inside:avoid; }
   ul, ol { margin:0 0 10pt; padding-left:16pt; } li { margin-bottom:3pt; }
+  @media print { body { background: #FFFFFF; } pre { background: var(--parch); } }
 </style>
 </head>
 <body>

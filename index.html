@@ -9,7 +9,15 @@
   <meta property="og:title" content="Synode — Fashion Photography">
   <meta property="og:url" content="https://synode.space/">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://synode.space/images/og/share.jpg">
   <meta name="theme-color" content="#0C1821">
+
+  <!-- Rights: copyright notice and machine-readable opt-out from text & data mining / AI training -->
+  <meta name="copyright" content="© 2026 Synode. All rights reserved.">
+  <meta name="robots" content="noai, noimageai">
+  <meta name="tdm-reservation" content="1">
+  <meta name="tdm-policy" content="https://synode.space/terms.html">
+  <link rel="license" href="terms.html">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,13 +26,14 @@
   <link rel="stylesheet" href="css/site.css">
   <link rel="stylesheet" href="css/layout.css">
   <script src="js/parallax.js" defer></script>
+  <script src="js/protect.js" defer></script>
 </head>
 <body>
 
   <!-- I. Hero — no navigation; the page is read top to bottom like a scroll -->
   <header class="hero" id="top">
     <div class="hero__plate" data-speed="0.35" aria-hidden="true">
-      <img src="https://picsum.photos/seed/synode-hero/2000/1400" alt="" fetchpriority="high">
+      <img draggable="false" src="images/plates/hero.jpg?v=1.0.3" alt="" fetchpriority="high">
     </div>
     <div class="hero__veil" aria-hidden="true"></div>
 
@@ -68,16 +77,16 @@
 
       <div class="chapter__plates">
         <figure class="plate plate--tall" data-speed="0.08">
-          <div class="plate__frame"><img src="https://picsum.photos/seed/synode-aegean-1/1000/1400" alt="Model in an indigo linen column dress against a whitewashed wall" loading="lazy"></div>
-          <figcaption class="caption"><span class="caption__no">01</span> Indigo column dress, hand-loomed linen.</figcaption>
+          <div class="plate__frame"><img draggable="false" src="images/plates/plate-01.jpg?v=1.0.3" alt="Shaggy black dog sitting upright on red gravel in front of an iron park fence" loading="lazy"></div>
+          <figcaption class="caption"><span class="caption__no">01</span> Black shag, seated at the fence.</figcaption>
         </figure>
         <figure class="plate plate--offset" data-speed="-0.06">
-          <div class="plate__frame"><img src="https://picsum.photos/seed/synode-aegean-2/1000/1200" alt="Draped white cotton tunic photographed at the shoreline" loading="lazy"></div>
-          <figcaption class="caption"><span class="caption__no">02</span> Salt-white tunic, unbleached cotton.</figcaption>
+          <div class="plate__frame"><img draggable="false" src="images/plates/plate-02.jpg?v=1.0.3" alt="Cream-coated dog in a blue harness standing on red earth, licking its nose" loading="lazy"></div>
+          <figcaption class="caption"><span class="caption__no">02</span> Cream coat, blue harness.</figcaption>
         </figure>
         <figure class="plate plate--wide" data-speed="0.05">
-          <div class="plate__frame"><img src="https://picsum.photos/seed/synode-aegean-3/1400/950" alt="Two figures in layered blue silk walking along a harbour wall at dusk" loading="lazy"></div>
-          <figcaption class="caption"><span class="caption__no">03</span> Blue-hour layers, washed silk.</figcaption>
+          <div class="plate__frame"><img draggable="false" src="images/plates/plate-03.jpg?v=1.0.3" alt="Grey and white husky resting its head on green grass, eyes half closed" loading="lazy"></div>
+          <figcaption class="caption"><span class="caption__no">03</span> Husky at rest, in the grass.</figcaption>
         </figure>
       </div>
     </section>
@@ -85,7 +94,7 @@
     <!-- IV. Interlude — full-bleed parallax band with an inscription -->
     <section class="interlude" aria-label="Interlude">
       <div class="interlude__plate" data-speed="0.2" aria-hidden="true">
-        <img src="https://picsum.photos/seed/synode-interlude/2000/1300" alt="" loading="lazy">
+        <img draggable="false" src="images/plates/interlude.jpg?v=1.0.3" alt="" loading="lazy">
       </div>
       <div class="interlude__veil" aria-hidden="true"></div>
       <blockquote class="inscription">
@@ -106,18 +115,18 @@
 
       <article class="stack__leaf">
         <div class="leaf">
-          <div class="leaf__image"><img src="https://picsum.photos/seed/synode-terra-1/1400/1000" alt="Rust wool coat photographed against an ochre stone wall" loading="lazy"></div>
+          <div class="leaf__image"><img draggable="false" src="images/plates/plate-04.jpg?v=1.0.3" alt="Golden dog lying at the foot of a tree trunk on red gravel, mouth open" loading="lazy"></div>
           <div class="leaf__text">
             <p class="leaf__no">IV</p>
-            <h3 class="subhead">Amphora coat</h3>
-            <p>Boiled wool in fired-clay rust, single seam at the back, collar cut to fall open in the wind.</p>
-            <p class="caption">Shot at the quarry, 16:40.</p>
+            <h3 class="subhead">Golden rest</h3>
+            <p>Lying in the shade of an old trunk, collar and harness worn loose, red gravel all around.</p>
+            <p class="caption">Under the trees, afternoon.</p>
           </div>
         </div>
       </article>
       <article class="stack__leaf">
         <div class="leaf leaf--reverse">
-          <div class="leaf__image"><img src="https://picsum.photos/seed/synode-terra-2/1400/1000" alt="Ochre pleated skirt in motion on a terraced hillside" loading="lazy"></div>
+          <div class="leaf__image"><img draggable="false" src="images/plates/plate-05.jpg?v=1.0.3" alt="Ochre pleated skirt in motion on a terraced hillside" loading="lazy"></div>
           <div class="leaf__text">
             <p class="leaf__no">V</p>
             <h3 class="subhead">Ochre pleat</h3>
@@ -128,7 +137,7 @@
       </article>
       <article class="stack__leaf">
         <div class="leaf">
-          <div class="leaf__image"><img src="https://picsum.photos/seed/synode-terra-3/1400/1000" alt="Clay-coloured silk shirt photographed in late raking light" loading="lazy"></div>
+          <div class="leaf__image"><img draggable="false" src="images/plates/plate-06.jpg?v=1.0.3" alt="Clay-coloured silk shirt photographed in late raking light" loading="lazy"></div>
           <div class="leaf__text">
             <p class="leaf__no">VI</p>
             <h3 class="subhead">Kiln shirt</h3>
@@ -147,10 +156,10 @@
         <hr class="rule rule--short">
       </header>
       <div class="gallery__grid">
-        <figure class="g g--a" data-speed="0.06"><div class="plate__frame"><img src="https://picsum.photos/seed/synode-laurel-1/900/1200" alt="Olive knit dress in an olive grove" loading="lazy"></div><figcaption class="caption"><span class="caption__no">07</span> Olive knit.</figcaption></figure>
-        <figure class="g g--b" data-speed="-0.04"><div class="plate__frame"><img src="https://picsum.photos/seed/synode-laurel-2/900/700" alt="Detail of a laurel-green sleeve and gold cuff" loading="lazy"></div><figcaption class="caption"><span class="caption__no">08</span> Gilt cuff, detail.</figcaption></figure>
-        <figure class="g g--c" data-speed="0.1"><div class="plate__frame"><img src="https://picsum.photos/seed/synode-laurel-3/900/1300" alt="Long sage overcoat on a stone stairway" loading="lazy"></div><figcaption class="caption"><span class="caption__no">09</span> Sage overcoat.</figcaption></figure>
-        <figure class="g g--d" data-speed="-0.02"><div class="plate__frame"><img src="https://picsum.photos/seed/synode-laurel-4/1200/800" alt="Group portrait in muted green tailoring beside a ruined colonnade" loading="lazy"></div><figcaption class="caption"><span class="caption__no">10</span> The gathering, Delos.</figcaption></figure>
+        <figure class="g g--a" data-speed="0.06"><div class="plate__frame"><img draggable="false" src="images/plates/plate-07.jpg?v=1.0.3" alt="Olive knit dress in an olive grove" loading="lazy"></div><figcaption class="caption"><span class="caption__no">07</span> Olive knit.</figcaption></figure>
+        <figure class="g g--b" data-speed="-0.04"><div class="plate__frame"><img draggable="false" src="images/plates/plate-08.jpg?v=1.0.3" alt="Detail of a laurel-green sleeve and gold cuff" loading="lazy"></div><figcaption class="caption"><span class="caption__no">08</span> Gilt cuff, detail.</figcaption></figure>
+        <figure class="g g--c" data-speed="0.1"><div class="plate__frame"><img draggable="false" src="images/plates/plate-09.jpg?v=1.0.3" alt="Long sage overcoat on a stone stairway" loading="lazy"></div><figcaption class="caption"><span class="caption__no">09</span> Sage overcoat.</figcaption></figure>
+        <figure class="g g--d" data-speed="-0.02"><div class="plate__frame"><img draggable="false" src="images/plates/plate-10.jpg?v=1.0.3" alt="Group portrait in muted green tailoring beside a ruined colonnade" loading="lazy"></div><figcaption class="caption"><span class="caption__no">10</span> The gathering, Delos.</figcaption></figure>
       </div>
     </section>
 
@@ -164,7 +173,8 @@
       <a class="button" href="mailto:studio@synode.space">studio@synode.space</a>
       <hr class="rule rule--short rule--gold">
       <p class="meta meta--gold">Set in Cinzel, Bodoni Moda &amp; EB Garamond. Printed in light.</p>
-      <p class="meta meta--gold">&copy; 2026 Synode &middot; <a href="#top">Return to the beginning</a></p>
+      <p class="meta meta--gold">All photographs &copy; 2026 Synode. All rights reserved. No download, reproduction or AI training without written licence.</p>
+      <p class="meta meta--gold"><a href="terms.html">Terms of use</a> &middot; <a href="#top">Return to the beginning</a></p>
     </div>
   </footer>
 

@@ -1,0 +1,28 @@
+# Synode v1.0.2 — Apache rules (ignored by other servers; see docs §5 for nginx / Cloudflare)
+
+# 1. Hotlink protection: images load only on synode.space (and blank referrers, e.g. direct visits)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_REFERER} !^$
+  RewriteCond %{HTTP_REFERER} !^https?://(www\.)?synode\.space/ [NC]
+  RewriteRule \.(jpe?g|png|webp|avif)$ - [F,NC,L]
+</IfModule>
+
+# 2. Rights headers on every image response
+<IfModule mod_headers.c>
+  <FilesMatch "\.(jpe?g|png|webp|avif)$">
+    Header set X-Robots-Tag "noai, noimageai"
+    Header set tdm-reservation "1"
+    Header set tdm-policy "https://synode.space/terms.html"
+  </FilesMatch>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# 3. Keep the documentation and source files private
+<IfModule mod_rewrite.c>
+  RewriteRule ^docs/ - [F,L]
+</IfModule>
+
+# 4. No directory listings (stops browsing /images/plates/ as a file index)
+Options -Indexes

@@ -1,4 +1,4 @@
-/* Synode — parallax.js (v1.0.1)
+/* Synode — parallax.js (v1.0.2)
    Writes a --py offset on each [data-speed] element while it is on screen,
    and adds .is-visible to [data-reveal] elements as they enter.
    No scroll-jacking: native scrolling is never intercepted. */

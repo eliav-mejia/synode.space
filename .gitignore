@@ -1,0 +1,6 @@
+# Local editor/launch config
+.claude/
+
+# Full-size camera originals: only exported web copies are published
+images/og/*
+!images/og/share.jpg
