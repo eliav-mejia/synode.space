@@ -1,11 +1,19 @@
 #!/bin/sh
-# Builds docs/synode-vX.pdf from docs/src/synode-vX.html with headless Chrome or Edge.
+# Builds docs/synode-vX.pdf from docs/src/synode-vX.html (or a brand PDF, see below) with headless Chrome or Edge.
 # Run from the project root:  sh docs/src/build-pdf.sh 1.0.2
+# Brand downloads:            sh docs/src/build-pdf.sh reino-fiel-sesiones
+#   -> brands/reino_fiel/descargas/reino-fiel-guia-de-sesiones.pdf (public download, unlike docs/)
 set -e
 HERE="$(cd "$(dirname "$0")" && pwd)"
 VERSION="${1:-1.0.2}"
-SRC="$HERE/synode-v$VERSION.html"
-OUT="$HERE/../synode-v$VERSION.pdf"
+case "$VERSION" in
+  reino-fiel-sesiones)
+    SRC="$HERE/reino-fiel-sesiones.html"
+    OUT="$HERE/../../brands/reino_fiel/descargas/reino-fiel-guia-de-sesiones.pdf" ;;
+  *)
+    SRC="$HERE/synode-v$VERSION.html"
+    OUT="$HERE/../synode-v$VERSION.pdf" ;;
+esac
 
 for b in "$CHROME" \
          "/c/Program Files/Google/Chrome/Application/chrome.exe" \

@@ -247,6 +247,123 @@ figure:hover .plate__frame img { transform: scale(1.08); filter: saturate(1) sep
 .g--c .plate__frame { aspect-ratio: 9 / 13; }
 .g--d .plate__frame { aspect-ratio: 3 / 2; }
 
+/* 7b. Houses — the brands, each card in its own register ------------------- */
+.houses { padding: 0 10% var(--space-6) 5%; }
+.houses__head { max-width: 40rem; margin: 0 0 var(--space-5) calc(9rem + clamp(2rem, 4vw, 4rem)); }
+
+.houses__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: stretch;
+}
+.house {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 30rem;
+  color: inherit;
+  text-decoration: none;
+}
+.house__body { display: flex; flex: 1; flex-direction: column; padding: clamp(1.5rem, 3vw, 2.75rem); }
+.house__body p { max-width: 34ch; }
+.house__no {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.house__name { margin: 0 0 var(--space-2); font-weight: 400; line-height: 1.05; }
+
+/* Toriku Films — sumi ink on washi: vertical script, hairlines, vermilion seal */
+.house--toriku {
+  --sumi:      #16130F;
+  --washi:     #EFE8DA;
+  --shu:       #C2402A;
+  flex-direction: row;
+  background:
+    linear-gradient(90deg, transparent calc(100% - 1px), color-mix(in srgb, var(--washi) 8%, transparent) 0) 0 0 / 3.5rem 100%,
+    var(--sumi);
+  color: var(--washi);
+  overflow: hidden;
+}
+.house--toriku .house__body { justify-content: flex-end; padding-left: 0; }
+.house__vertical {
+  margin: 0;
+  padding: clamp(1.5rem, 3vw, 2.75rem) clamp(1.25rem, 2.5vw, 2.25rem);
+  writing-mode: vertical-rl;
+  font-family: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+  letter-spacing: 0.5em;
+  color: color-mix(in srgb, var(--washi) 82%, transparent);
+  border-right: 1px solid color-mix(in srgb, var(--washi) 18%, transparent);
+}
+.house--toriku .house__no { color: var(--shu); }
+.house--toriku .house__name {
+  font-family: "Shippori Mincho", var(--font-section);
+  font-weight: 800;
+  font-size: clamp(2.25rem, 1.6rem + 2.4vw, 3.5rem);
+  letter-spacing: 0.04em;
+}
+.house--toriku .house__name span { display: block; font-weight: 500; font-size: 0.42em; letter-spacing: 0.6em; text-transform: uppercase; color: color-mix(in srgb, var(--washi) 70%, transparent); }
+.house--toriku .house__lede { color: color-mix(in srgb, var(--washi) 78%, transparent); }
+.house__rule { width: 2.5rem; margin: var(--space-2) 0; border: 0; border-top: 2px solid var(--shu); }
+.house__meta {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--washi) 60%, transparent);
+}
+.house__seal {
+  position: absolute;
+  top: clamp(1.5rem, 3vw, 2.75rem);
+  right: clamp(1.5rem, 3vw, 2.75rem);
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  aspect-ratio: 1;
+  background: var(--shu);
+  color: var(--washi);
+  border-radius: 6px;
+  font-family: "Shippori Mincho", serif;
+  font-weight: 800;
+  font-size: 1.75rem;
+  line-height: 1;
+  transform: rotate(-4deg);
+  box-shadow: inset 0 0 0 3px var(--shu), inset 0 0 0 4px color-mix(in srgb, var(--washi) 55%, transparent);
+}
+
+/* Reino Fiel — friendly elegance: warm surface, soft corners, the portrait first */
+.house--reino {
+  background: var(--thera-white);
+  border: 1px solid color-mix(in srgb, var(--hellenic-gold) 40%, transparent);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 30px 60px -40px color-mix(in srgb, var(--aegean-ink) 35%, transparent);
+  transition: transform 400ms var(--ease-silk), box-shadow 400ms var(--ease-silk);
+}
+.house--reino:hover { color: inherit; transform: translateY(-4px); box-shadow: 0 40px 70px -40px color-mix(in srgb, var(--aegean-ink) 45%, transparent); }
+.house--reino .house__image { aspect-ratio: 16 / 9; }
+.house--reino .house__no { color: var(--amphora-rust); }
+.house--reino .house__name { font-family: var(--font-section); font-weight: 600; font-size: clamp(2rem, 1.6rem + 1.6vw, 3rem); color: var(--aegean-ink); }
+.house--reino .house__lede { color: var(--laurel-leaf); }
+.house__cta {
+  margin-top: auto;
+  align-self: flex-start;
+  padding: 0.7em 1.5em;
+  border-radius: 999px;
+  background: var(--amphora-rust);
+  color: var(--thera-white);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
 /* 8. Colophon -------------------------------------------------------------- */
 .colophon {
   background: var(--aegean-ink);
@@ -279,6 +396,11 @@ figure:hover .plate__frame img { transform: scale(1.08); filter: saturate(1) sep
   .chapter__sticky { position: static; }
 
   .gallery__head { padding-left: 0; }
+
+  .houses { padding-inline: max(16px, 6%); }
+  .houses__head { margin-left: 0; }
+  .houses__grid { grid-template-columns: 1fr; max-width: 40rem; }
+  .house { min-height: 24rem; }
 }
 
 @media (max-width: 720px) {

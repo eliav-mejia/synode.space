@@ -1,34 +1,29 @@
-# Synode image catalogue (v1.0.2)
+# Synodé · catálogos de imágenes (v1.0.4)
 
-Drop your photographs into `images/plates/` using **exactly** these filenames. The page picks them up with no code changes.
-Each placeholder currently in the folder shows its own filename and size.
+Cada página tiene su propia carpeta de imágenes y su propio catálogo. Sustituye los archivos usando **exactamente** el nombre del catálogo:
+las páginas los recogen sin cambiar código.
 
-| File | Where on the page | Shape | Export size (px) | Caption on page |
-|---|---|---|---|---|
-| `plates/hero.jpg` | Opening screen, behind the title | Landscape 3:2 | 2400 × 1600 | none (decorative) |
-| `plates/plate-01.jpg` | Chapter I · Aegean, first | Portrait 5:7 | 1000 × 1400 | 01 Indigo column dress |
-| `plates/plate-02.jpg` | Chapter I · Aegean, second | Portrait 5:6 | 1000 × 1200 | 02 Salt-white tunic |
-| `plates/plate-03.jpg` | Chapter I · Aegean, third | Landscape 3:2 | 1500 × 1000 | 03 Blue-hour layers |
-| `plates/interlude.jpg` | Quote band, behind the quote | Landscape 3:2 | 2400 × 1600 | none (decorative) |
-| `plates/plate-04.jpg` | Chapter II · Terracotta, leaf IV | Landscape 7:5 | 1400 × 1000 | Amphora coat |
-| `plates/plate-05.jpg` | Chapter II · Terracotta, leaf V | Landscape 7:5 | 1400 × 1000 | Ochre pleat |
-| `plates/plate-06.jpg` | Chapter II · Terracotta, leaf VI | Landscape 7:5 | 1400 × 1000 | Kiln shirt |
-| `plates/plate-07.jpg` | Chapter III · Laurel, top left | Portrait 3:4 | 1200 × 1600 | 07 Olive knit |
-| `plates/plate-08.jpg` | Chapter III · Laurel, top right | Landscape 9:7 | 1260 × 980 | 08 Gilt cuff, detail |
-| `plates/plate-09.jpg` | Chapter III · Laurel, right | Portrait 9:13 | 1080 × 1560 | 09 Sage overcoat |
-| `plates/plate-10.jpg` | Chapter III · Laurel, bottom left | Landscape 3:2 | 1500 × 1000 | 10 The gathering, Delos |
-| `og/share.jpg` | Preview card when the link is shared | Landscape 1.91:1 | 1200 × 630 | — |
+| Carpeta | Página | Catálogo |
+|---|---|---|
+| `images/synodos/` | Portada, `index.html` (catálogo base Synodé) | [`synodos/README.md`](synodos/README.md) |
+| `images/brands/reino_fiel/` | Marca nº 1 · Reino Fiel, `brands/reino_fiel/index.html` | [`brands/reino_fiel/README.md`](brands/reino_fiel/README.md) |
+| `images/og/share.jpg` | Tarjeta al compartir la portada (1200 × 630) | — |
 
-## Before you drop them in
+`images/og/` guarda además los originales de cámara; no se publican (ver `.gitignore`).
 
-1. **Export web copies only.** JPEG, sRGB, quality 75–82, at the size above. Never upload originals.
-2. **Keep copyright metadata, remove location.** In Lightroom: *Metadata → All except Camera & Camera Raw info*, tick *Remove Location Info*.
-3. **Name the files exactly** as listed: lowercase, `.jpg`.
-4. Replace the placeholder files in `images/plates/`.
-5. In `index.html`, search for each filename and update the `alt="…"` text and the caption under it to describe your photo.
-6. Change every `?v=1.0.2` in `index.html` to `?v=1.0.3` so visitors' browsers fetch the new files instead of cached placeholders.
+## Una marca nueva
 
-Different proportions are fine: frames crop to fit around the centre. To move the crop, add `style="object-position: 50% 25%"` to that `<img>` (first number is left→right, second is top→bottom).
+1. Crea `images/brands/<marca>/` y copia el `README.md` de Reino Fiel como plantilla de catálogo.
+2. Añade sus huecos a `CATALOGUE` en `docs/src/make-placeholders.py` y ejecútalo para crear marcadores.
+3. Copia `brands/reino_fiel/` en `brands/<marca>/` y cambia las rutas `images/brands/reino_fiel/`.
 
-Full guide, legal notes and protection details: `docs/synode-v1.0.2.pdf`.
-To regenerate placeholders for empty slots: `python docs/src/make-placeholders.py` (never overwrites your photos).
+## Antes de subir fotografías
+
+1. **Solo copias web.** JPEG, sRGB, calidad 75–82, al tamaño del catálogo. Nunca los originales.
+2. **Conserva el copyright, quita la ubicación.** Lightroom: *Metadatos → Todo excepto info de cámara y Camera Raw*, marca *Quitar información de ubicación*.
+3. **Nombre exacto**, en minúsculas y `.jpg`.
+4. En el `index.html` correspondiente, actualiza el `alt="…"` y el pie de foto de esa imagen.
+5. Sube el número `?v=` de esa página (p. ej. `?v=1.0.4` → `?v=1.0.5`) para que los navegadores no muestren la copia en caché.
+
+Otras proporciones funcionan: el marco recorta desde el centro. Para mover el recorte añade `style="object-position: 50% 25%"` al `<img>`.
+Para regenerar marcadores en huecos vacíos: `python docs/src/make-placeholders.py` (nunca sobrescribe tus fotos).
