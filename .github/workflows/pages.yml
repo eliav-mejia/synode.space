@@ -1,5 +1,5 @@
 # Static deploy to GitHub Pages (no build step, no Jekyll).
-# Publishes only the site: pages, css, js, img. Dotfiles, .github/ and _interno/ never reach synode.space.
+# Publishes only the site: pages, css, js, img. Dotfiles, .github/, _interno/ and arte/ (art sources) never reach synode.space.
 name: Deploy static site to GitHub Pages
 
 on:
@@ -31,7 +31,7 @@ jobs:
           mkdir _site
           rsync -a ./ _site/ \
             --exclude '.git*' --exclude '.github/' --exclude '.claude/' \
-            --exclude '_interno/' --exclude '_site/' \
+            --exclude '_interno/' --exclude 'arte/' --exclude '_site/' \
             --exclude '*.png' --exclude '*.jpg' --exclude '*.jpeg'
           touch _site/.nojekyll
 

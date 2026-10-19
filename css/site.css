@@ -23,6 +23,11 @@
 
   --papel-ruido: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .34 0 0 0 0 .22 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 
+  /* Grano fino de papel de algodón y moteado suave de fibras */
+  --papel-grano: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .34 0 0 0 0 .24 0 0 0 .12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  --papel-moteado: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .02' numOctaves='4' seed='8' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .66 0 0 0 0 .6 0 0 0 0 .5 0 0 0 .08 -.03'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+  --lino-velo: rgba(246, 239, 227, .62);
+
   color-scheme: light;
 }
 
@@ -48,10 +53,50 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
 
-/* ===================== FLORES 2.5D ===================== */
-.jardin { position: absolute; inset: 0; pointer-events: none; overflow: hidden; perspective: 900px; }
-.capa { position: absolute; inset: -4%; will-change: transform; transform-style: preserve-3d; }
+/* ===================== FONDO FIJO ===================== */
+/* Papel blanco con grano, fijo detrás de todo; el contenido se desplaza encima.
+   100lvh: no cambia de alto cuando la barra del navegador móvil aparece/desaparece (sin saltos). */
+.fondo {
+  position: fixed; left: 0; top: 0; width: 100%; height: 100vh; height: 100lvh;
+  z-index: 0; pointer-events: none; overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 45%, transparent 60%, rgba(176, 150, 112, .06) 100%),
+    var(--papel-moteado),
+    var(--blanco);
+  contain: strict;
+}
+/* Grano encima de flores y acuarela: el pigmento queda «dentro» del papel */
+.fondo::after {
+  content: ""; position: absolute; inset: 0; z-index: 3;
+  background: var(--papel-grano);
+  opacity: .9;
+}
+.fondo__prensadas { position: absolute; inset: 0; z-index: 1; }
+.prensada {
+  position: absolute; display: block;
+  left: var(--x); top: var(--y);
+  width: min(calc(var(--s) * 1vmin), calc(var(--s) * 7px));
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  rotate: var(--r);
+  opacity: .9;
+}
+.prensada svg { width: 100%; height: 100%; overflow: visible; }
 
+.acuarela {
+  position: absolute; z-index: 2;
+  right: -4vmin; bottom: -6vmin;
+  width: min(80vmin, 760px); aspect-ratio: 1;
+  transform-origin: 60% 70%;
+  will-change: transform;
+}
+.acuarela img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; will-change: opacity; }
+/* Pantalla vertical (teléfono): la flor más grande, asomando desde la esquina */
+@media (max-aspect-ratio: 4/5) {
+  .acuarela { width: 112vw; right: -36vw; bottom: -46vw; }
+}
+
+/* ===================== FLORES QUE SE MECEN (guirnalda y ramos) ===================== */
 .flor {
   display: block;
   position: absolute;
@@ -64,63 +109,25 @@ button, input, select, textarea { font: inherit; color: inherit; }
   opacity: 0;
   transition: scale 1.8s cubic-bezier(.2, .9, .25, 1.15) var(--d, 0s), opacity 1s ease var(--d, 0s);
 }
-.flor--espejo { transform: scaleX(-1); }
-/* El filtro va en el mismo elemento que se mece: se rasteriza una vez y el balanceo corre en la GPU. */
 .flor svg {
   width: 100%; height: 100%; overflow: visible;
   animation: mecer-flor var(--dur, 7s) ease-in-out var(--d, 0s) infinite alternate;
   transform-origin: 50% 60%;
   will-change: transform;
   backface-visibility: hidden;
-  filter: drop-shadow(0 calc(var(--z) * 10px) calc(var(--z) * 9px) rgba(110, 80, 55, calc(.08 + var(--z) * .1)));
 }
-.capa--fondo .flor { opacity: 0; }
-.florece .flor { scale: 1; opacity: var(--o, 1); }
-/* Profundidad de campo: fondo apenas desenfocado y más pálido, frente desenfocado y cercano. */
-.capa--fondo .flor svg { filter: blur(.5px) saturate(.85) drop-shadow(0 2px 3px rgba(110, 80, 55, .08)); }
-.capa--frente .flor svg { filter: blur(1.6px) drop-shadow(0 14px 16px rgba(110, 80, 55, .18)); }
+.florece .flor { scale: 1; opacity: .95; }
 
 @keyframes mecer-flor {
   from { transform: rotate(calc(var(--amp, 4deg) * -1)) scale(1); }
   to   { transform: rotate(var(--amp, 4deg)) scale(1.03); }
 }
 
-/* Paletas: --p* pétalos, --h* hojas */
-.pal-rubor     { --p1: #F6E2DA; --p2: #EBC6B8; --p3: #C98F7C; }
-.pal-crema     { --p1: #FDF7EA; --p2: #F2E3C6; --p3: #CDB287; }
-.pal-durazno   { --p1: #F9E5D3; --p2: #F0C9A8; --p3: #D49B72; }
-.pal-lila      { --p1: #F0E8F1; --p2: #DCCDE0; --p3: #A98FB0; }
-.pal-terracota { --p1: #E59572; --p2: #C8613F; --p3: #8E3D20; }
-.pal-trigo     { --p1: #EBD9AE; --p2: #DCC089; --p3: #B7955A; }
-.pal-salvia    { --h1: #C5D0B5; --h2: #8E9F7A; --p2: #C5D0B5; --p3: #8E9F7A; }
-.pal-eucalipto { --h1: #BFD0C8; --h2: #87A096; --p2: #BFD0C8; --p3: #87A096; }
-.pal-rubor, .pal-crema, .pal-durazno, .pal-lila, .pal-terracota { --h1: #B9C6A6; --h2: #8E9F7A; }
-.pal-blanco    { --p1: #FFFFFF; --p2: #F4ECDD; --p3: #CDBA98; --h2: #A3B190; }
-.pal-paraiso   { --p1: #F28C35; --p2: #D9581F; --p3: #3F5BB8; --h1: #6F9A6A; --h2: #3F6A50; }
-
-/* Pétalos que caen */
-.petalo-cae {
-  position: absolute; top: -6%;
-  left: var(--x);
-  width: var(--s); height: calc(var(--s) * 1.25);
-  background: radial-gradient(ellipse at 40% 30%, var(--c1), var(--c2));
-  border-radius: 60% 40% 60% 40% / 70% 60% 40% 30%;
-  opacity: .8;
-  will-change: transform, opacity;
-  animation: caer var(--dur) linear var(--d) infinite;
-}
-@keyframes caer {
-  0%   { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0; }
-  10%  { opacity: .8; }
-  50%  { transform: translate3d(var(--dx), 55vh, 0) rotate(220deg); }
-  100% { transform: translate3d(calc(var(--dx) * -.4), 112vh, 0) rotate(480deg); opacity: 0; }
-}
-
 /* ===================== INTRO / SOBRE ===================== */
 .intro {
   position: fixed; inset: 0; z-index: 50;
   display: grid; place-items: center;
-  background: var(--blanco);
+  background: transparent;
   overflow: hidden;
   touch-action: none;
   transition: opacity 1.4s ease, visibility 0s linear 1.4s;
@@ -225,20 +232,20 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .sobre.roto .sello__mitad--izq { transform: translate(-36%, 70%) rotate(-28deg); opacity: 0; }
 .sobre.roto .sello__mitad--der { transform: translate(36%, 80%) rotate(24deg); opacity: 0; }
 
-.jardin--intro .capa--frente .flor svg { filter: blur(2px); }
 
 /* ===================== INVITACIÓN ===================== */
-.invitacion { opacity: 0; transition: opacity 1.6s ease .2s; overflow-x: clip; }
+.invitacion { position: relative; z-index: 1; opacity: 0; transition: opacity 1.6s ease .2s; overflow-x: clip; }
 .revelada .invitacion { opacity: 1; }
 
 .contenedor { width: min(100% - 32px, 1080px); margin-inline: auto; position: relative; z-index: 2; }
 .angosto { width: min(100% - 32px, 680px); }
 
 .seccion { position: relative; padding: clamp(72px, 12vw, 140px) 0; text-align: center; }
-.seccion--lino { background: var(--papel-ruido), var(--lino); }
+/* Bandas de lino translúcidas: el papel fijo y la acuarela se ven a través al hacer scroll */
+.seccion--lino { background: var(--lino-velo); }
 .seccion--lino::before, .seccion--lino::after {
   content: ""; position: absolute; left: 0; right: 0; height: 18px;
-  background: radial-gradient(circle at 10px -4px, transparent 12px, var(--lino) 13px) 0 0 / 20px 18px repeat-x;
+  background: radial-gradient(circle at 10px -4px, transparent 12px, var(--lino-velo) 13px) 0 0 / 20px 18px repeat-x;
 }
 .seccion--lino::before { top: -17px; transform: scaleY(-1); }
 .seccion--lino::after { bottom: -17px; }
@@ -444,7 +451,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .itinerario li::before {
   content: ""; position: absolute; left: 50%; top: 50%; width: 14px; height: 14px; translate: -50% -50%; border-radius: 50%;
   background: var(--blanco); border: 2px solid var(--acento);
-  box-shadow: 0 0 0 5px var(--lino);
+  box-shadow: 0 0 0 5px var(--crema);
 }
 .itinerario__hora { text-align: right; font-family: var(--f-mayus); letter-spacing: .14em; color: var(--acento); }
 .itinerario__que {
@@ -487,7 +494,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .rsvp__estado { margin: 0; min-height: 1.4em; text-align: center; font-style: italic; color: var(--acento-osc); }
 
 /* ---------- Pie ---------- */
-.pie { position: relative; overflow: hidden; padding: 120px 16px 90px; text-align: center; background: var(--papel-ruido), var(--crema); }
+.pie { position: relative; overflow: hidden; padding: 120px 16px 90px; text-align: center; background: linear-gradient(transparent, rgba(251, 246, 238, .7) 40%); }
 .pie__mono { position: relative; z-index: 2; font-family: var(--f-deco); font-weight: 700; font-size: clamp(2.6rem, 8vw, 4rem); color: var(--acento); }
 .pie__gracias { position: relative; z-index: 2; margin: .6em 0 .3em; font-style: italic; font-size: 1.2em; }
 .pie__fecha { position: relative; z-index: 2; margin: 0; font-family: var(--f-mayus); letter-spacing: .3em; font-size: .8rem; color: var(--tinta-suave); }
@@ -506,7 +513,6 @@ button, input, select, textarea { font: inherit; color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
-  .petalo-cae { display: none; }
   .solapa { transition-duration: .9s; }
   .carta { transition-duration: .9s; }
 }

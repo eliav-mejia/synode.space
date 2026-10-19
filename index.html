@@ -16,18 +16,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,300;1,400;1,500&family=Pinyon+Script&display=swap">
+  <link rel="preload" as="image" href="img/paraiso-acuarela.webp" type="image/webp">
   <link rel="stylesheet" href="css/site.css">
   <script src="js/config.js"></script>
 </head>
 <body>
 
-<!-- Sprite: pétalos, flores 2.5D (ave del paraíso incluida), sello de cera. No usar display:none (rompe degradados). -->
+<!-- ============ FONDO FIJO: papel con grano, flores prensadas y una ave del paraíso en acuarela ============ -->
+<div class="fondo" aria-hidden="true">
+  <div class="fondo__prensadas" data-prensadas></div>
+  <div class="acuarela" data-acuarela>
+    <img class="acuarela__difusa" src="img/paraiso-acuarela-difusa.webp" alt="" width="600" height="600" decoding="async">
+    <img class="acuarela__nitida" src="img/paraiso-acuarela.webp" alt="" width="1200" height="1200" decoding="async" fetchpriority="high">
+  </div>
+</div>
+
+<!-- Sprite: flores prensadas (#p-*) y sello de cera. No usar display:none (rompe degradados y filtros). -->
 <svg class="sprite" aria-hidden="true" focusable="false">
   <defs>
-    <path id="petalo" d="M0 0 C-18 -8 -26 -30 -14 -42 C-8 -48 -3 -44 0 -46 C3 -44 8 -48 14 -42 C26 -30 18 -8 0 0Z"/>
-    <path id="petalo-largo" d="M0 0 C-11 -10 -13 -34 0 -47 C13 -34 11 -10 0 0Z"/>
-    <path id="hoja-forma" d="M0 0 C-9 -10 -9 -26 0 -36 C9 -26 9 -10 0 0Z"/>
-
     <radialGradient id="cera-luz" cx="38%" cy="32%" r="75%">
       <stop offset="0" stop-color="#D9774F"/>
       <stop offset=".55" stop-color="#B5532F"/>
@@ -47,147 +53,128 @@
       <ellipse cx="44" cy="36" rx="12" ry="6" fill="#fff" opacity=".18" transform="rotate(-28 44 36)"/>
     </symbol>
 
-    <symbol id="f-rosa" viewBox="-50 -50 100 100">
-      <g fill="var(--p1)" stroke="var(--p3)" stroke-opacity=".3" stroke-width=".8">
-        <use href="#petalo"/><use href="#petalo" transform="rotate(72)"/><use href="#petalo" transform="rotate(144)"/><use href="#petalo" transform="rotate(216)"/><use href="#petalo" transform="rotate(288)"/>
-      </g>
-      <g fill="var(--p2)" stroke="var(--p3)" stroke-opacity=".35" stroke-width="1" transform="rotate(36) scale(.7)">
-        <use href="#petalo"/><use href="#petalo" transform="rotate(72)"/><use href="#petalo" transform="rotate(144)"/><use href="#petalo" transform="rotate(216)"/><use href="#petalo" transform="rotate(288)"/>
-      </g>
-      <g fill="var(--p1)" stroke="var(--p3)" stroke-opacity=".4" stroke-width="1.4" transform="rotate(12) scale(.42)">
-        <use href="#petalo"/><use href="#petalo" transform="rotate(90)"/><use href="#petalo" transform="rotate(180)"/><use href="#petalo" transform="rotate(270)"/>
-      </g>
-      <circle r="7" fill="var(--p2)"/>
-      <path d="M-3 1 a4 4 0 1 1 6 2 a6.5 6.5 0 1 1 -10 -6" fill="none" stroke="var(--p3)" stroke-width="1.3" stroke-linecap="round"/>
-    </symbol>
+    <!-- Prensado: orillas ligeramente irregulares y sombra mínima, como pegadas al papel -->
+    <filter id="prensa" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="2" seed="5" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feGaussianBlur in="d" stdDeviation=".25" result="s"/>
+      <feDropShadow in="s" dx=".4" dy=".8" stdDeviation=".7" flood-color="#6E5037" flood-opacity=".22"/>
+    </filter>
+    <path id="pr-petalo" d="M0 -6 C-4.5 -16 -4.5 -35 0 -44 C4.5 -35 4.5 -16 0 -6Z"/>
+    <path id="pr-petalo-ancho" d="M0 -5 C-12 -12 -15 -32 -8 -42 C-4 -38 -2 -44 0 -40 C2 -44 4 -38 8 -42 C15 -32 12 -12 0 -5Z"/>
+    <path id="pr-florete" d="M0 0 C-5 -2 -7 -9 -1 -12 C1 -12.6 3 -12 4 -10 C6 -6 4 -2 0 0Z"/>
+    <g id="pr-hortensia-flor">
+      <use href="#pr-florete"/><use href="#pr-florete" transform="rotate(90)"/><use href="#pr-florete" transform="rotate(180)"/><use href="#pr-florete" transform="rotate(270)"/>
+    </g>
 
-    <symbol id="f-peonia" viewBox="-50 -50 100 100">
-      <g fill="var(--p1)" stroke="var(--p3)" stroke-opacity=".25" stroke-width=".7">
-        <use href="#petalo"/><use href="#petalo" transform="rotate(51)"/><use href="#petalo" transform="rotate(103)"/><use href="#petalo" transform="rotate(154)"/><use href="#petalo" transform="rotate(206)"/><use href="#petalo" transform="rotate(257)"/><use href="#petalo" transform="rotate(309)"/>
-      </g>
-      <g fill="var(--p2)" stroke="var(--p3)" stroke-opacity=".3" stroke-width=".9" transform="rotate(25) scale(.78)">
-        <use href="#petalo"/><use href="#petalo" transform="rotate(60)"/><use href="#petalo" transform="rotate(120)"/><use href="#petalo" transform="rotate(180)"/><use href="#petalo" transform="rotate(240)"/><use href="#petalo" transform="rotate(300)"/>
-      </g>
-      <g fill="var(--p1)" stroke="var(--p3)" stroke-opacity=".35" stroke-width="1.2" transform="rotate(8) scale(.55)">
-        <use href="#petalo"/><use href="#petalo" transform="rotate(72)"/><use href="#petalo" transform="rotate(144)"/><use href="#petalo" transform="rotate(216)"/><use href="#petalo" transform="rotate(288)"/>
-      </g>
-      <g fill="var(--p2)" transform="scale(.32) rotate(40)">
-        <use href="#petalo"/><use href="#petalo" transform="rotate(120)"/><use href="#petalo" transform="rotate(240)"/>
-      </g>
-      <g fill="var(--p3)"><circle cx="-3" cy="-2" r="1.6"/><circle cx="3" cy="-1" r="1.4"/><circle cx="0" cy="3" r="1.5"/></g>
-    </symbol>
-
-    <symbol id="f-abierta" viewBox="-50 -50 100 100">
-      <g fill="var(--p1)" stroke="var(--p3)" stroke-opacity=".3" stroke-width=".8">
-        <use href="#petalo-largo"/><use href="#petalo-largo" transform="rotate(45)"/><use href="#petalo-largo" transform="rotate(90)"/><use href="#petalo-largo" transform="rotate(135)"/><use href="#petalo-largo" transform="rotate(180)"/><use href="#petalo-largo" transform="rotate(225)"/><use href="#petalo-largo" transform="rotate(270)"/><use href="#petalo-largo" transform="rotate(315)"/>
-      </g>
-      <g fill="var(--p2)" opacity=".55" transform="rotate(22) scale(.6)">
-        <use href="#petalo-largo"/><use href="#petalo-largo" transform="rotate(90)"/><use href="#petalo-largo" transform="rotate(180)"/><use href="#petalo-largo" transform="rotate(270)"/>
-      </g>
-      <circle r="9" fill="var(--p3)"/>
-      <g fill="#F4E4BE"><circle cx="0" cy="-12" r="1.4"/><circle cx="8.5" cy="-8.5" r="1.4"/><circle cx="12" cy="0" r="1.4"/><circle cx="8.5" cy="8.5" r="1.4"/><circle cx="0" cy="12" r="1.4"/><circle cx="-8.5" cy="8.5" r="1.4"/><circle cx="-12" cy="0" r="1.4"/><circle cx="-8.5" cy="-8.5" r="1.4"/></g>
-    </symbol>
-
-    <symbol id="f-boton" viewBox="-50 -50 100 100">
-      <path d="M0 48 C2 30 -2 18 0 8" fill="none" stroke="var(--h2, #8A9B76)" stroke-width="2.2"/>
-      <path d="M0 10 C-16 2 -18 -20 0 -40 C18 -20 16 2 0 10Z" fill="var(--p2)" stroke="var(--p3)" stroke-opacity=".4"/>
-      <path d="M0 8 C-8 0 -8 -18 2 -32" fill="none" stroke="var(--p3)" stroke-opacity=".5" stroke-width="1.2"/>
-      <path d="M0 12 C-14 8 -18 -4 -14 -10 C-8 -2 -4 4 0 12 C4 4 8 -2 14 -10 C18 -4 14 8 0 12Z" fill="var(--h1, #A9B796)"/>
-    </symbol>
-
-    <symbol id="f-hoja" viewBox="-50 -50 100 100">
-      <path d="M0 50 C-22 22 -20 -22 0 -50 C20 -22 22 22 0 50Z" fill="var(--h1)"/>
-      <path d="M0 48 C-2 10 -1 -20 0 -46" fill="none" stroke="var(--h2)" stroke-width="1.4"/>
-      <g fill="none" stroke="var(--h2)" stroke-width=".8" opacity=".7">
-        <path d="M0 20 L-10 8"/><path d="M0 4 L-12 -8"/><path d="M0 -14 L-9 -24"/><path d="M0 26 L11 14"/><path d="M0 8 L12 -4"/><path d="M0 -10 L10 -20"/>
+    <symbol id="p-margarita" viewBox="-50 -50 100 100">
+      <g filter="url(#prensa)">
+        <g fill="#F1E6C8" fill-opacity=".86" stroke="#C9B080" stroke-width=".5" stroke-opacity=".6">
+          <use href="#pr-petalo"/><use href="#pr-petalo" transform="rotate(30)"/><use href="#pr-petalo" transform="rotate(60)"/><use href="#pr-petalo" transform="rotate(90)"/><use href="#pr-petalo" transform="rotate(120)"/><use href="#pr-petalo" transform="rotate(150)"/>
+          <use href="#pr-petalo" transform="rotate(180)"/><use href="#pr-petalo" transform="rotate(210)"/><use href="#pr-petalo" transform="rotate(240)"/><use href="#pr-petalo" transform="rotate(270)"/><use href="#pr-petalo" transform="rotate(300)"/><use href="#pr-petalo" transform="rotate(330)"/>
+        </g>
+        <g stroke="#D3BC8C" stroke-width=".45" opacity=".7">
+          <path d="M0 -9 V-40"/><path d="M0 -9 V-40" transform="rotate(60)"/><path d="M0 -9 V-40" transform="rotate(120)"/><path d="M0 -9 V-40" transform="rotate(180)"/><path d="M0 -9 V-40" transform="rotate(240)"/><path d="M0 -9 V-40" transform="rotate(300)"/>
+        </g>
+        <circle r="8" fill="#C9973E" fill-opacity=".9"/>
+        <g fill="#8E6426" opacity=".55"><circle cx="-3" cy="-2" r="1.1"/><circle cx="2.5" cy="-3" r="1"/><circle cx="3" cy="2.5" r="1.1"/><circle cx="-2" cy="3" r="1"/><circle cx="0" cy="0" r="1"/></g>
       </g>
     </symbol>
 
-    <symbol id="f-eucalipto" viewBox="-50 -50 100 100">
-      <path d="M-4 50 C6 20 -8 -10 4 -48" fill="none" stroke="var(--h2)" stroke-width="1.6"/>
-      <g fill="var(--h1)" stroke="var(--h2)" stroke-width=".6" stroke-opacity=".6">
-        <ellipse cx="-10" cy="36" rx="9" ry="8"/><ellipse cx="9" cy="24" rx="9" ry="8"/><ellipse cx="-11" cy="10" rx="8" ry="7.5"/><ellipse cx="8" cy="-4" rx="8" ry="7"/><ellipse cx="-8" cy="-18" rx="7" ry="6.5"/><ellipse cx="9" cy="-30" rx="6" ry="5.5"/><ellipse cx="0" cy="-44" rx="5" ry="4.5"/>
+    <symbol id="p-cosmos" viewBox="-50 -50 100 100">
+      <g filter="url(#prensa)">
+        <g fill="#E8B8AE" fill-opacity=".78" stroke="#C58C80" stroke-width=".5" stroke-opacity=".55">
+          <use href="#pr-petalo-ancho"/><use href="#pr-petalo-ancho" transform="rotate(45)"/><use href="#pr-petalo-ancho" transform="rotate(90)"/><use href="#pr-petalo-ancho" transform="rotate(135)"/>
+          <use href="#pr-petalo-ancho" transform="rotate(180)"/><use href="#pr-petalo-ancho" transform="rotate(225)"/><use href="#pr-petalo-ancho" transform="rotate(270)"/><use href="#pr-petalo-ancho" transform="rotate(315)"/>
+        </g>
+        <g stroke="#B9776B" stroke-width=".4" opacity=".5" fill="none">
+          <path d="M0 -8 V-36 M-3 -12 L-6 -32 M3 -12 L6 -32"/><path d="M0 -8 V-36 M-3 -12 L-6 -32 M3 -12 L6 -32" transform="rotate(90)"/><path d="M0 -8 V-36 M-3 -12 L-6 -32 M3 -12 L6 -32" transform="rotate(180)"/><path d="M0 -8 V-36 M-3 -12 L-6 -32 M3 -12 L6 -32" transform="rotate(270)"/>
+        </g>
+        <circle r="7" fill="#B98A3C" fill-opacity=".85"/><circle r="3.4" fill="#7A5325" fill-opacity=".6"/>
       </g>
     </symbol>
 
-    <symbol id="f-espiga" viewBox="-50 -50 100 100">
-      <path d="M0 50 C2 20 -2 -10 0 -36" fill="none" stroke="#C4A774" stroke-width="1.4"/>
-      <g fill="var(--p1)" stroke="var(--p3)" stroke-width=".6">
-        <ellipse cx="-5" cy="14" rx="3.6" ry="7" transform="rotate(-24 -5 14)"/><ellipse cx="5" cy="8" rx="3.6" ry="7" transform="rotate(24 5 8)"/>
-        <ellipse cx="-5" cy="0" rx="3.4" ry="6.6" transform="rotate(-24 -5 0)"/><ellipse cx="5" cy="-6" rx="3.4" ry="6.6" transform="rotate(24 5 -6)"/>
-        <ellipse cx="-4.5" cy="-14" rx="3.2" ry="6.2" transform="rotate(-22 -4.5 -14)"/><ellipse cx="4.5" cy="-20" rx="3.2" ry="6.2" transform="rotate(22 4.5 -20)"/>
-        <ellipse cx="0" cy="-32" rx="3" ry="6.4"/>
-      </g>
-      <g stroke="var(--p3)" stroke-width=".5" fill="none" opacity=".8"><path d="M0 -38 L0 -48"/><path d="M5 -26 L10 -36"/><path d="M-5 -20 L-10 -30"/></g>
-    </symbol>
-
-    <symbol id="f-gipsofila" viewBox="-50 -50 100 100">
-      <g fill="none" stroke="var(--h2)" stroke-width=".9">
-        <path d="M0 50 C0 20 -4 0 -14 -18"/><path d="M0 22 C6 6 14 -6 22 -22"/><path d="M-4 4 C-14 -2 -24 -4 -32 -2"/><path d="M8 8 C14 0 26 -2 34 2"/><path d="M-10 -10 C-6 -22 -2 -32 2 -40"/>
-      </g>
-      <g fill="var(--p1)" stroke="var(--p3)" stroke-width=".5">
-        <circle cx="-14" cy="-20" r="3.2"/><circle cx="-18" cy="-14" r="2.6"/><circle cx="-10" cy="-24" r="2.4"/>
-        <circle cx="22" cy="-24" r="3.2"/><circle cx="26" cy="-18" r="2.4"/><circle cx="18" cy="-28" r="2.2"/>
-        <circle cx="-32" cy="-3" r="2.8"/><circle cx="-36" cy="2" r="2.2"/><circle cx="-28" cy="-8" r="2"/>
-        <circle cx="34" cy="2" r="2.8"/><circle cx="38" cy="-3" r="2.2"/>
-        <circle cx="2" cy="-42" r="3"/><circle cx="-2" cy="-46" r="2.2"/><circle cx="6" cy="-44" r="2"/>
+    <symbol id="p-hortensia" viewBox="-50 -50 100 100">
+      <g filter="url(#prensa)" stroke="#9A8FBC" stroke-width=".4" stroke-opacity=".6">
+        <g fill="#C9C0E0" fill-opacity=".8">
+          <use href="#pr-hortensia-flor" transform="translate(-14 -12) rotate(10) scale(1.5)"/>
+          <use href="#pr-hortensia-flor" transform="translate(14 -16) rotate(40) scale(1.3)"/>
+          <use href="#pr-hortensia-flor" transform="translate(0 6) rotate(-15) scale(1.6)"/>
+        </g>
+        <g fill="#B4C3DD" fill-opacity=".78">
+          <use href="#pr-hortensia-flor" transform="translate(-22 14) rotate(25) scale(1.2)"/>
+          <use href="#pr-hortensia-flor" transform="translate(22 10) rotate(-30) scale(1.35)"/>
+          <use href="#pr-hortensia-flor" transform="translate(4 -30) rotate(5) scale(1.15)"/>
+          <use href="#pr-hortensia-flor" transform="translate(8 28) rotate(60) scale(1.1)"/>
+        </g>
+        <g fill="#EADFC4" stroke="none"><circle cx="-14" cy="-12" r="1.4"/><circle cx="14" cy="-16" r="1.2"/><circle cx="0" cy="6" r="1.5"/><circle cx="-22" cy="14" r="1.1"/><circle cx="22" cy="10" r="1.2"/><circle cx="4" cy="-30" r="1"/><circle cx="8" cy="28" r="1"/></g>
       </g>
     </symbol>
-    <!-- Ave del paraíso (Strelitzia): degradados fijos para volumen; la sombra la pone .flor svg -->
-    <linearGradient id="par-sepalo" x1="0" y1="1" x2="0" y2="0">
-      <stop offset="0" stop-color="#D9581F"/><stop offset=".55" stop-color="#F28C35"/><stop offset="1" stop-color="#FFC66E"/>
-    </linearGradient>
-    <linearGradient id="par-sepalo-atras" x1="0" y1="1" x2="0" y2="0">
-      <stop offset="0" stop-color="#B8481A"/><stop offset="1" stop-color="#E9873A"/>
-    </linearGradient>
-    <linearGradient id="par-azul" x1="0" y1="1" x2="0" y2="0">
-      <stop offset="0" stop-color="#26357E"/><stop offset=".6" stop-color="#3F5BB8"/><stop offset="1" stop-color="#8AA0E6"/>
-    </linearGradient>
-    <linearGradient id="par-bractea" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#7FA273"/><stop offset=".45" stop-color="#4C7559"/><stop offset="1" stop-color="#2B4A3B"/>
-    </linearGradient>
-    <linearGradient id="par-hoja" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#3E6A4C"/><stop offset=".5" stop-color="#6F9A6A"/><stop offset="1" stop-color="#456F50"/>
-    </linearGradient>
-    <path id="par-sep" d="M0 0 C-5 -10 -6.5 -27 -1.5 -41 C-.5 -43.5 2.5 -43.5 3 -41 C5 -27 4.5 -10 0 0Z"/>
-    <path id="par-lengua" d="M0 0 C-2.5 -9 -3 -22 -.5 -32 L1 -35 L3 -31.5 C3.5 -21 2.5 -9 0 0Z"/>
 
-    <symbol id="f-paraiso" viewBox="-50 -50 100 100">
-      <path d="M19 7 C15 21 9 36 7 50" fill="none" stroke="#3F6A50" stroke-width="3.2" stroke-linecap="round"/>
-      <path d="M19 7 C15 21 9 36 7 50" fill="none" stroke="#86A97A" stroke-width="1" stroke-linecap="round" opacity=".6" transform="translate(-.8 0)"/>
-      <g transform="translate(5 -5)">
-        <use href="#par-sep" fill="url(#par-sepalo-atras)" transform="rotate(-6) scale(.92)"/>
-        <use href="#par-sep" fill="url(#par-sepalo)" transform="rotate(-48) scale(1.02)"/>
-        <use href="#par-lengua" fill="url(#par-azul)" transform="rotate(-32)"/>
-        <use href="#par-sep" fill="url(#par-sepalo)" transform="rotate(-24)"/>
-        <use href="#par-lengua" fill="url(#par-azul)" transform="rotate(-12) scale(.86)"/>
-        <g fill="none" stroke="#FFE1A8" stroke-width=".7" opacity=".7" stroke-linecap="round">
-          <path d="M0 -3 C-1 -14 -2 -26 -1 -38" transform="rotate(-48)"/>
-          <path d="M0 -3 C-1 -14 -2 -26 -1 -38" transform="rotate(-24)"/>
+    <symbol id="p-helecho" viewBox="-50 -50 100 100">
+      <g filter="url(#prensa)">
+        <path d="M0 50 C2 20 -2 -14 4 -48" fill="none" stroke="#8C9C74" stroke-width="1.3"/>
+        <g fill="#A8B78E" fill-opacity=".82">
+          <ellipse cx="-9" cy="38" rx="9" ry="3.2" transform="rotate(-20 -9 38)"/><ellipse cx="10" cy="32" rx="9" ry="3.2" transform="rotate(20 10 32)"/>
+          <ellipse cx="-9" cy="22" rx="9" ry="3" transform="rotate(-24 -9 22)"/><ellipse cx="10" cy="16" rx="8.6" ry="3" transform="rotate(24 10 16)"/>
+          <ellipse cx="-8" cy="6" rx="8.4" ry="2.9" transform="rotate(-26 -8 6)"/><ellipse cx="9" cy="0" rx="8" ry="2.8" transform="rotate(26 9 0)"/>
+          <ellipse cx="-7" cy="-10" rx="7.4" ry="2.6" transform="rotate(-28 -7 -10)"/><ellipse cx="8.6" cy="-16" rx="7" ry="2.5" transform="rotate(28 8.6 -16)"/>
+          <ellipse cx="-4" cy="-26" rx="6" ry="2.2" transform="rotate(-30 -4 -26)"/><ellipse cx="9" cy="-31" rx="5.4" ry="2" transform="rotate(30 9 -31)"/>
+          <ellipse cx="2" cy="-40" rx="4" ry="1.7" transform="rotate(-20 2 -40)"/>
         </g>
       </g>
-      <path d="M-45 2 C-27 -6 1 -10 22 -4.5 C27.5 -2.5 27.5 5.5 20 9 C2 12.5 -24 8.5 -45 2Z" fill="url(#par-bractea)"/>
-      <path d="M-45 2 C-27 -6 1 -10 22 -4.5 C26 -3.4 27 -1 26.6 1.5" fill="none" stroke="#C4553A" stroke-width="1.6" stroke-linecap="round" opacity=".85"/>
-      <path d="M-36 3.2 C-18 .6 4 -.6 19 1.6" fill="none" stroke="#A9C79A" stroke-width=".9" opacity=".55" stroke-linecap="round"/>
     </symbol>
 
-    <symbol id="f-hoja-paraiso" viewBox="-50 -50 100 100">
-      <path d="M2 50 C1 32 2 16 3 6" fill="none" stroke="#3F6A50" stroke-width="2.6" stroke-linecap="round"/>
-      <path d="M3 8 C-17 -2 -19 -34 3 -49 C22 -34 20 -3 3 8Z" fill="url(#par-hoja)"/>
-      <path d="M3 6 C3.6 -12 4 -30 3.4 -47" fill="none" stroke="#D5E2C1" stroke-width="1" opacity=".75"/>
-      <g fill="none" stroke="#2F543E" stroke-width=".6" opacity=".45">
-        <path d="M3.4 -6 C-4 -9 -10 -12 -14 -17"/><path d="M3.6 -16 C-3 -19 -9 -23 -12 -28"/><path d="M3.8 -26 C-2 -29 -6 -33 -8 -38"/>
-        <path d="M3.4 -6 C10 -9 15 -12 18 -17"/><path d="M3.6 -16 C10 -19 14 -23 16 -28"/><path d="M3.8 -26 C9 -29 12 -33 13 -38"/>
+    <symbol id="p-hoja" viewBox="-50 -50 100 100">
+      <g filter="url(#prensa)">
+        <path d="M0 48 C-20 22 -20 -20 2 -48 C20 -20 20 22 0 48Z" fill="#B3B989" fill-opacity=".8" stroke="#8E8F5E" stroke-width=".6" stroke-opacity=".6"/>
+        <path d="M0 46 C1 10 1 -20 2 -46" fill="none" stroke="#E7E3C4" stroke-width="1"/>
+        <g fill="none" stroke="#8E8F5E" stroke-width=".5" opacity=".6">
+          <path d="M.5 24 C-6 18 -10 14 -13 10"/><path d="M.8 8 C-6 2 -10 -2 -13 -6"/><path d="M1.2 -10 C-5 -16 -8 -20 -10 -24"/>
+          <path d="M.5 24 C6 18 10 14 13 10"/><path d="M.8 8 C6 2 10 -2 13 -6"/><path d="M1.2 -10 C6 -16 9 -20 11 -24"/>
+        </g>
+        <path d="M-12 14 C-14 6 -15 -2 -14 -8" fill="none" stroke="#B48A55" stroke-width=".8" opacity=".4"/>
       </g>
-      <path d="M-12 -14 L-17 -16" stroke="#FBF6EE" stroke-width="1.2" opacity=".8"/>
+    </symbol>
+
+    <symbol id="p-lavanda" viewBox="-50 -50 100 100">
+      <g filter="url(#prensa)">
+        <path d="M-2 50 C0 20 0 -10 2 -46" fill="none" stroke="#97A47E" stroke-width="1.2"/>
+        <g fill="#A99BC8" fill-opacity=".85">
+          <ellipse cx="-2.6" cy="-6" rx="2.2" ry="3.6" transform="rotate(-25 -2.6 -6)"/><ellipse cx="3" cy="-9" rx="2.2" ry="3.6" transform="rotate(25 3 -9)"/>
+          <ellipse cx="-2" cy="-15" rx="2.1" ry="3.4" transform="rotate(-25 -2 -15)"/><ellipse cx="3.4" cy="-18" rx="2.1" ry="3.4" transform="rotate(25 3.4 -18)"/>
+          <ellipse cx="-1.4" cy="-24" rx="2" ry="3.2" transform="rotate(-25 -1.4 -24)"/><ellipse cx="3.6" cy="-27" rx="2" ry="3.2" transform="rotate(25 3.6 -27)"/>
+          <ellipse cx="-.6" cy="-33" rx="1.9" ry="3" transform="rotate(-20 -.6 -33)"/><ellipse cx="3.6" cy="-36" rx="1.8" ry="2.8" transform="rotate(20 3.6 -36)"/>
+          <ellipse cx="1.8" cy="-43" rx="1.6" ry="2.8"/>
+          <ellipse cx="-2.4" cy="6" rx="2" ry="3.2" transform="rotate(-25 -2.4 6)"/><ellipse cx="2.4" cy="3" rx="2" ry="3.2" transform="rotate(25 2.4 3)"/>
+        </g>
+        <path d="M-1 30 C-8 24 -12 20 -14 14" fill="none" stroke="#97A47E" stroke-width="1"/>
+        <ellipse cx="-12" cy="20" rx="1.6" ry="5" fill="#A8B78E" fill-opacity=".8" transform="rotate(-40 -12 20)"/>
+      </g>
+    </symbol>
+
+    <symbol id="p-petalos" viewBox="-50 -50 100 100">
+      <g filter="url(#prensa)" stroke="#C99A8F" stroke-width=".5" stroke-opacity=".6">
+        <path d="M-6 6 C-26 0 -30 -24 -14 -32 C-4 -36 6 -28 4 -14 C3 -6 -1 2 -6 6Z" fill="#EFC9BF" fill-opacity=".75"/>
+        <path d="M8 10 C26 2 34 -14 22 -24 C12 -30 2 -18 4 -4 C5 2 6 7 8 10Z" fill="#F3D8CC" fill-opacity=".72"/>
+        <path d="M-2 14 C-14 22 -10 38 4 38 C16 38 20 24 10 16 C6 12 2 12 -2 14Z" fill="#E6B5A8" fill-opacity=".7"/>
+        <g fill="none" stroke="#C48F82" stroke-width=".4" opacity=".55"><path d="M-6 4 C-12 -6 -14 -16 -14 -28"/><path d="M8 8 C12 -2 16 -10 20 -20"/><path d="M2 16 C4 24 4 30 4 36"/></g>
+      </g>
+    </symbol>
+
+    <symbol id="p-rama" viewBox="-50 -50 100 100">
+      <g filter="url(#prensa)">
+        <path d="M-4 50 C4 22 -6 -8 4 -46" fill="none" stroke="#8C9C86" stroke-width="1.2"/>
+        <g fill="#B7C6B3" fill-opacity=".78" stroke="#8C9C86" stroke-width=".45" stroke-opacity=".6">
+          <circle cx="-9" cy="36" r="7"/><circle cx="8" cy="24" r="7"/><circle cx="-9" cy="10" r="6.4"/><circle cx="7" cy="-4" r="6"/><circle cx="-7" cy="-18" r="5.4"/><circle cx="8" cy="-30" r="4.6"/><circle cx="1" cy="-42" r="3.8"/>
+        </g>
+      </g>
     </symbol>
   </defs>
 </svg>
 
 <!-- ============ SOBRE (intro): bloquea el scroll hasta abrirse ============ -->
 <div class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="intro-titulo">
-  <div class="jardin jardin--intro" data-jardin="intro" aria-hidden="true"></div>
-
   <div class="intro__centro">
     <p class="intro__para" id="intro-titulo">Una invitación para ti</p>
 
@@ -231,7 +218,6 @@
 
   <section class="portada" id="inicio">
     <div class="guirnalda" data-guirnalda="9" aria-hidden="true"></div>
-    <div class="jardin" data-jardin="portada" aria-hidden="true"></div>
 
     <div class="portada__texto">
       <p class="sobretitulo revela">Nos casamos</p>
@@ -433,7 +419,6 @@
   </section>
 
   <footer class="pie">
-    <div class="jardin jardin--pie" data-jardin="pie" aria-hidden="true"></div>
     <span class="pie__mono">A<i>&amp;</i>E</span>
     <p class="pie__gracias">Gracias por ser parte de nuestra historia</p>
     <p class="pie__fecha" data-boda="fecha-corta"></p>
