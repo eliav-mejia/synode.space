@@ -1,0 +1,10 @@
+# Documentación interna: nunca en el repositorio ni en el sitio.
+_interno/
+
+# Configuración local del editor / agente
+.claude/
+
+# Fotos originales pesadas: solo se publica la WebP de img/
+img/**/*.png
+img/**/*.jpg
+img/**/*.jpeg

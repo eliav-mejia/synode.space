@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="es" class="sellado">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Alejandra &amp; Eliav · Nuestra boda</title>
+  <meta name="description" content="Invitación a la ceremonia civil de Alejandra y Eliav en Casa Maka, Tetelpan, Ciudad de México.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#FFFFFF">
+  <meta name="color-scheme" content="light">
+  <meta property="og:title" content="Alejandra &amp; Eliav · Nuestra boda">
+  <meta property="og:description" content="Abre tu invitación.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://synode.space/">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,300;1,400;1,500&family=Pinyon+Script&display=swap">
+  <link rel="stylesheet" href="css/site.css">
+  <script src="js/config.js"></script>
+</head>
+<body>
+
+<!-- Sprite: pétalos, flores 2.5D (ave del paraíso incluida), sello de cera. No usar display:none (rompe degradados). -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <path id="petalo" d="M0 0 C-18 -8 -26 -30 -14 -42 C-8 -48 -3 -44 0 -46 C3 -44 8 -48 14 -42 C26 -30 18 -8 0 0Z"/>
+    <path id="petalo-largo" d="M0 0 C-11 -10 -13 -34 0 -47 C13 -34 11 -10 0 0Z"/>
+    <path id="hoja-forma" d="M0 0 C-9 -10 -9 -26 0 -36 C9 -26 9 -10 0 0Z"/>
+
+    <radialGradient id="cera-luz" cx="38%" cy="32%" r="75%">
+      <stop offset="0" stop-color="#D9774F"/>
+      <stop offset=".55" stop-color="#B5532F"/>
+      <stop offset="1" stop-color="#7E3418"/>
+    </radialGradient>
+    <filter id="cera-borde" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="7"/>
+      <feDisplacementMap in="SourceGraphic" scale="9"/>
+    </filter>
+
+    <symbol id="sello-arte" viewBox="0 0 120 120">
+      <circle cx="60" cy="60" r="52" fill="url(#cera-luz)" filter="url(#cera-borde)"/>
+      <circle cx="60" cy="60" r="38" fill="none" stroke="#7E3418" stroke-width="2.4" opacity=".55"/>
+      <circle cx="60" cy="60" r="34" fill="none" stroke="#E79A78" stroke-width=".8" opacity=".5" stroke-dasharray="1.5 3"/>
+      <text x="60" y="69" text-anchor="middle" font-family="'Cinzel Decorative', serif" font-weight="700" font-size="25" letter-spacing="1" fill="#7E3418" opacity=".8">AE</text>
+      <text x="59" y="68" text-anchor="middle" font-family="'Cinzel Decorative', serif" font-weight="700" font-size="25" letter-spacing="1" fill="#F0B79C" opacity=".55">AE</text>
+      <ellipse cx="44" cy="36" rx="12" ry="6" fill="#fff" opacity=".18" transform="rotate(-28 44 36)"/>
+    </symbol>
+
+    <symbol id="f-rosa" viewBox="-50 -50 100 100">
+      <g fill="var(--p1)" stroke="var(--p3)" stroke-opacity=".3" stroke-width=".8">
+        <use href="#petalo"/><use href="#petalo" transform="rotate(72)"/><use href="#petalo" transform="rotate(144)"/><use href="#petalo" transform="rotate(216)"/><use href="#petalo" transform="rotate(288)"/>
+      </g>
+      <g fill="var(--p2)" stroke="var(--p3)" stroke-opacity=".35" stroke-width="1" transform="rotate(36) scale(.7)">
+        <use href="#petalo"/><use href="#petalo" transform="rotate(72)"/><use href="#petalo" transform="rotate(144)"/><use href="#petalo" transform="rotate(216)"/><use href="#petalo" transform="rotate(288)"/>
+      </g>
+      <g fill="var(--p1)" stroke="var(--p3)" stroke-opacity=".4" stroke-width="1.4" transform="rotate(12) scale(.42)">
+        <use href="#petalo"/><use href="#petalo" transform="rotate(90)"/><use href="#petalo" transform="rotate(180)"/><use href="#petalo" transform="rotate(270)"/>
+      </g>
+      <circle r="7" fill="var(--p2)"/>
+      <path d="M-3 1 a4 4 0 1 1 6 2 a6.5 6.5 0 1 1 -10 -6" fill="none" stroke="var(--p3)" stroke-width="1.3" stroke-linecap="round"/>
+    </symbol>
+
+    <symbol id="f-peonia" viewBox="-50 -50 100 100">
+      <g fill="var(--p1)" stroke="var(--p3)" stroke-opacity=".25" stroke-width=".7">
+        <use href="#petalo"/><use href="#petalo" transform="rotate(51)"/><use href="#petalo" transform="rotate(103)"/><use href="#petalo" transform="rotate(154)"/><use href="#petalo" transform="rotate(206)"/><use href="#petalo" transform="rotate(257)"/><use href="#petalo" transform="rotate(309)"/>
+      </g>
+      <g fill="var(--p2)" stroke="var(--p3)" stroke-opacity=".3" stroke-width=".9" transform="rotate(25) scale(.78)">
+        <use href="#petalo"/><use href="#petalo" transform="rotate(60)"/><use href="#petalo" transform="rotate(120)"/><use href="#petalo" transform="rotate(180)"/><use href="#petalo" transform="rotate(240)"/><use href="#petalo" transform="rotate(300)"/>
+      </g>
+      <g fill="var(--p1)" stroke="var(--p3)" stroke-opacity=".35" stroke-width="1.2" transform="rotate(8) scale(.55)">
+        <use href="#petalo"/><use href="#petalo" transform="rotate(72)"/><use href="#petalo" transform="rotate(144)"/><use href="#petalo" transform="rotate(216)"/><use href="#petalo" transform="rotate(288)"/>
+      </g>
+      <g fill="var(--p2)" transform="scale(.32) rotate(40)">
+        <use href="#petalo"/><use href="#petalo" transform="rotate(120)"/><use href="#petalo" transform="rotate(240)"/>
+      </g>
+      <g fill="var(--p3)"><circle cx="-3" cy="-2" r="1.6"/><circle cx="3" cy="-1" r="1.4"/><circle cx="0" cy="3" r="1.5"/></g>
+    </symbol>
+
+    <symbol id="f-abierta" viewBox="-50 -50 100 100">
+      <g fill="var(--p1)" stroke="var(--p3)" stroke-opacity=".3" stroke-width=".8">
+        <use href="#petalo-largo"/><use href="#petalo-largo" transform="rotate(45)"/><use href="#petalo-largo" transform="rotate(90)"/><use href="#petalo-largo" transform="rotate(135)"/><use href="#petalo-largo" transform="rotate(180)"/><use href="#petalo-largo" transform="rotate(225)"/><use href="#petalo-largo" transform="rotate(270)"/><use href="#petalo-largo" transform="rotate(315)"/>
+      </g>
+      <g fill="var(--p2)" opacity=".55" transform="rotate(22) scale(.6)">
+        <use href="#petalo-largo"/><use href="#petalo-largo" transform="rotate(90)"/><use href="#petalo-largo" transform="rotate(180)"/><use href="#petalo-largo" transform="rotate(270)"/>
+      </g>
+      <circle r="9" fill="var(--p3)"/>
+      <g fill="#F4E4BE"><circle cx="0" cy="-12" r="1.4"/><circle cx="8.5" cy="-8.5" r="1.4"/><circle cx="12" cy="0" r="1.4"/><circle cx="8.5" cy="8.5" r="1.4"/><circle cx="0" cy="12" r="1.4"/><circle cx="-8.5" cy="8.5" r="1.4"/><circle cx="-12" cy="0" r="1.4"/><circle cx="-8.5" cy="-8.5" r="1.4"/></g>
+    </symbol>
+
+    <symbol id="f-boton" viewBox="-50 -50 100 100">
+      <path d="M0 48 C2 30 -2 18 0 8" fill="none" stroke="var(--h2, #8A9B76)" stroke-width="2.2"/>
+      <path d="M0 10 C-16 2 -18 -20 0 -40 C18 -20 16 2 0 10Z" fill="var(--p2)" stroke="var(--p3)" stroke-opacity=".4"/>
+      <path d="M0 8 C-8 0 -8 -18 2 -32" fill="none" stroke="var(--p3)" stroke-opacity=".5" stroke-width="1.2"/>
+      <path d="M0 12 C-14 8 -18 -4 -14 -10 C-8 -2 -4 4 0 12 C4 4 8 -2 14 -10 C18 -4 14 8 0 12Z" fill="var(--h1, #A9B796)"/>
+    </symbol>
+
+    <symbol id="f-hoja" viewBox="-50 -50 100 100">
+      <path d="M0 50 C-22 22 -20 -22 0 -50 C20 -22 22 22 0 50Z" fill="var(--h1)"/>
+      <path d="M0 48 C-2 10 -1 -20 0 -46" fill="none" stroke="var(--h2)" stroke-width="1.4"/>
+      <g fill="none" stroke="var(--h2)" stroke-width=".8" opacity=".7">
+        <path d="M0 20 L-10 8"/><path d="M0 4 L-12 -8"/><path d="M0 -14 L-9 -24"/><path d="M0 26 L11 14"/><path d="M0 8 L12 -4"/><path d="M0 -10 L10 -20"/>
+      </g>
+    </symbol>
+
+    <symbol id="f-eucalipto" viewBox="-50 -50 100 100">
+      <path d="M-4 50 C6 20 -8 -10 4 -48" fill="none" stroke="var(--h2)" stroke-width="1.6"/>
+      <g fill="var(--h1)" stroke="var(--h2)" stroke-width=".6" stroke-opacity=".6">
+        <ellipse cx="-10" cy="36" rx="9" ry="8"/><ellipse cx="9" cy="24" rx="9" ry="8"/><ellipse cx="-11" cy="10" rx="8" ry="7.5"/><ellipse cx="8" cy="-4" rx="8" ry="7"/><ellipse cx="-8" cy="-18" rx="7" ry="6.5"/><ellipse cx="9" cy="-30" rx="6" ry="5.5"/><ellipse cx="0" cy="-44" rx="5" ry="4.5"/>
+      </g>
+    </symbol>
+
+    <symbol id="f-espiga" viewBox="-50 -50 100 100">
+      <path d="M0 50 C2 20 -2 -10 0 -36" fill="none" stroke="#C4A774" stroke-width="1.4"/>
+      <g fill="var(--p1)" stroke="var(--p3)" stroke-width=".6">
+        <ellipse cx="-5" cy="14" rx="3.6" ry="7" transform="rotate(-24 -5 14)"/><ellipse cx="5" cy="8" rx="3.6" ry="7" transform="rotate(24 5 8)"/>
+        <ellipse cx="-5" cy="0" rx="3.4" ry="6.6" transform="rotate(-24 -5 0)"/><ellipse cx="5" cy="-6" rx="3.4" ry="6.6" transform="rotate(24 5 -6)"/>
+        <ellipse cx="-4.5" cy="-14" rx="3.2" ry="6.2" transform="rotate(-22 -4.5 -14)"/><ellipse cx="4.5" cy="-20" rx="3.2" ry="6.2" transform="rotate(22 4.5 -20)"/>
+        <ellipse cx="0" cy="-32" rx="3" ry="6.4"/>
+      </g>
+      <g stroke="var(--p3)" stroke-width=".5" fill="none" opacity=".8"><path d="M0 -38 L0 -48"/><path d="M5 -26 L10 -36"/><path d="M-5 -20 L-10 -30"/></g>
+    </symbol>
+
+    <symbol id="f-gipsofila" viewBox="-50 -50 100 100">
+      <g fill="none" stroke="var(--h2)" stroke-width=".9">
+        <path d="M0 50 C0 20 -4 0 -14 -18"/><path d="M0 22 C6 6 14 -6 22 -22"/><path d="M-4 4 C-14 -2 -24 -4 -32 -2"/><path d="M8 8 C14 0 26 -2 34 2"/><path d="M-10 -10 C-6 -22 -2 -32 2 -40"/>
+      </g>
+      <g fill="var(--p1)" stroke="var(--p3)" stroke-width=".5">
+        <circle cx="-14" cy="-20" r="3.2"/><circle cx="-18" cy="-14" r="2.6"/><circle cx="-10" cy="-24" r="2.4"/>
+        <circle cx="22" cy="-24" r="3.2"/><circle cx="26" cy="-18" r="2.4"/><circle cx="18" cy="-28" r="2.2"/>
+        <circle cx="-32" cy="-3" r="2.8"/><circle cx="-36" cy="2" r="2.2"/><circle cx="-28" cy="-8" r="2"/>
+        <circle cx="34" cy="2" r="2.8"/><circle cx="38" cy="-3" r="2.2"/>
+        <circle cx="2" cy="-42" r="3"/><circle cx="-2" cy="-46" r="2.2"/><circle cx="6" cy="-44" r="2"/>
+      </g>
+    </symbol>
+    <!-- Ave del paraíso (Strelitzia): degradados fijos para volumen; la sombra la pone .flor svg -->
+    <linearGradient id="par-sepalo" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#D9581F"/><stop offset=".55" stop-color="#F28C35"/><stop offset="1" stop-color="#FFC66E"/>
+    </linearGradient>
+    <linearGradient id="par-sepalo-atras" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#B8481A"/><stop offset="1" stop-color="#E9873A"/>
+    </linearGradient>
+    <linearGradient id="par-azul" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#26357E"/><stop offset=".6" stop-color="#3F5BB8"/><stop offset="1" stop-color="#8AA0E6"/>
+    </linearGradient>
+    <linearGradient id="par-bractea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7FA273"/><stop offset=".45" stop-color="#4C7559"/><stop offset="1" stop-color="#2B4A3B"/>
+    </linearGradient>
+    <linearGradient id="par-hoja" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3E6A4C"/><stop offset=".5" stop-color="#6F9A6A"/><stop offset="1" stop-color="#456F50"/>
+    </linearGradient>
+    <path id="par-sep" d="M0 0 C-5 -10 -6.5 -27 -1.5 -41 C-.5 -43.5 2.5 -43.5 3 -41 C5 -27 4.5 -10 0 0Z"/>
+    <path id="par-lengua" d="M0 0 C-2.5 -9 -3 -22 -.5 -32 L1 -35 L3 -31.5 C3.5 -21 2.5 -9 0 0Z"/>
+
+    <symbol id="f-paraiso" viewBox="-50 -50 100 100">
+      <path d="M19 7 C15 21 9 36 7 50" fill="none" stroke="#3F6A50" stroke-width="3.2" stroke-linecap="round"/>
+      <path d="M19 7 C15 21 9 36 7 50" fill="none" stroke="#86A97A" stroke-width="1" stroke-linecap="round" opacity=".6" transform="translate(-.8 0)"/>
+      <g transform="translate(5 -5)">
+        <use href="#par-sep" fill="url(#par-sepalo-atras)" transform="rotate(-6) scale(.92)"/>
+        <use href="#par-sep" fill="url(#par-sepalo)" transform="rotate(-48) scale(1.02)"/>
+        <use href="#par-lengua" fill="url(#par-azul)" transform="rotate(-32)"/>
+        <use href="#par-sep" fill="url(#par-sepalo)" transform="rotate(-24)"/>
+        <use href="#par-lengua" fill="url(#par-azul)" transform="rotate(-12) scale(.86)"/>
+        <g fill="none" stroke="#FFE1A8" stroke-width=".7" opacity=".7" stroke-linecap="round">
+          <path d="M0 -3 C-1 -14 -2 -26 -1 -38" transform="rotate(-48)"/>
+          <path d="M0 -3 C-1 -14 -2 -26 -1 -38" transform="rotate(-24)"/>
+        </g>
+      </g>
+      <path d="M-45 2 C-27 -6 1 -10 22 -4.5 C27.5 -2.5 27.5 5.5 20 9 C2 12.5 -24 8.5 -45 2Z" fill="url(#par-bractea)"/>
+      <path d="M-45 2 C-27 -6 1 -10 22 -4.5 C26 -3.4 27 -1 26.6 1.5" fill="none" stroke="#C4553A" stroke-width="1.6" stroke-linecap="round" opacity=".85"/>
+      <path d="M-36 3.2 C-18 .6 4 -.6 19 1.6" fill="none" stroke="#A9C79A" stroke-width=".9" opacity=".55" stroke-linecap="round"/>
+    </symbol>
+
+    <symbol id="f-hoja-paraiso" viewBox="-50 -50 100 100">
+      <path d="M2 50 C1 32 2 16 3 6" fill="none" stroke="#3F6A50" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M3 8 C-17 -2 -19 -34 3 -49 C22 -34 20 -3 3 8Z" fill="url(#par-hoja)"/>
+      <path d="M3 6 C3.6 -12 4 -30 3.4 -47" fill="none" stroke="#D5E2C1" stroke-width="1" opacity=".75"/>
+      <g fill="none" stroke="#2F543E" stroke-width=".6" opacity=".45">
+        <path d="M3.4 -6 C-4 -9 -10 -12 -14 -17"/><path d="M3.6 -16 C-3 -19 -9 -23 -12 -28"/><path d="M3.8 -26 C-2 -29 -6 -33 -8 -38"/>
+        <path d="M3.4 -6 C10 -9 15 -12 18 -17"/><path d="M3.6 -16 C10 -19 14 -23 16 -28"/><path d="M3.8 -26 C9 -29 12 -33 13 -38"/>
+      </g>
+      <path d="M-12 -14 L-17 -16" stroke="#FBF6EE" stroke-width="1.2" opacity=".8"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============ SOBRE (intro): bloquea el scroll hasta abrirse ============ -->
+<div class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="intro-titulo">
+  <div class="jardin jardin--intro" data-jardin="intro" aria-hidden="true"></div>
+
+  <div class="intro__centro">
+    <p class="intro__para" id="intro-titulo">Una invitación para ti</p>
+
+    <div class="sobre" id="sobre">
+      <div class="sobre__fondo"></div>
+
+      <div class="carta">
+        <div class="carta__papel">
+          <span class="carta__mono">A<i>&amp;</i>E</span>
+          <span class="carta__linea">Nos casamos</span>
+          <span class="carta__nombres">Alejandra <i>&amp;</i> Eliav</span>
+        </div>
+      </div>
+
+      <svg class="sobre__bolsillo" viewBox="0 0 300 200" preserveAspectRatio="none" aria-hidden="true">
+        <polygon points="0,0 152,112 0,200" fill="#F3E9D8"/>
+        <polygon points="300,0 148,112 300,200" fill="#F1E5D2"/>
+        <polygon points="0,200 150,98 300,200" fill="#F7EEDF"/>
+        <path d="M0 200 L150 98 L300 200" fill="none" stroke="#D8C4A4" stroke-width=".8" vector-effect="non-scaling-stroke"/>
+        <path d="M0 0 L152 112 M300 0 L148 112" fill="none" stroke="#E2D1B6" stroke-width=".6" vector-effect="non-scaling-stroke"/>
+      </svg>
+
+      <div class="solapa">
+        <div class="solapa__cara solapa__cara--ext"><div class="solapa__forma"></div></div>
+        <div class="solapa__cara solapa__cara--int"><div class="solapa__forma"></div></div>
+      </div>
+
+      <button class="sello" id="sello" type="button" aria-label="Abrir la invitación" disabled>
+        <span class="sello__mitad sello__mitad--izq"><svg viewBox="0 0 120 120"><use href="#sello-arte"/></svg></span>
+        <span class="sello__mitad sello__mitad--der"><svg viewBox="0 0 120 120"><use href="#sello-arte"/></svg></span>
+        <span class="sello__aro" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <p class="intro__pista" id="pista" aria-live="polite"><span class="intro__cargando">Preparando tu invitación…</span><span class="intro__toca">Toca el sello para abrir</span></p>
+  </div>
+</div>
+
+<!-- ============ INVITACIÓN ============ -->
+<main class="invitacion" id="invitacion" aria-hidden="true">
+
+  <section class="portada" id="inicio">
+    <div class="guirnalda" data-guirnalda="9" aria-hidden="true"></div>
+    <div class="jardin" data-jardin="portada" aria-hidden="true"></div>
+
+    <div class="portada__texto">
+      <p class="sobretitulo revela">Nos casamos</p>
+      <h1 class="nombres">
+        <span class="nombres__uno revela">Alejandra</span>
+        <span class="nombres__y revela">&amp;</span>
+        <span class="nombres__dos revela">Eliav</span>
+      </h1>
+      <p class="nombres__completos revela">Ceremonia civil</p>
+      <div class="filete revela" aria-hidden="true"><span></span><i>✦</i><span></span></div>
+      <p class="portada__fecha revela" data-boda="fecha-larga">Fecha por confirmar</p>
+    </div>
+
+    <a class="desliza" href="#invitados" aria-label="Bajar a la invitación"><span>Desliza</span><i></i></a>
+  </section>
+
+  <section class="seccion seccion--texto" id="invitados">
+    <div class="contenedor angosto">
+      <span class="mono-pequeno revela" aria-hidden="true">A<i>&amp;</i>E</span>
+      <p class="parrafo-grande revela">Queremos invitarte a conmemorar esta unión.</p>
+
+      <div class="padres revela">
+        <div>
+          <h3 class="etiqueta">Padres del novio</h3>
+          <p>Por confirmar</p>
+        </div>
+        <div>
+          <h3 class="etiqueta">Padres de la novia</h3>
+          <p>Por confirmar</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion seccion--lino" id="cuenta">
+    <div class="contenedor">
+      <h2 class="titulo revela"><span class="titulo__script">Faltan</span>Cuenta regresiva</h2>
+      <div class="cuenta revela" data-cuenta>
+        <div><b data-c="d">—</b><span>Días</span></div>
+        <div><b data-c="h">—</b><span>Horas</span></div>
+        <div><b data-c="m">—</b><span>Minutos</span></div>
+        <div><b data-c="s">—</b><span>Segundos</span></div>
+      </div>
+      <p class="nota revela" data-cuenta-nota>La fecha se anunciará muy pronto.</p>
+      <a class="boton boton--linea revela" data-calendario href="#" target="_blank" rel="noopener" hidden>Agregar al calendario</a>
+    </div>
+  </section>
+
+  <section class="seccion" id="lugares">
+    <div class="contenedor">
+      <h2 class="titulo revela"><span class="titulo__script">Dónde y cuándo</span>Ubicación</h2>
+
+      <div class="pared">
+        <figure class="colgante" style="--retraso:0s">
+          <div class="colgante__clavo" aria-hidden="true"></div>
+          <svg class="colgante__cuerda" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M24 60 L100 3 L176 60"/></svg>
+          <div class="marco">
+            <div class="ramo" data-ramo="izq" aria-hidden="true"></div>
+            <div class="marco__interior">
+              <span class="icono" aria-hidden="true">
+                <svg viewBox="0 0 48 48"><circle cx="18" cy="26" r="9"/><circle cx="30" cy="26" r="9"/><path d="M20 12l4-6 4 6M17 12h14"/></svg>
+              </span>
+              <h3 class="marco__titulo">Ceremonia civil</h3>
+              <p class="marco__hora">Hora por confirmar</p>
+              <p class="marco__lugar">Casa Maka</p>
+              <p class="marco__dir">Calle Maka, Tetelpan, Ciudad de México</p>
+              <a class="boton boton--linea" href="https://www.google.com/maps/search/?api=1&amp;query=Casa%20Maka%2C%20Calle%20Maka%2C%20Tetelpan%2C%20Ciudad%20de%20M%C3%A9xico" data-mapa target="_blank" rel="noopener">Ver mapa</a>
+            </div>
+          </div>
+        </figure>
+
+        <figure class="colgante" style="--retraso:.25s">
+          <div class="colgante__clavo" aria-hidden="true"></div>
+          <svg class="colgante__cuerda" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M24 60 L100 3 L176 60"/></svg>
+          <div class="marco">
+            <div class="ramo" data-ramo="der" aria-hidden="true"></div>
+            <div class="marco__interior">
+              <span class="icono" aria-hidden="true">
+                <svg viewBox="0 0 48 48"><path d="M16 6h8l-1 12a5 5 0 0 1-6 0zM32 6h-8M20 23v15M15 40h10M28 6h8l-1 12a5 5 0 0 1-6 0zM32 23v15M27 40h10"/></svg>
+              </span>
+              <h3 class="marco__titulo">Recepción</h3>
+              <p class="marco__hora">Hora por confirmar</p>
+              <p class="marco__lugar">Lugar por confirmar</p>
+              <p class="marco__dir">Dirección por confirmar</p>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion seccion--lino" id="itinerario">
+    <div class="guirnalda guirnalda--borde" data-guirnalda="7" aria-hidden="true"></div>
+    <div class="contenedor">
+      <h2 class="titulo revela"><span class="titulo__script">El gran día</span>Itinerario</h2>
+      <ol class="itinerario">
+        <li class="revela"><span class="itinerario__hora">— : —</span><span class="itinerario__que">Ceremonia civil</span></li>
+        <li class="revela"><span class="itinerario__hora">— : —</span><span class="itinerario__que">Cóctel de bienvenida</span></li>
+        <li class="revela"><span class="itinerario__hora">— : —</span><span class="itinerario__que">Entrada de los novios</span></li>
+        <li class="revela"><span class="itinerario__hora">— : —</span><span class="itinerario__que">Cena</span></li>
+        <li class="revela"><span class="itinerario__hora">— : —</span><span class="itinerario__que">Primer baile</span></li>
+        <li class="revela"><span class="itinerario__hora">— : —</span><span class="itinerario__que">¡A bailar!</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="seccion" id="galeria">
+    <div class="contenedor">
+      <h2 class="titulo revela"><span class="titulo__script">Nuestra historia</span>Momentos</h2>
+      <div class="pared pared--galeria">
+        <figure class="colgante colgante--foto" style="--retraso:0s; --giro:-2deg">
+          <div class="colgante__clavo" aria-hidden="true"></div>
+          <svg class="colgante__cuerda" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M30 60 L100 3 L170 60"/></svg>
+          <div class="marco marco--foto"><div class="foto" data-foto="img/foto-1.webp"><span>A<i>&amp;</i>E</span></div></div>
+          <figcaption>Cómo nos conocimos</figcaption>
+        </figure>
+        <figure class="colgante colgante--foto colgante--alto" style="--retraso:.2s; --giro:1.5deg">
+          <div class="colgante__clavo" aria-hidden="true"></div>
+          <svg class="colgante__cuerda" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M30 60 L100 3 L170 60"/></svg>
+          <div class="marco marco--foto"><div class="ramo" data-ramo="der" aria-hidden="true"></div><div class="foto" data-foto="img/foto-2.webp"><span>A<i>&amp;</i>E</span></div></div>
+          <figcaption>La propuesta</figcaption>
+        </figure>
+        <figure class="colgante colgante--foto" style="--retraso:.4s; --giro:-1deg">
+          <div class="colgante__clavo" aria-hidden="true"></div>
+          <svg class="colgante__cuerda" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M30 60 L100 3 L170 60"/></svg>
+          <div class="marco marco--foto"><div class="foto" data-foto="img/foto-3.webp"><span>A<i>&amp;</i>E</span></div></div>
+          <figcaption>Para siempre</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion seccion--lino" id="detalles">
+    <div class="contenedor">
+      <h2 class="titulo revela"><span class="titulo__script">Para tomar en cuenta</span>Detalles</h2>
+      <div class="detalles">
+        <article class="detalle revela">
+          <h3 class="etiqueta">Código de vestimenta</h3>
+          <p class="detalle__grande">Formal rústico</p>
+          <p>Te sugerimos tonos suaves y naturales. Reservamos el blanco para la novia.</p>
+          <ul class="muestras" aria-label="Paleta sugerida">
+            <li style="--c:#EED6CC" title="Rubor"></li>
+            <li style="--c:#F1E3C2" title="Mantequilla"></li>
+            <li style="--c:#C9D2BC" title="Salvia"></li>
+            <li style="--c:#DCD3E0" title="Lila"></li>
+            <li style="--c:#B5532F" title="Terracota"></li>
+          </ul>
+        </article>
+        <article class="detalle revela">
+          <h3 class="etiqueta">Mesa de regalos</h3>
+          <p class="detalle__grande">Tu presencia</p>
+          <p>Es nuestro mejor regalo. Si deseas tener un detalle con nosotros, la mesa de regalos estará disponible próximamente.</p>
+        </article>
+        <article class="detalle revela">
+          <h3 class="etiqueta">Comparte</h3>
+          <p class="detalle__grande" data-boda="hashtag">#AlejandraYEliav</p>
+          <p>Usa nuestro hashtag en tus fotos para que podamos revivir el día contigo.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion" id="confirmar">
+    <div class="contenedor angosto">
+      <h2 class="titulo revela"><span class="titulo__script">Te esperamos</span>Confirma tu asistencia</h2>
+      <p class="nota revela" data-boda="confirmar-antes" hidden></p>
+
+      <figure class="colgante colgante--form" style="--retraso:0s">
+        <div class="colgante__clavo" aria-hidden="true"></div>
+        <svg class="colgante__cuerda" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M18 60 L100 3 L182 60"/></svg>
+        <div class="marco">
+          <div class="ramo" data-ramo="izq" aria-hidden="true"></div>
+          <form class="rsvp marco__interior" id="rsvp" novalidate>
+            <label class="campo">
+              <span>Nombre completo</span>
+              <input name="nombre" type="text" autocomplete="name" required>
+            </label>
+            <fieldset class="campo campo--opciones">
+              <legend>¿Nos acompañas?</legend>
+              <label><input type="radio" name="asiste" value="Sí, ahí estaré" checked> <span>Sí, ahí estaré</span></label>
+              <label><input type="radio" name="asiste" value="No podré asistir"> <span>No podré asistir</span></label>
+            </fieldset>
+            <label class="campo">
+              <span>Número de personas</span>
+              <select name="personas">
+                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+              </select>
+            </label>
+            <label class="campo">
+              <span>Mensaje para los novios <em>(opcional)</em></span>
+              <textarea name="mensaje" rows="3"></textarea>
+            </label>
+            <button class="boton" type="submit">Enviar confirmación</button>
+            <p class="rsvp__estado" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <footer class="pie">
+    <div class="jardin jardin--pie" data-jardin="pie" aria-hidden="true"></div>
+    <span class="pie__mono">A<i>&amp;</i>E</span>
+    <p class="pie__gracias">Gracias por ser parte de nuestra historia</p>
+    <p class="pie__fecha" data-boda="fecha-corta"></p>
+  </footer>
+</main>
+
+<script src="js/flores.js"></script>
+<script src="js/sobre.js"></script>
+<script src="js/invitacion.js"></script>
+</body>
+</html>
