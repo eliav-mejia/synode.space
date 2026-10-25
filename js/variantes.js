@@ -1,20 +1,19 @@
 /* Variantes de la invitación. Se elige con ?variante=… (enlace para compartir) y se aplica antes de pintar:
    html[data-variante] decide qué se muestra. Además dibuja el menú para cambiar de variante.
-   - sello    sello de cera para abrir y damasco desvanecido en el pie (predeterminada)
-   - mosaico  sin sello ni fondo desvanecido; al tocar, el papel se cuartea en mosaico (js/mosaico.js) */
+   - sello    sello de cera para abrir y damasco desvanecido (predeterminada)
+   - mosaico  damasco a todo color que se rompe en teselas para abrir; sin sello (js/sello.js, js/mosaico.js) */
 (function () {
   "use strict";
 
   var VARIANTES = [
     { id: "sello", nombre: "Sello de cera", nota: "Se abre con el sello A & E" },
-    { id: "mosaico", nombre: "Mosaico", nota: "Sin sello; al tocar se cuartea" }
+    { id: "mosaico", nombre: "Mosaico", nota: "Se abre rompiendo el mosaico" }
   ];
 
   var html = document.documentElement;
   var pedida = new URLSearchParams(location.search).get("variante");
   var actual = VARIANTES.some(function (v) { return v.id === pedida; }) ? pedida : VARIANTES[0].id;
   html.dataset.variante = actual;
-  if (actual !== "sello") html.classList.remove("sellado");
   window.VARIANTE = actual;
 
   document.addEventListener("DOMContentLoaded", function () {

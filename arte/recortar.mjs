@@ -58,8 +58,8 @@ for (const [fuente, salida, umbral, voltear] of PIEZAS) {
   if (process.env.PREVIA) writeFileSync(`${process.env.PREVIA}/${salida}.jpg`, Buffer.from(res.jpg.split(",")[1], "base64"));
   console.log(salida, res.w + "×" + res.h, "papel", res.bg.join(","), Math.round(buf.length / 1024) + " KB");
 }
-// Fondo: damasco azul desvanecido en blanco (sello de entrada y pie)
-const FONDOS = [["damasco-azul.png", "fondo-damasco", .84]];
+// Fondo: damasco azul desvanecido en blanco (variante sello) y a todo color (variante mosaico)
+const FONDOS = [["damasco-azul.png", "fondo-damasco", .84], ["damasco-azul.png", "fondo-damasco-color", 0]];
 for (const [fuente, salida, velo] of FONDOS) {
   const datos = "data:image/png;base64," + readFileSync(new URL(`arte/fuentes/${fuente}`, raiz)).toString("base64");
   const webp = await pag.evaluate(async ({ datos, velo }) => {

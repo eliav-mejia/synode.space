@@ -1,4 +1,4 @@
-/* Variante mosaico: al tocar o hacer clic, el papel se cuartea como un mosaico de azulejo roto (trencadís).
+/* Variante mosaico: ya abierta la invitación, al tocar o hacer clic el papel se cuartea como azulejo roto (trencadís).
    Las grietas se dibujan desde el punto tocado, las teselas aparecen del centro hacia afuera
    y luego se desprenden y caen. Solo corre en html[data-variante="mosaico"]. */
 (function () {
@@ -86,6 +86,8 @@
 
   document.addEventListener("pointerdown", function (e) {
     if (e.button > 0) return;
+    // El primer toque rompe la entrada (js/sello.js); las grietas sueltas empiezan ya abierta la invitación
+    if (document.documentElement.classList.contains("sellado") || document.getElementById("intro")) return;
     if (e.target.closest("a, button, input, select, textarea, label, .variantes")) return;
     cuartear(e.clientX, e.clientY);
   });

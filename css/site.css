@@ -145,9 +145,39 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 .variantes__lista a[aria-current="page"] { box-shadow: var(--plancha); }
 .variantes__lista a[aria-current="page"] b { color: var(--terracota); }
 
-/* Mosaico: sin sello ni fondo desvanecido; las grietas al tocar */
-[data-variante="mosaico"] .intro { display: none !important; }
-[data-variante="mosaico"] .pie { background: none; -webkit-mask-image: none; mask-image: none; }
+/* Mosaico: damasco a todo color que se rompe para abrir; sin sello en ninguna parte */
+[data-variante="mosaico"] .intro { background: url("../img/escenas/fondo-damasco-color.webp") center / cover no-repeat, #FFFFFF; cursor: pointer; }
+[data-variante="mosaico"] .intro :is(.intro__para, .sello, .intro__pista) { display: none; }
+.intro__placa { display: none; }
+[data-variante="mosaico"] .intro__placa {
+  display: grid; justify-items: center; gap: 10px; padding: clamp(26px, 5vw, 40px) clamp(30px, 7vw, 60px);
+  border: 0; border-radius: 1px; cursor: pointer; color: var(--tinta);
+  background: var(--grano), var(--papel-claro);
+  box-shadow: 0 1px 1px rgba(20, 30, 60, .15), 0 24px 44px -20px rgba(20, 30, 60, .55);
+  opacity: 0; scale: .94; transition: opacity 1s ease, scale 1s cubic-bezier(.2, .8, .2, 1);
+}
+[data-variante="mosaico"] .listo .intro__placa { opacity: 1; scale: 1; }
+.intro__placa:disabled { cursor: progress; }
+.intro__placa-para { font-family: var(--f-display); font-size: .62rem; letter-spacing: .4em; text-transform: uppercase; color: var(--tinta-suave); margin-right: -.4em; }
+.intro__placa-nombres { font-family: var(--f-display); font-size: clamp(1.6rem, 1.2rem + 2vw, 2.4rem); letter-spacing: .02em; }
+.intro__placa-nombres i { font-family: var(--f-script); font-style: normal; color: var(--terracota); }
+.intro__placa-toca { font-style: italic; color: var(--tinta-suave); }
+.listo .intro__placa-toca { animation: latido 2.6s ease-in-out infinite; }
+.intro.rompiendo { background: none !important; transition: none; }
+.intro.rompiendo .intro__placa { visibility: hidden; }
+.mosaico-lienzo { position: fixed; inset: 0; z-index: 61; width: 100%; height: 100%; pointer-events: none; }
+
+.pie__mono { display: none; }
+[data-variante="mosaico"] .pie { background: url("../img/escenas/fondo-damasco-color.webp") center / cover no-repeat, #FFFFFF; }
+[data-variante="mosaico"] .pie__sello { display: none; }
+[data-variante="mosaico"] .pie__mono {
+  display: block; width: fit-content; margin: 0 auto; padding: 18px 30px;
+  font-family: var(--f-display); font-weight: 500; font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1; color: var(--terracota);
+  background: var(--grano), var(--papel-claro); box-shadow: 0 18px 34px -18px rgba(20, 30, 60, .55);
+}
+[data-variante="mosaico"] .pie :is(.pie__gracias, .pie__fecha) {
+  width: fit-content; margin-inline: auto; padding: .25em .9em; background: rgba(252, 250, 245, .92); text-shadow: none;
+}
 .grieta { position: fixed; z-index: 55; pointer-events: none; overflow: visible; }
 .grieta polygon { stroke: #FBF8F2; stroke-width: 2; stroke-linejoin: round; }
 .grieta__linea { fill: none; stroke: #3B312A; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
