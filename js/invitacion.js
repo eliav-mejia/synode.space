@@ -1,5 +1,5 @@
-/* Invitación: revelado al hacer scroll, flores que florecen, marcos que se columpian,
-   cuenta regresiva, calendario y RSVP por WhatsApp o correo. Datos en js/config.js. */
+/* Invitación: textos de config.js, fotos de la pareja, cuenta regresiva, calendario y RSVP por WhatsApp o correo.
+   El parallax y la impresión por fases viven en js/escenas.js. */
 (function () {
   "use strict";
 
@@ -18,57 +18,7 @@
   var antes = document.querySelector('[data-boda="confirmar-antes"]');
   if (antes && B.confirmarAntes) { antes.textContent = "Por favor confirma antes del " + B.confirmarAntes + "."; antes.hidden = false; }
 
-  // --- Revelado ---
-  var io = new IntersectionObserver(function (entradas) {
-    entradas.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      var el = e.target;
-      el.classList.add("visible");
-      if (el.matches("[data-jardin], [data-guirnalda], [data-ramo]")) el.classList.add("florece");
-      el.querySelectorAll && el.querySelectorAll("[data-ramo]").forEach(function (r) { r.classList.add("florece"); });
-      io.unobserve(el);
-    });
-  }, { threshold: .18, rootMargin: "0px 0px -6% 0px" });
-
-  document.addEventListener("invitacion:abierta", function () {
-    document.querySelectorAll(".invitacion .revela, .invitacion .colgante, .invitacion [data-jardin], .invitacion [data-guirnalda]").forEach(function (el) { io.observe(el); });
-  });
-
-  // Tocar un marco lo empuja y se vuelve a columpiar.
-  document.querySelectorAll(".colgante").forEach(function (c) {
-    c.addEventListener("pointerdown", function (e) {
-      if (e.target.closest("a, button, input, select, textarea, label")) return;
-      c.classList.remove("empujon");
-      void c.offsetWidth;
-      c.classList.add("empujon");
-    });
-  });
-
-  // Inclinación 2.5D de los marcos siguiendo el puntero (solo ratón/lápiz; en táctil se columpian).
-  var finos = window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
-    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (finos) {
-    document.querySelectorAll(".marco").forEach(function (m) {
-      var pend = null;
-      m.addEventListener("pointermove", function (e) {
-        var r = m.getBoundingClientRect();
-        var x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-        if (pend) return;
-        pend = requestAnimationFrame(function () {
-          pend = null;
-          m.style.setProperty("--inc-x", (x * 7).toFixed(2) + "deg");
-          m.style.setProperty("--inc-y", (-y * 6).toFixed(2) + "deg");
-        });
-      });
-      m.addEventListener("pointerleave", function () {
-        if (pend) { cancelAnimationFrame(pend); pend = null; }
-        m.style.removeProperty("--inc-x");
-        m.style.removeProperty("--inc-y");
-      });
-    });
-  }
-
-  // Fotos de la galería: se usan si existen en img/, si no queda el monograma.
+  // Fotos de la pareja: se usan si existen en img/, si no queda el monograma en relieve.
   document.querySelectorAll("[data-foto]").forEach(function (f) {
     var img = new Image();
     img.onload = function () { f.style.backgroundImage = "url('" + f.dataset.foto + "')"; f.classList.add("con-foto"); };

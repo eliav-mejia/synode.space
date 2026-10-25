@@ -1,432 +1,279 @@
 <!doctype html>
-<html lang="es" class="sellado">
+<html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Alejandra &amp; Eliav · Nuestra boda</title>
   <meta name="description" content="Invitación a la ceremonia civil de Alejandra y Eliav en Casa Maka, Tetelpan, Ciudad de México.">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#FFFFFF">
+  <meta name="theme-color" content="#F7F2E8">
   <meta name="color-scheme" content="light">
   <meta property="og:title" content="Alejandra &amp; Eliav · Nuestra boda">
-  <meta property="og:description" content="Abre tu invitación.">
+  <meta property="og:description" content="Te invitamos a celebrar con nosotros en Tetelpan.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://synode.space/">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,300;1,400;1,500&family=Pinyon+Script&display=swap">
-  <link rel="preload" as="image" href="img/paraiso-acuarela.webp" type="image/webp">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,300;1,400;1,500&family=Pinyon+Script&display=swap">
+  <link rel="preload" as="image" href="img/escenas/t-montes.webp" type="image/webp">
   <link rel="stylesheet" href="css/site.css">
+  <script>document.documentElement.classList.add("js", "sellado");</script>
   <script src="js/config.js"></script>
 </head>
 <body>
 
-<!-- ============ FONDO FIJO: papel con grano, flores prensadas y una ave del paraíso en acuarela ============ -->
-<div class="fondo" aria-hidden="true">
-  <div class="fondo__prensadas" data-prensadas></div>
-  <div class="acuarela" data-acuarela>
-    <img class="acuarela__difusa" src="img/paraiso-acuarela-difusa.webp" alt="" width="600" height="600" decoding="async">
-    <img class="acuarela__nitida" src="img/paraiso-acuarela.webp" alt="" width="1200" height="1200" decoding="async" fetchpriority="high">
-  </div>
-</div>
+<!-- Papel de algodón fijo y la marca de la plancha: no se mueven nunca -->
+<div class="papel" aria-hidden="true"></div>
+<div class="plancha" aria-hidden="true"></div>
 
-<!-- Sprite: flores prensadas (#p-*) y sello de cera. No usar display:none (rompe degradados y filtros). -->
-<svg class="sprite" aria-hidden="true" focusable="false">
-  <defs>
-    <radialGradient id="cera-luz" cx="38%" cy="32%" r="75%">
-      <stop offset="0" stop-color="#D9774F"/>
-      <stop offset=".55" stop-color="#B5532F"/>
-      <stop offset="1" stop-color="#7E3418"/>
-    </radialGradient>
-    <filter id="cera-borde" x="-10%" y="-10%" width="120%" height="120%">
-      <feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="7"/>
-      <feDisplacementMap in="SourceGraphic" scale="9"/>
-    </filter>
-
-    <symbol id="sello-arte" viewBox="0 0 120 120">
-      <circle cx="60" cy="60" r="52" fill="url(#cera-luz)" filter="url(#cera-borde)"/>
-      <circle cx="60" cy="60" r="38" fill="none" stroke="#7E3418" stroke-width="2.4" opacity=".55"/>
-      <circle cx="60" cy="60" r="34" fill="none" stroke="#E79A78" stroke-width=".8" opacity=".5" stroke-dasharray="1.5 3"/>
-      <text x="60" y="69" text-anchor="middle" font-family="'Cinzel Decorative', serif" font-weight="700" font-size="25" letter-spacing="1" fill="#7E3418" opacity=".8">AE</text>
-      <text x="59" y="68" text-anchor="middle" font-family="'Cinzel Decorative', serif" font-weight="700" font-size="25" letter-spacing="1" fill="#F0B79C" opacity=".55">AE</text>
-      <ellipse cx="44" cy="36" rx="12" ry="6" fill="#fff" opacity=".18" transform="rotate(-28 44 36)"/>
-    </symbol>
-
-    <!-- Prensado: orillas ligeramente irregulares y sombra mínima, como pegadas al papel -->
-    <filter id="prensa" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
-      <feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="2" seed="5" result="n"/>
-      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G" result="d"/>
-      <feGaussianBlur in="d" stdDeviation=".25" result="s"/>
-      <feDropShadow in="s" dx=".4" dy=".8" stdDeviation=".7" flood-color="#6E5037" flood-opacity=".22"/>
-    </filter>
-    <path id="pr-petalo" d="M0 -6 C-4.5 -16 -4.5 -35 0 -44 C4.5 -35 4.5 -16 0 -6Z"/>
-    <path id="pr-petalo-ancho" d="M0 -5 C-12 -12 -15 -32 -8 -42 C-4 -38 -2 -44 0 -40 C2 -44 4 -38 8 -42 C15 -32 12 -12 0 -5Z"/>
-    <path id="pr-florete" d="M0 0 C-5 -2 -7 -9 -1 -12 C1 -12.6 3 -12 4 -10 C6 -6 4 -2 0 0Z"/>
-    <g id="pr-hortensia-flor">
-      <use href="#pr-florete"/><use href="#pr-florete" transform="rotate(90)"/><use href="#pr-florete" transform="rotate(180)"/><use href="#pr-florete" transform="rotate(270)"/>
-    </g>
-
-    <symbol id="p-margarita" viewBox="-50 -50 100 100">
-      <g filter="url(#prensa)">
-        <g fill="#F1E6C8" fill-opacity=".86" stroke="#C9B080" stroke-width=".5" stroke-opacity=".6">
-          <use href="#pr-petalo"/><use href="#pr-petalo" transform="rotate(30)"/><use href="#pr-petalo" transform="rotate(60)"/><use href="#pr-petalo" transform="rotate(90)"/><use href="#pr-petalo" transform="rotate(120)"/><use href="#pr-petalo" transform="rotate(150)"/>
-          <use href="#pr-petalo" transform="rotate(180)"/><use href="#pr-petalo" transform="rotate(210)"/><use href="#pr-petalo" transform="rotate(240)"/><use href="#pr-petalo" transform="rotate(270)"/><use href="#pr-petalo" transform="rotate(300)"/><use href="#pr-petalo" transform="rotate(330)"/>
-        </g>
-        <g stroke="#D3BC8C" stroke-width=".45" opacity=".7">
-          <path d="M0 -9 V-40"/><path d="M0 -9 V-40" transform="rotate(60)"/><path d="M0 -9 V-40" transform="rotate(120)"/><path d="M0 -9 V-40" transform="rotate(180)"/><path d="M0 -9 V-40" transform="rotate(240)"/><path d="M0 -9 V-40" transform="rotate(300)"/>
-        </g>
-        <circle r="8" fill="#C9973E" fill-opacity=".9"/>
-        <g fill="#8E6426" opacity=".55"><circle cx="-3" cy="-2" r="1.1"/><circle cx="2.5" cy="-3" r="1"/><circle cx="3" cy="2.5" r="1.1"/><circle cx="-2" cy="3" r="1"/><circle cx="0" cy="0" r="1"/></g>
-      </g>
-    </symbol>
-
-    <symbol id="p-cosmos" viewBox="-50 -50 100 100">
-      <g filter="url(#prensa)">
-        <g fill="#E8B8AE" fill-opacity=".78" stroke="#C58C80" stroke-width=".5" stroke-opacity=".55">
-          <use href="#pr-petalo-ancho"/><use href="#pr-petalo-ancho" transform="rotate(45)"/><use href="#pr-petalo-ancho" transform="rotate(90)"/><use href="#pr-petalo-ancho" transform="rotate(135)"/>
-          <use href="#pr-petalo-ancho" transform="rotate(180)"/><use href="#pr-petalo-ancho" transform="rotate(225)"/><use href="#pr-petalo-ancho" transform="rotate(270)"/><use href="#pr-petalo-ancho" transform="rotate(315)"/>
-        </g>
-        <g stroke="#B9776B" stroke-width=".4" opacity=".5" fill="none">
-          <path d="M0 -8 V-36 M-3 -12 L-6 -32 M3 -12 L6 -32"/><path d="M0 -8 V-36 M-3 -12 L-6 -32 M3 -12 L6 -32" transform="rotate(90)"/><path d="M0 -8 V-36 M-3 -12 L-6 -32 M3 -12 L6 -32" transform="rotate(180)"/><path d="M0 -8 V-36 M-3 -12 L-6 -32 M3 -12 L6 -32" transform="rotate(270)"/>
-        </g>
-        <circle r="7" fill="#B98A3C" fill-opacity=".85"/><circle r="3.4" fill="#7A5325" fill-opacity=".6"/>
-      </g>
-    </symbol>
-
-    <symbol id="p-hortensia" viewBox="-50 -50 100 100">
-      <g filter="url(#prensa)" stroke="#9A8FBC" stroke-width=".4" stroke-opacity=".6">
-        <g fill="#C9C0E0" fill-opacity=".8">
-          <use href="#pr-hortensia-flor" transform="translate(-14 -12) rotate(10) scale(1.5)"/>
-          <use href="#pr-hortensia-flor" transform="translate(14 -16) rotate(40) scale(1.3)"/>
-          <use href="#pr-hortensia-flor" transform="translate(0 6) rotate(-15) scale(1.6)"/>
-        </g>
-        <g fill="#B4C3DD" fill-opacity=".78">
-          <use href="#pr-hortensia-flor" transform="translate(-22 14) rotate(25) scale(1.2)"/>
-          <use href="#pr-hortensia-flor" transform="translate(22 10) rotate(-30) scale(1.35)"/>
-          <use href="#pr-hortensia-flor" transform="translate(4 -30) rotate(5) scale(1.15)"/>
-          <use href="#pr-hortensia-flor" transform="translate(8 28) rotate(60) scale(1.1)"/>
-        </g>
-        <g fill="#EADFC4" stroke="none"><circle cx="-14" cy="-12" r="1.4"/><circle cx="14" cy="-16" r="1.2"/><circle cx="0" cy="6" r="1.5"/><circle cx="-22" cy="14" r="1.1"/><circle cx="22" cy="10" r="1.2"/><circle cx="4" cy="-30" r="1"/><circle cx="8" cy="28" r="1"/></g>
-      </g>
-    </symbol>
-
-    <symbol id="p-helecho" viewBox="-50 -50 100 100">
-      <g filter="url(#prensa)">
-        <path d="M0 50 C2 20 -2 -14 4 -48" fill="none" stroke="#8C9C74" stroke-width="1.3"/>
-        <g fill="#A8B78E" fill-opacity=".82">
-          <ellipse cx="-9" cy="38" rx="9" ry="3.2" transform="rotate(-20 -9 38)"/><ellipse cx="10" cy="32" rx="9" ry="3.2" transform="rotate(20 10 32)"/>
-          <ellipse cx="-9" cy="22" rx="9" ry="3" transform="rotate(-24 -9 22)"/><ellipse cx="10" cy="16" rx="8.6" ry="3" transform="rotate(24 10 16)"/>
-          <ellipse cx="-8" cy="6" rx="8.4" ry="2.9" transform="rotate(-26 -8 6)"/><ellipse cx="9" cy="0" rx="8" ry="2.8" transform="rotate(26 9 0)"/>
-          <ellipse cx="-7" cy="-10" rx="7.4" ry="2.6" transform="rotate(-28 -7 -10)"/><ellipse cx="8.6" cy="-16" rx="7" ry="2.5" transform="rotate(28 8.6 -16)"/>
-          <ellipse cx="-4" cy="-26" rx="6" ry="2.2" transform="rotate(-30 -4 -26)"/><ellipse cx="9" cy="-31" rx="5.4" ry="2" transform="rotate(30 9 -31)"/>
-          <ellipse cx="2" cy="-40" rx="4" ry="1.7" transform="rotate(-20 2 -40)"/>
-        </g>
-      </g>
-    </symbol>
-
-    <symbol id="p-hoja" viewBox="-50 -50 100 100">
-      <g filter="url(#prensa)">
-        <path d="M0 48 C-20 22 -20 -20 2 -48 C20 -20 20 22 0 48Z" fill="#B3B989" fill-opacity=".8" stroke="#8E8F5E" stroke-width=".6" stroke-opacity=".6"/>
-        <path d="M0 46 C1 10 1 -20 2 -46" fill="none" stroke="#E7E3C4" stroke-width="1"/>
-        <g fill="none" stroke="#8E8F5E" stroke-width=".5" opacity=".6">
-          <path d="M.5 24 C-6 18 -10 14 -13 10"/><path d="M.8 8 C-6 2 -10 -2 -13 -6"/><path d="M1.2 -10 C-5 -16 -8 -20 -10 -24"/>
-          <path d="M.5 24 C6 18 10 14 13 10"/><path d="M.8 8 C6 2 10 -2 13 -6"/><path d="M1.2 -10 C6 -16 9 -20 11 -24"/>
-        </g>
-        <path d="M-12 14 C-14 6 -15 -2 -14 -8" fill="none" stroke="#B48A55" stroke-width=".8" opacity=".4"/>
-      </g>
-    </symbol>
-
-    <symbol id="p-lavanda" viewBox="-50 -50 100 100">
-      <g filter="url(#prensa)">
-        <path d="M-2 50 C0 20 0 -10 2 -46" fill="none" stroke="#97A47E" stroke-width="1.2"/>
-        <g fill="#A99BC8" fill-opacity=".85">
-          <ellipse cx="-2.6" cy="-6" rx="2.2" ry="3.6" transform="rotate(-25 -2.6 -6)"/><ellipse cx="3" cy="-9" rx="2.2" ry="3.6" transform="rotate(25 3 -9)"/>
-          <ellipse cx="-2" cy="-15" rx="2.1" ry="3.4" transform="rotate(-25 -2 -15)"/><ellipse cx="3.4" cy="-18" rx="2.1" ry="3.4" transform="rotate(25 3.4 -18)"/>
-          <ellipse cx="-1.4" cy="-24" rx="2" ry="3.2" transform="rotate(-25 -1.4 -24)"/><ellipse cx="3.6" cy="-27" rx="2" ry="3.2" transform="rotate(25 3.6 -27)"/>
-          <ellipse cx="-.6" cy="-33" rx="1.9" ry="3" transform="rotate(-20 -.6 -33)"/><ellipse cx="3.6" cy="-36" rx="1.8" ry="2.8" transform="rotate(20 3.6 -36)"/>
-          <ellipse cx="1.8" cy="-43" rx="1.6" ry="2.8"/>
-          <ellipse cx="-2.4" cy="6" rx="2" ry="3.2" transform="rotate(-25 -2.4 6)"/><ellipse cx="2.4" cy="3" rx="2" ry="3.2" transform="rotate(25 2.4 3)"/>
-        </g>
-        <path d="M-1 30 C-8 24 -12 20 -14 14" fill="none" stroke="#97A47E" stroke-width="1"/>
-        <ellipse cx="-12" cy="20" rx="1.6" ry="5" fill="#A8B78E" fill-opacity=".8" transform="rotate(-40 -12 20)"/>
-      </g>
-    </symbol>
-
-    <symbol id="p-petalos" viewBox="-50 -50 100 100">
-      <g filter="url(#prensa)" stroke="#C99A8F" stroke-width=".5" stroke-opacity=".6">
-        <path d="M-6 6 C-26 0 -30 -24 -14 -32 C-4 -36 6 -28 4 -14 C3 -6 -1 2 -6 6Z" fill="#EFC9BF" fill-opacity=".75"/>
-        <path d="M8 10 C26 2 34 -14 22 -24 C12 -30 2 -18 4 -4 C5 2 6 7 8 10Z" fill="#F3D8CC" fill-opacity=".72"/>
-        <path d="M-2 14 C-14 22 -10 38 4 38 C16 38 20 24 10 16 C6 12 2 12 -2 14Z" fill="#E6B5A8" fill-opacity=".7"/>
-        <g fill="none" stroke="#C48F82" stroke-width=".4" opacity=".55"><path d="M-6 4 C-12 -6 -14 -16 -14 -28"/><path d="M8 8 C12 -2 16 -10 20 -20"/><path d="M2 16 C4 24 4 30 4 36"/></g>
-      </g>
-    </symbol>
-
-    <symbol id="p-rama" viewBox="-50 -50 100 100">
-      <g filter="url(#prensa)">
-        <path d="M-4 50 C4 22 -6 -8 4 -46" fill="none" stroke="#8C9C86" stroke-width="1.2"/>
-        <g fill="#B7C6B3" fill-opacity=".78" stroke="#8C9C86" stroke-width=".45" stroke-opacity=".6">
-          <circle cx="-9" cy="36" r="7"/><circle cx="8" cy="24" r="7"/><circle cx="-9" cy="10" r="6.4"/><circle cx="7" cy="-4" r="6"/><circle cx="-7" cy="-18" r="5.4"/><circle cx="8" cy="-30" r="4.6"/><circle cx="1" cy="-42" r="3.8"/>
-        </g>
-      </g>
-    </symbol>
-  </defs>
-</svg>
-
-<!-- ============ SOBRE (intro): bloquea el scroll hasta abrirse ============ -->
+<!-- ============ SELLO DE ENTRADA: relieve A & E en papel crema; bloquea el scroll hasta abrirse ============ -->
 <div class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="intro-titulo">
-  <div class="intro__centro">
-    <p class="intro__para" id="intro-titulo">Una invitación para ti</p>
+  <p class="intro__para" id="intro-titulo">Una invitación para ti</p>
 
-    <div class="sobre" id="sobre">
-      <div class="sobre__fondo"></div>
+  <button class="sello" id="sello" type="button" aria-label="Abrir la invitación" disabled>
+    <svg class="sello__arte" viewBox="0 0 240 240" aria-hidden="true">
+      <defs>
+        <!-- Relieve: luz arriba a la izquierda y sombra abajo a la derecha, sin tinta -->
+        <filter id="relieve" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+          <feOffset in="SourceAlpha" dx="-1.1" dy="-1.1" result="a1"/>
+          <feFlood flood-color="#FFFBF2" flood-opacity=".95"/><feComposite in2="a1" operator="in" result="luz"/>
+          <feOffset in="SourceAlpha" dx="1.2" dy="1.4" result="a2"/>
+          <feGaussianBlur in="a2" stdDeviation=".55" result="a2b"/>
+          <feFlood flood-color="#76603F" flood-opacity=".55"/><feComposite in2="a2b" operator="in" result="sombra"/>
+          <feMerge><feMergeNode in="luz"/><feMergeNode in="sombra"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <radialGradient id="sello-disco" cx="42%" cy="38%" r="70%">
+          <stop offset="0" stop-color="#F3EAD9"/><stop offset=".7" stop-color="#E9DCC4"/><stop offset="1" stop-color="#DCCBAE"/>
+        </radialGradient>
+        <path id="sello-anillo" d="M120 120m-84 0a84 84 0 1 1 168 0a84 84 0 1 1 -168 0"/>
+      </defs>
+      <path class="sello__disco" data-feston d="" fill="url(#sello-disco)"/>
+      <g class="sello__relieve" filter="url(#relieve)" fill="#ECE1CC">
+        <circle cx="120" cy="120" r="103" fill="none" stroke="#ECE1CC" stroke-width="2.2"/>
+        <circle cx="120" cy="120" r="97" fill="none" stroke="#ECE1CC" stroke-width="1" stroke-dasharray="1.2 3.4"/>
+        <circle cx="120" cy="120" r="68" fill="none" stroke="#ECE1CC" stroke-width="1.6"/>
+        <text font-family="'Bodoni Moda', Georgia, serif" font-size="11.5" font-weight="600" letter-spacing="3.2"><textPath href="#sello-anillo" textLength="520" lengthAdjust="spacing">ALEJANDRA ✦ ELIAV ✦ NOS CASAMOS ✦ TETELPAN ✦</textPath></text>
+        <text x="80" y="136" text-anchor="middle" font-family="'Bodoni Moda', Georgia, serif" font-size="46" font-weight="500">A</text>
+        <text x="120" y="140" text-anchor="middle" font-family="'Pinyon Script', cursive" font-size="40">&amp;</text>
+        <text x="160" y="136" text-anchor="middle" font-family="'Bodoni Moda', Georgia, serif" font-size="46" font-weight="500">E</text>
+      </g>
+    </svg>
+    <span class="sello__aro" aria-hidden="true"></span>
+  </button>
 
-      <div class="carta">
-        <div class="carta__papel">
-          <span class="carta__mono">A<i>&amp;</i>E</span>
-          <span class="carta__linea">Nos casamos</span>
-          <span class="carta__nombres">Alejandra <i>&amp;</i> Eliav</span>
-        </div>
-      </div>
-
-      <svg class="sobre__bolsillo" viewBox="0 0 300 200" preserveAspectRatio="none" aria-hidden="true">
-        <polygon points="0,0 152,112 0,200" fill="#F3E9D8"/>
-        <polygon points="300,0 148,112 300,200" fill="#F1E5D2"/>
-        <polygon points="0,200 150,98 300,200" fill="#F7EEDF"/>
-        <path d="M0 200 L150 98 L300 200" fill="none" stroke="#D8C4A4" stroke-width=".8" vector-effect="non-scaling-stroke"/>
-        <path d="M0 0 L152 112 M300 0 L148 112" fill="none" stroke="#E2D1B6" stroke-width=".6" vector-effect="non-scaling-stroke"/>
-      </svg>
-
-      <div class="solapa">
-        <div class="solapa__cara solapa__cara--ext"><div class="solapa__forma"></div></div>
-        <div class="solapa__cara solapa__cara--int"><div class="solapa__forma"></div></div>
-      </div>
-
-      <button class="sello" id="sello" type="button" aria-label="Abrir la invitación" disabled>
-        <span class="sello__mitad sello__mitad--izq"><svg viewBox="0 0 120 120"><use href="#sello-arte"/></svg></span>
-        <span class="sello__mitad sello__mitad--der"><svg viewBox="0 0 120 120"><use href="#sello-arte"/></svg></span>
-        <span class="sello__aro" aria-hidden="true"></span>
-      </button>
-    </div>
-
-    <p class="intro__pista" id="pista" aria-live="polite"><span class="intro__cargando">Preparando tu invitación…</span><span class="intro__toca">Toca el sello para abrir</span></p>
-  </div>
+  <p class="intro__pista" aria-live="polite"><span class="intro__cargando">Preparando tu invitación…</span><span class="intro__toca">Toca el sello para abrir</span></p>
 </div>
 
-<!-- ============ INVITACIÓN ============ -->
-<main class="invitacion" id="invitacion" aria-hidden="true">
+<main>
 
-  <section class="portada" id="inicio">
-    <div class="guirnalda" data-guirnalda="9" aria-hidden="true"></div>
-
-    <div class="portada__texto">
-      <p class="sobretitulo revela">Nos casamos</p>
-      <h1 class="nombres">
-        <span class="nombres__uno revela">Alejandra</span>
-        <span class="nombres__y revela">&amp;</span>
-        <span class="nombres__dos revela">Eliav</span>
-      </h1>
-      <p class="nombres__completos revela">Ceremonia civil</p>
-      <div class="filete revela" aria-hidden="true"><span></span><i>✦</i><span></span></div>
-      <p class="portada__fecha revela" data-boda="fecha-larga">Fecha por confirmar</p>
-    </div>
-
-    <a class="desliza" href="#invitados" aria-label="Bajar a la invitación"><span>Desliza</span><i></i></a>
-  </section>
-
-  <section class="seccion seccion--texto" id="invitados">
-    <div class="contenedor angosto">
-      <span class="mono-pequeno revela" aria-hidden="true">A<i>&amp;</i>E</span>
-      <p class="parrafo-grande revela">Queremos invitarte a conmemorar esta unión.</p>
-
-      <div class="padres revela">
-        <div>
-          <h3 class="etiqueta">Padres del novio</h3>
-          <p>Por confirmar</p>
-        </div>
-        <div>
-          <h3 class="etiqueta">Padres de la novia</h3>
-          <p>Por confirmar</p>
-        </div>
+  <!-- ============ ESCENA 1 · Tetelpan y aves del paraíso ============ -->
+  <section class="escena escena--tetelpan" id="inicio" data-escena aria-label="Nos casamos">
+    <div class="escena__escenario">
+      <div class="capas" aria-hidden="true">
+        <img class="capa capa--ancha" data-capa data-y="-3" src="img/escenas/t-montes.webp" alt="" width="1440" height="900" fetchpriority="high">
+        <img class="capa capa--ancha capa--bajo" data-capa data-y="-8" src="img/escenas/t-bosque.webp" alt="" width="2400" height="1500">
+        <img class="capa capa--marco-izq" data-capa data-x="-14" data-y="-4" src="img/escenas/t-marco-izq.webp" alt="" width="900" height="2000">
+        <img class="capa capa--marco-der" data-capa data-x="14" data-y="-4" src="img/escenas/t-marco-der.webp" alt="" width="900" height="2000">
+        <img class="capa capa--paraiso-izq" data-capa data-y="-5" data-s=".16" src="img/escenas/t-paraiso-izq.webp" alt="" width="1100" height="1300">
+        <img class="capa capa--paraiso-der" data-capa data-y="-6" data-s=".2" src="img/escenas/t-paraiso-der.webp" alt="" width="1100" height="1300">
       </div>
-    </div>
-  </section>
 
-  <section class="seccion seccion--lino" id="cuenta">
-    <div class="contenedor">
-      <h2 class="titulo revela"><span class="titulo__script">Faltan</span>Cuenta regresiva</h2>
-      <div class="cuenta revela" data-cuenta>
-        <div><b data-c="d">—</b><span>Días</span></div>
-        <div><b data-c="h">—</b><span>Horas</span></div>
-        <div><b data-c="m">—</b><span>Minutos</span></div>
-        <div><b data-c="s">—</b><span>Segundos</span></div>
-      </div>
-      <p class="nota revela" data-cuenta-nota>La fecha se anunciará muy pronto.</p>
-      <a class="boton boton--linea revela" data-calendario href="#" target="_blank" rel="noopener" hidden>Agregar al calendario</a>
-    </div>
-  </section>
-
-  <section class="seccion" id="lugares">
-    <div class="contenedor">
-      <h2 class="titulo revela"><span class="titulo__script">Dónde y cuándo</span>Ubicación</h2>
-
-      <div class="pared">
-        <figure class="colgante" style="--retraso:0s">
-          <div class="colgante__clavo" aria-hidden="true"></div>
-          <svg class="colgante__cuerda" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M24 60 L100 3 L176 60"/></svg>
-          <div class="marco">
-            <div class="ramo" data-ramo="izq" aria-hidden="true"></div>
-            <div class="marco__interior">
-              <span class="icono" aria-hidden="true">
-                <svg viewBox="0 0 48 48"><circle cx="18" cy="26" r="9"/><circle cx="30" cy="26" r="9"/><path d="M20 12l4-6 4 6M17 12h14"/></svg>
-              </span>
-              <h3 class="marco__titulo">Ceremonia civil</h3>
-              <p class="marco__hora">Hora por confirmar</p>
-              <p class="marco__lugar">Casa Maka</p>
-              <p class="marco__dir">Calle Maka, Tetelpan, Ciudad de México</p>
-              <a class="boton boton--linea" href="https://www.google.com/maps/search/?api=1&amp;query=Casa%20Maka%2C%20Calle%20Maka%2C%20Tetelpan%2C%20Ciudad%20de%20M%C3%A9xico" data-mapa target="_blank" rel="noopener">Ver mapa</a>
-            </div>
+      <div class="escena__texto">
+        <div class="fase fase--portada" data-fase="0 .64">
+          <p class="volada prensa">Tetelpan · Ciudad de México</p>
+          <h1 class="nombres">
+            <span class="nombres__uno prensa letras">Alejandra</span>
+            <span class="nombres__y prensa">&amp;</span>
+            <span class="nombres__dos prensa letras">Eliav</span>
+          </h1>
+          <div class="fase fase--anidada" data-fase=".3 .64">
+            <p class="sobrelinea prensa">Nos casamos · Ceremonia civil</p>
+            <div class="filete prensa" aria-hidden="true"><span></span><i></i><span></span></div>
+            <p class="fecha prensa" data-boda="fecha-larga">Fecha por confirmar</p>
           </div>
-        </figure>
+        </div>
 
-        <figure class="colgante" style="--retraso:.25s">
-          <div class="colgante__clavo" aria-hidden="true"></div>
-          <svg class="colgante__cuerda" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M24 60 L100 3 L176 60"/></svg>
-          <div class="marco">
-            <div class="ramo" data-ramo="der" aria-hidden="true"></div>
-            <div class="marco__interior">
-              <span class="icono" aria-hidden="true">
-                <svg viewBox="0 0 48 48"><path d="M16 6h8l-1 12a5 5 0 0 1-6 0zM32 6h-8M20 23v15M15 40h10M28 6h8l-1 12a5 5 0 0 1-6 0zM32 23v15M27 40h10"/></svg>
-              </span>
-              <h3 class="marco__titulo">Recepción</h3>
-              <p class="marco__hora">Hora por confirmar</p>
-              <p class="marco__lugar">Lugar por confirmar</p>
-              <p class="marco__dir">Dirección por confirmar</p>
-            </div>
+        <div class="fase fase--invitacion" data-fase=".64 1.01">
+          <span class="monograma prensa" aria-hidden="true">A<i>&amp;</i>E</span>
+          <p class="parrafo-grande prensa">Queremos invitarte a conmemorar esta unión.</p>
+          <div class="padres">
+            <div class="prensa"><h2 class="etiqueta">Padres del novio</h2><p>Por confirmar</p></div>
+            <div class="prensa"><h2 class="etiqueta">Padres de la novia</h2><p>Por confirmar</p></div>
           </div>
-        </figure>
+        </div>
       </div>
+
+      <a class="desliza" href="#historia"><span>Desliza</span><i aria-hidden="true"></i></a>
     </div>
   </section>
 
-  <section class="seccion seccion--lino" id="itinerario">
-    <div class="guirnalda guirnalda--borde" data-guirnalda="7" aria-hidden="true"></div>
-    <div class="contenedor">
-      <h2 class="titulo revela"><span class="titulo__script">El gran día</span>Itinerario</h2>
-      <ol class="itinerario">
-        <li class="revela"><span class="itinerario__hora">— : —</span><span class="itinerario__que">Ceremonia civil</span></li>
-        <li class="revela"><span class="itinerario__hora">— : —</span><span class="itinerario__que">Cóctel de bienvenida</span></li>
-        <li class="revela"><span class="itinerario__hora">— : —</span><span class="itinerario__que">Entrada de los novios</span></li>
-        <li class="revela"><span class="itinerario__hora">— : —</span><span class="itinerario__que">Cena</span></li>
-        <li class="revela"><span class="itinerario__hora">— : —</span><span class="itinerario__que">Primer baile</span></li>
-        <li class="revela"><span class="itinerario__hora">— : —</span><span class="itinerario__que">¡A bailar!</span></li>
-      </ol>
-    </div>
-  </section>
+  <!-- ============ SECCIÓN 2 · Fotos de la pareja ============ -->
+  <section class="historia" id="historia" aria-labelledby="historia-titulo">
+    <header class="encabezado">
+      <p class="encabezado__script prensa">Nuestra historia</p>
+      <h2 class="encabezado__titulo prensa" id="historia-titulo">Alejandra <i>&amp;</i> Eliav</h2>
+      <div class="filete prensa" aria-hidden="true"><span></span><i></i><span></span></div>
+    </header>
 
-  <section class="seccion" id="galeria">
-    <div class="contenedor">
-      <h2 class="titulo revela"><span class="titulo__script">Nuestra historia</span>Momentos</h2>
-      <div class="pared pared--galeria">
-        <figure class="colgante colgante--foto" style="--retraso:0s; --giro:-2deg">
-          <div class="colgante__clavo" aria-hidden="true"></div>
-          <svg class="colgante__cuerda" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M30 60 L100 3 L170 60"/></svg>
-          <div class="marco marco--foto"><div class="foto" data-foto="img/foto-1.webp"><span>A<i>&amp;</i>E</span></div></div>
-          <figcaption>Cómo nos conocimos</figcaption>
-        </figure>
-        <figure class="colgante colgante--foto colgante--alto" style="--retraso:.2s; --giro:1.5deg">
-          <div class="colgante__clavo" aria-hidden="true"></div>
-          <svg class="colgante__cuerda" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M30 60 L100 3 L170 60"/></svg>
-          <div class="marco marco--foto"><div class="ramo" data-ramo="der" aria-hidden="true"></div><div class="foto" data-foto="img/foto-2.webp"><span>A<i>&amp;</i>E</span></div></div>
-          <figcaption>La propuesta</figcaption>
-        </figure>
-        <figure class="colgante colgante--foto" style="--retraso:.4s; --giro:-1deg">
-          <div class="colgante__clavo" aria-hidden="true"></div>
-          <svg class="colgante__cuerda" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M30 60 L100 3 L170 60"/></svg>
-          <div class="marco marco--foto"><div class="foto" data-foto="img/foto-3.webp"><span>A<i>&amp;</i>E</span></div></div>
-          <figcaption>Para siempre</figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <section class="seccion seccion--lino" id="detalles">
-    <div class="contenedor">
-      <h2 class="titulo revela"><span class="titulo__script">Para tomar en cuenta</span>Detalles</h2>
-      <div class="detalles">
-        <article class="detalle revela">
-          <h3 class="etiqueta">Código de vestimenta</h3>
-          <p class="detalle__grande">Formal rústico</p>
-          <p>Te sugerimos tonos suaves y naturales. Reservamos el blanco para la novia.</p>
-          <ul class="muestras" aria-label="Paleta sugerida">
-            <li style="--c:#EED6CC" title="Rubor"></li>
-            <li style="--c:#F1E3C2" title="Mantequilla"></li>
-            <li style="--c:#C9D2BC" title="Salvia"></li>
-            <li style="--c:#DCD3E0" title="Lila"></li>
-            <li style="--c:#B5532F" title="Terracota"></li>
-          </ul>
-        </article>
-        <article class="detalle revela">
-          <h3 class="etiqueta">Mesa de regalos</h3>
-          <p class="detalle__grande">Tu presencia</p>
-          <p>Es nuestro mejor regalo. Si deseas tener un detalle con nosotros, la mesa de regalos estará disponible próximamente.</p>
-        </article>
-        <article class="detalle revela">
-          <h3 class="etiqueta">Comparte</h3>
-          <p class="detalle__grande" data-boda="hashtag">#AlejandraYEliav</p>
-          <p>Usa nuestro hashtag en tus fotos para que podamos revivir el día contigo.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="seccion" id="confirmar">
-    <div class="contenedor angosto">
-      <h2 class="titulo revela"><span class="titulo__script">Te esperamos</span>Confirma tu asistencia</h2>
-      <p class="nota revela" data-boda="confirmar-antes" hidden></p>
-
-      <figure class="colgante colgante--form" style="--retraso:0s">
-        <div class="colgante__clavo" aria-hidden="true"></div>
-        <svg class="colgante__cuerda" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M18 60 L100 3 L182 60"/></svg>
-        <div class="marco">
-          <div class="ramo" data-ramo="izq" aria-hidden="true"></div>
-          <form class="rsvp marco__interior" id="rsvp" novalidate>
-            <label class="campo">
-              <span>Nombre completo</span>
-              <input name="nombre" type="text" autocomplete="name" required>
-            </label>
-            <fieldset class="campo campo--opciones">
-              <legend>¿Nos acompañas?</legend>
-              <label><input type="radio" name="asiste" value="Sí, ahí estaré" checked> <span>Sí, ahí estaré</span></label>
-              <label><input type="radio" name="asiste" value="No podré asistir"> <span>No podré asistir</span></label>
-            </fieldset>
-            <label class="campo">
-              <span>Número de personas</span>
-              <select name="personas">
-                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-              </select>
-            </label>
-            <label class="campo">
-              <span>Mensaje para los novios <em>(opcional)</em></span>
-              <textarea name="mensaje" rows="3"></textarea>
-            </label>
-            <button class="boton" type="submit">Enviar confirmación</button>
-            <p class="rsvp__estado" role="status" aria-live="polite"></p>
-          </form>
+    <div class="album">
+      <figure class="lamina lamina--1" data-vel="-.06">
+        <div class="lamina__papel prensa">
+          <div class="foto" data-foto="img/foto-1.webp"><span class="foto__ciego" aria-hidden="true">A<i>&amp;</i>E</span></div>
+          <figcaption><span class="lamina__num">I</span>Cómo nos conocimos</figcaption>
+        </div>
+      </figure>
+      <figure class="lamina lamina--2" data-vel=".08">
+        <div class="lamina__papel prensa">
+          <div class="foto" data-foto="img/foto-2.webp"><span class="foto__ciego" aria-hidden="true">A<i>&amp;</i>E</span></div>
+          <figcaption><span class="lamina__num">II</span>La propuesta</figcaption>
+        </div>
+      </figure>
+      <figure class="lamina lamina--3" data-vel="-.03">
+        <div class="lamina__papel prensa">
+          <div class="foto" data-foto="img/foto-3.webp"><span class="foto__ciego" aria-hidden="true">A<i>&amp;</i>E</span></div>
+          <figcaption><span class="lamina__num">III</span>Para siempre</figcaption>
         </div>
       </figure>
     </div>
   </section>
 
+  <!-- ============ ESCENA 3 · El arco de Casa Maka ============ -->
+  <section class="escena escena--arco" id="lugar" data-escena aria-label="Dónde y cuándo">
+    <div class="escena__escenario">
+      <div class="capas capas--arco" aria-hidden="true">
+        <img class="capa capa--ancha" data-capa data-y="-3" data-s=".05" src="img/escenas/a-muro.webp" alt="" width="2400" height="1500" loading="lazy">
+        <img class="capa capa--ancha" data-capa data-y="-7" data-s=".07" src="img/escenas/a-enredadera.webp" alt="" width="2400" height="1500" loading="lazy">
+        <img class="capa capa--ancha capa--bajo" data-capa data-y="-9" data-s=".14" src="img/escenas/a-plantas.webp" alt="" width="2400" height="1500" loading="lazy">
+      </div>
+
+      <div class="escena__texto escena__texto--arco">
+        <div class="fase" data-fase="0 .36">
+          <p class="encabezado__script prensa">Dónde y cuándo</p>
+          <h2 class="lugar__nombre prensa letras">Casa Maka</h2>
+          <p class="lugar__dir prensa">Calle Maka, Tetelpan, Ciudad de México</p>
+        </div>
+        <div class="fase" data-fase=".36 .68">
+          <h3 class="etiqueta prensa">Ceremonia civil</h3>
+          <p class="lugar__hora prensa">Hora por confirmar</p>
+          <p class="lugar__dir prensa">Casa Maka · Tetelpan</p>
+          <a class="boton prensa" href="https://www.google.com/maps/search/?api=1&amp;query=Casa%20Maka%2C%20Calle%20Maka%2C%20Tetelpan%2C%20Ciudad%20de%20M%C3%A9xico" target="_blank" rel="noopener">Ver mapa</a>
+        </div>
+        <div class="fase" data-fase=".68 1.01">
+          <h3 class="etiqueta prensa">Recepción</h3>
+          <p class="lugar__hora prensa">Hora por confirmar</p>
+          <p class="lugar__dir prensa">Lugar por confirmar</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Cuenta regresiva ============ -->
+  <section class="seccion" id="cuenta" aria-labelledby="cuenta-titulo">
+    <header class="encabezado">
+      <p class="encabezado__script prensa">Faltan</p>
+      <h2 class="encabezado__titulo prensa" id="cuenta-titulo">Cuenta regresiva</h2>
+    </header>
+    <div class="cuenta" data-cuenta>
+      <div class="prensa"><b data-c="d">—</b><span>Días</span></div>
+      <div class="prensa"><b data-c="h">—</b><span>Horas</span></div>
+      <div class="prensa"><b data-c="m">—</b><span>Minutos</span></div>
+      <div class="prensa"><b data-c="s">—</b><span>Segundos</span></div>
+    </div>
+    <p class="nota prensa" data-cuenta-nota>La fecha se anunciará muy pronto.</p>
+    <a class="boton boton--linea prensa" data-calendario href="#" target="_blank" rel="noopener" hidden>Agregar al calendario</a>
+  </section>
+
+  <!-- ============ Itinerario ============ -->
+  <section class="seccion" id="itinerario" aria-labelledby="itinerario-titulo">
+    <header class="encabezado">
+      <p class="encabezado__script prensa">El gran día</p>
+      <h2 class="encabezado__titulo prensa" id="itinerario-titulo">Itinerario</h2>
+    </header>
+    <ol class="programa">
+      <li class="prensa"><span class="programa__que">Ceremonia civil</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
+      <li class="prensa"><span class="programa__que">Cóctel de bienvenida</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
+      <li class="prensa"><span class="programa__que">Entrada de los novios</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
+      <li class="prensa"><span class="programa__que">Cena</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
+      <li class="prensa"><span class="programa__que">Primer baile</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
+      <li class="prensa"><span class="programa__que">¡A bailar!</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
+    </ol>
+  </section>
+
+  <!-- ============ Detalles ============ -->
+  <section class="seccion" id="detalles" aria-labelledby="detalles-titulo">
+    <header class="encabezado">
+      <p class="encabezado__script prensa">Para tomar en cuenta</p>
+      <h2 class="encabezado__titulo prensa" id="detalles-titulo">Detalles</h2>
+    </header>
+    <div class="detalles">
+      <article class="detalle prensa">
+        <h3 class="etiqueta">Código de vestimenta</h3>
+        <p class="detalle__grande">Formal rústico</p>
+        <p>Te sugerimos tonos suaves y naturales. Reservamos el blanco para la novia.</p>
+        <ul class="muestras" aria-label="Paleta sugerida">
+          <li style="--c:#E9D3C6" title="Rubor"></li>
+          <li style="--c:#EDE0BF" title="Mantequilla"></li>
+          <li style="--c:#C3CDB6" title="Salvia"></li>
+          <li style="--c:#B9C9CC" title="Maguey"></li>
+          <li style="--c:#A8502E" title="Terracota"></li>
+        </ul>
+      </article>
+      <article class="detalle prensa">
+        <h3 class="etiqueta">Mesa de regalos</h3>
+        <p class="detalle__grande">Tu presencia</p>
+        <p>Es nuestro mejor regalo. Si deseas tener un detalle con nosotros, la mesa de regalos estará disponible próximamente.</p>
+      </article>
+      <article class="detalle prensa">
+        <h3 class="etiqueta">Comparte</h3>
+        <p class="detalle__grande" data-boda="hashtag">#AlejandraYEliav</p>
+        <p>Usa nuestro hashtag en tus fotos para que podamos revivir el día contigo.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ RSVP ============ -->
+  <section class="seccion" id="confirmar" aria-labelledby="confirmar-titulo">
+    <header class="encabezado">
+      <p class="encabezado__script prensa">Te esperamos</p>
+      <h2 class="encabezado__titulo prensa" id="confirmar-titulo">Confirma tu asistencia</h2>
+      <p class="nota prensa" data-boda="confirmar-antes" hidden></p>
+    </header>
+
+    <form class="tarjeta rsvp prensa" id="rsvp" novalidate>
+      <label class="campo">
+        <span>Nombre completo</span>
+        <input name="nombre" type="text" autocomplete="name" required>
+      </label>
+      <fieldset class="campo campo--opciones">
+        <legend>¿Nos acompañas?</legend>
+        <label><input type="radio" name="asiste" value="Sí, ahí estaré" checked> <span>Sí, ahí estaré</span></label>
+        <label><input type="radio" name="asiste" value="No podré asistir"> <span>No podré asistir</span></label>
+      </fieldset>
+      <label class="campo">
+        <span>Número de personas</span>
+        <select name="personas">
+          <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+        </select>
+      </label>
+      <label class="campo">
+        <span>Mensaje para los novios <em>(opcional)</em></span>
+        <textarea name="mensaje" rows="3"></textarea>
+      </label>
+      <button class="boton" type="submit">Enviar confirmación</button>
+      <p class="rsvp__estado" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+
   <footer class="pie">
-    <span class="pie__mono">A<i>&amp;</i>E</span>
-    <p class="pie__gracias">Gracias por ser parte de nuestra historia</p>
-    <p class="pie__fecha" data-boda="fecha-corta"></p>
+    <span class="pie__mono prensa" aria-hidden="true">A<i>&amp;</i>E</span>
+    <p class="pie__gracias prensa">Gracias por ser parte de nuestra historia</p>
+    <p class="pie__fecha prensa" data-boda="fecha-corta"></p>
   </footer>
 </main>
 
-<script src="js/flores.js"></script>
-<script src="js/sobre.js"></script>
+<script src="js/escenas.js"></script>
+<script src="js/sello.js"></script>
 <script src="js/invitacion.js"></script>
 </body>
 </html>
