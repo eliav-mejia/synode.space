@@ -29,9 +29,19 @@
     el.appendChild(tipos);
   });
 
+  // La tinta y la acuarela esperan a que se abra el sello (js/sello.js)
+  var html = document.documentElement;
+  var abierta = !html.classList.contains("sellado");
+  var alAbrir = [];
+  document.addEventListener("invitacion:abierta", function () {
+    abierta = true;
+    alAbrir.forEach(function (fn) { fn(); });
+    pedir();
+  });
+
   // --- La acuarela se seca al cargar cada capa ---
   document.querySelectorAll("[data-capa]").forEach(function (img) {
-    var listo = function () { img.classList.add("lista"); };
+    var listo = function () { if (abierta) img.classList.add("lista"); else alAbrir.push(function () { img.classList.add("lista"); }); };
     if (img.complete && img.naturalWidth) listo();
     else { img.addEventListener("load", listo, { once: true }); img.addEventListener("error", listo, { once: true }); }
   });
@@ -95,7 +105,7 @@
       e.p = reducido ? e.meta : e.p + (e.meta - e.p) * .16;
       if (Math.abs(e.meta - e.p) > .0005) seguir = true; else e.p = e.meta;
 
-      e.fases.forEach(function (f) { imprimir(f, e.meta >= f.a && e.meta < f.b); });
+      e.fases.forEach(function (f) { imprimir(f, abierta && e.meta >= f.a && e.meta < f.b); });
 
       if (reducido || r.bottom < -vh * .2 || r.top > vh * 1.2) return;
       e.capas.forEach(function (c) {

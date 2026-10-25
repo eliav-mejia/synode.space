@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,300;1,400;1,500&family=Pinyon+Script&display=swap">
   <link rel="preload" as="image" href="img/escenas/t-montes.webp" type="image/webp">
   <link rel="stylesheet" href="css/site.css">
-  <script>document.documentElement.classList.add("js");</script>
+  <script>document.documentElement.classList.add("js", "sellado");</script>
   <script src="js/config.js"></script>
 </head>
 <body>
@@ -26,6 +26,44 @@
 <!-- Papel de algodón fijo y la marca de la plancha: no se mueven nunca -->
 <div class="papel" aria-hidden="true"></div>
 <div class="plancha" aria-hidden="true"></div>
+
+<!-- ============ SELLO DE ENTRADA: relieve A & E en papel crema; bloquea el scroll hasta abrirse ============ -->
+<div class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="intro-titulo">
+  <p class="intro__para" id="intro-titulo">Una invitación para ti</p>
+
+  <button class="sello" id="sello" type="button" aria-label="Abrir la invitación" disabled>
+    <svg class="sello__arte" viewBox="0 0 240 240" aria-hidden="true">
+      <defs>
+        <!-- Relieve: luz arriba a la izquierda y sombra abajo a la derecha, sin tinta -->
+        <filter id="relieve" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+          <feOffset in="SourceAlpha" dx="-1.1" dy="-1.1" result="a1"/>
+          <feFlood flood-color="#FFFBF2" flood-opacity=".95"/><feComposite in2="a1" operator="in" result="luz"/>
+          <feOffset in="SourceAlpha" dx="1.2" dy="1.4" result="a2"/>
+          <feGaussianBlur in="a2" stdDeviation=".55" result="a2b"/>
+          <feFlood flood-color="#76603F" flood-opacity=".55"/><feComposite in2="a2b" operator="in" result="sombra"/>
+          <feMerge><feMergeNode in="luz"/><feMergeNode in="sombra"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <radialGradient id="sello-disco" cx="42%" cy="38%" r="70%">
+          <stop offset="0" stop-color="#F3EAD9"/><stop offset=".7" stop-color="#E9DCC4"/><stop offset="1" stop-color="#DCCBAE"/>
+        </radialGradient>
+        <path id="sello-anillo" d="M120 120m-84 0a84 84 0 1 1 168 0a84 84 0 1 1 -168 0"/>
+      </defs>
+      <path class="sello__disco" data-feston d="" fill="url(#sello-disco)"/>
+      <g class="sello__relieve" filter="url(#relieve)" fill="#ECE1CC">
+        <circle cx="120" cy="120" r="103" fill="none" stroke="#ECE1CC" stroke-width="2.2"/>
+        <circle cx="120" cy="120" r="97" fill="none" stroke="#ECE1CC" stroke-width="1" stroke-dasharray="1.2 3.4"/>
+        <circle cx="120" cy="120" r="68" fill="none" stroke="#ECE1CC" stroke-width="1.6"/>
+        <text font-family="'Bodoni Moda', Georgia, serif" font-size="11.5" font-weight="600" letter-spacing="3.2"><textPath href="#sello-anillo" textLength="520" lengthAdjust="spacing">ALEJANDRA ✦ ELIAV ✦ NOS CASAMOS ✦ TETELPAN ✦</textPath></text>
+        <text x="80" y="136" text-anchor="middle" font-family="'Bodoni Moda', Georgia, serif" font-size="46" font-weight="500">A</text>
+        <text x="120" y="140" text-anchor="middle" font-family="'Pinyon Script', cursive" font-size="40">&amp;</text>
+        <text x="160" y="136" text-anchor="middle" font-family="'Bodoni Moda', Georgia, serif" font-size="46" font-weight="500">E</text>
+      </g>
+    </svg>
+    <span class="sello__aro" aria-hidden="true"></span>
+  </button>
+
+  <p class="intro__pista" aria-live="polite"><span class="intro__cargando">Preparando tu invitación…</span><span class="intro__toca">Toca el sello para abrir</span></p>
+</div>
 
 <main>
 
@@ -235,6 +273,7 @@
 </main>
 
 <script src="js/escenas.js"></script>
+<script src="js/sello.js"></script>
 <script src="js/invitacion.js"></script>
 </body>
 </html>
