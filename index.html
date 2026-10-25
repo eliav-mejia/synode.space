@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="css/site.css">
   <script>document.documentElement.classList.add("js", "sellado");</script>
   <script src="js/config.js"></script>
+  <script src="js/variantes.js"></script>
 </head>
 <body>
 
@@ -170,7 +171,7 @@
         </div>
         <div class="fase" data-fase=".36 .68">
           <h3 class="etiqueta prensa">Ceremonia civil</h3>
-          <p class="lugar__hora prensa">Hora por confirmar</p>
+          <p class="lugar__hora prensa" data-boda="hora">Hora por confirmar</p>
           <p class="lugar__dir prensa">Casa Maka · Tetelpan</p>
           <a class="boton prensa" href="https://www.google.com/maps/search/?api=1&amp;query=Casa%20Maka%2C%20Calle%20Maka%2C%20Tetelpan%2C%20Ciudad%20de%20M%C3%A9xico" target="_blank" rel="noopener">Ver mapa</a>
         </div>
@@ -196,6 +197,7 @@
       <div class="prensa"><b data-c="s">—</b><span>Segundos</span></div>
     </div>
     <p class="nota prensa" data-cuenta-nota>La fecha se anunciará muy pronto.</p>
+    <p class="nota hoy prensa" data-hoy hidden aria-live="off"></p>
     <a class="boton boton--linea prensa" data-calendario href="#" target="_blank" rel="noopener" hidden>Agregar al calendario</a>
   </section>
 
@@ -206,7 +208,7 @@
       <h2 class="encabezado__titulo prensa" id="itinerario-titulo">Itinerario</h2>
     </header>
     <ol class="programa">
-      <li class="prensa"><span class="programa__que">Ceremonia civil</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
+      <li class="prensa"><span class="programa__que">Ceremonia civil</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora" data-boda="hora">— : —</span></li>
       <li class="prensa"><span class="programa__que">Cóctel de bienvenida</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
       <li class="prensa"><span class="programa__que">Entrada de los novios</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
       <li class="prensa"><span class="programa__que">Cena</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
@@ -290,5 +292,6 @@
 <script src="js/escenas.js"></script>
 <script src="js/sello.js"></script>
 <script src="js/invitacion.js"></script>
+<script src="js/mosaico.js"></script>
 </body>
 </html>

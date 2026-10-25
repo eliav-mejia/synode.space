@@ -7,7 +7,14 @@
   var html = document.documentElement;
   var intro = document.getElementById("intro");
   var sello = document.getElementById("sello");
-  if (!intro || !sello) { html.classList.remove("sellado"); html.classList.add("abierta"); return; }
+  // Sin sello (otra variante o sin el marcado): la invitación queda abierta desde el inicio
+  if (!intro || !sello || html.dataset.variante !== "sello") {
+    if (intro) intro.remove();
+    html.classList.remove("sellado");
+    html.classList.add("abierta");
+    document.dispatchEvent(new CustomEvent("invitacion:abierta"));
+    return;
+  }
   var reducido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var abierto = false;
 

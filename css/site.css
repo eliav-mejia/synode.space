@@ -119,6 +119,41 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 .abriendo .sello__arte { transform: scale(.93); filter: drop-shadow(0 .5px .5px rgba(90, 70, 45, .3)) drop-shadow(0 3px 5px rgba(90, 70, 45, .2)); transition-duration: .22s; }
 .intro.se-va .sello__arte { transform: translateY(-6vh) scale(1.08) rotate(-6deg); filter: blur(1.5px) drop-shadow(0 30px 30px rgba(90, 70, 45, .2)); transition: transform 1.3s cubic-bezier(.5, 0, .2, 1), filter 1.3s ease; }
 
+/* ===================== VARIANTES ===================== */
+.variantes {
+  position: fixed; z-index: 70;
+  top: calc(clamp(8px, 1.6vw, 18px) + 12px); right: calc(clamp(8px, 1.6vw, 18px) + 12px);
+  font-family: var(--f-display);
+}
+.variantes__boton {
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px 8px 12px;
+  font-size: .6rem; font-weight: 500; letter-spacing: .3em; text-transform: uppercase; color: var(--tinta);
+  background: var(--grano), var(--papel-claro); border: 0; border-radius: 1px; cursor: pointer;
+  box-shadow: 0 1px 1px rgba(60, 45, 30, .08), 0 8px 18px -10px rgba(70, 50, 30, .45);
+}
+.variantes__icono { display: grid; gap: 3px; }
+.variantes__icono i { display: block; width: 12px; height: 1px; background: var(--terracota); }
+.variantes__lista {
+  position: absolute; right: 0; top: calc(100% + 8px); margin: 0; padding: 8px; list-style: none; min-width: 230px;
+  background: var(--grano), var(--papel-claro);
+  box-shadow: 0 1px 1px rgba(60, 45, 30, .08), 0 18px 34px -18px rgba(70, 50, 30, .5);
+}
+.variantes__lista a { display: grid; gap: 2px; padding: 10px 12px; text-decoration: none; border-radius: 1px; }
+.variantes__lista a:hover { background: rgba(168, 80, 46, .07); }
+.variantes__lista b { font-weight: 500; font-size: .66rem; letter-spacing: .26em; text-transform: uppercase; }
+.variantes__lista small { font-family: var(--f-texto); font-style: italic; font-size: .95rem; color: var(--tinta-suave); }
+.variantes__lista a[aria-current="page"] { box-shadow: var(--plancha); }
+.variantes__lista a[aria-current="page"] b { color: var(--terracota); }
+
+/* Mosaico: sin sello ni fondo desvanecido; las grietas al tocar */
+[data-variante="mosaico"] .intro { display: none !important; }
+[data-variante="mosaico"] .pie { background: none; -webkit-mask-image: none; mask-image: none; }
+.grieta { position: fixed; z-index: 55; pointer-events: none; overflow: visible; }
+.grieta polygon { stroke: #FBF8F2; stroke-width: 2; stroke-linejoin: round; }
+.grieta__linea { fill: none; stroke: #3B312A; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+.hoy { font-size: .95em; font-variant-numeric: tabular-nums; }
+.hoy::first-letter { text-transform: uppercase; }
+
 /* ===================== PRENSA: aparición de la tinta por fases ===================== */
 .etiqueta, .volada, .sobrelinea, .fecha, .nombres, .lugar__nombre, .encabezado__titulo, .parrafo-grande, .padres p,
 .lugar__dir, .lugar__hora, .programa, .detalle, .nota, .cuenta, .pie, figcaption {
