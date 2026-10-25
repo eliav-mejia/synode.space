@@ -457,6 +457,8 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 }
 .lamina--2 .foto { aspect-ratio: 5 / 6; }
 .foto.con-foto { background-size: cover; }
+/* Encuadre de cada foto horizontal en el marco vertical */
+.lamina--3 .foto.con-foto { background-position: 38% 50%; }
 /* Monograma en relieve ciego (sin tinta) mientras no hay foto */
 .foto__ciego { font-family: var(--f-display); font-weight: 500; font-size: clamp(1.8rem, 1rem + 2.4vw, 2.8rem); color: rgba(247, 242, 232, .9); text-shadow: var(--hundido-ciego); }
 .foto.con-foto .foto__ciego { display: none; }
