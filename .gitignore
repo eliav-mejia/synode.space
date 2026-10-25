@@ -8,3 +8,6 @@ _interno/
 img/**/*.png
 img/**/*.jpg
 img/**/*.jpeg
+
+# SVG generados por arte/rasterizar.mjs (se regeneran)
+arte/svg/
