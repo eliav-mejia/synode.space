@@ -44,6 +44,7 @@ body {
 main { position: relative; z-index: 1; overflow-x: clip; }
 img { display: block; max-width: 100%; }
 [hidden] { display: none !important; }
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
 a { color: inherit; }
 button, input, select, textarea { font: inherit; color: inherit; }
 :focus-visible { outline: 2px dashed var(--terracota); outline-offset: 4px; }
@@ -75,6 +76,7 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 .intro { display: none; }
 .js .intro {
   position: fixed; inset: 0; z-index: 60;
+  background: var(--grano), url("../img/escenas/relieve-flores.webp") center / 720px 720px repeat, #FCFBF8;
   display: grid; place-content: center; justify-items: center; gap: clamp(20px, 4vh, 38px);
   padding: 16px; text-align: center; touch-action: none;
   transition: opacity 1.3s ease, visibility 0s linear 1.3s;
@@ -103,7 +105,7 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 .sello:focus-visible { outline-offset: 10px; }
 .sello__arte {
   width: 100%; height: 100%; overflow: visible;
-  filter: drop-shadow(0 1px 1px rgba(90, 70, 45, .2)) drop-shadow(0 14px 20px rgba(90, 70, 45, .22));
+  filter: drop-shadow(0 1px 1px rgba(90, 70, 45, .18)) drop-shadow(0 10px 16px rgba(90, 70, 45, .2));
   transition: transform .5s cubic-bezier(.2, .8, .2, 1), filter .5s ease;
 }
 .listo .sello:hover .sello__arte { transform: translateY(-2px) rotate(-2deg); }
@@ -356,8 +358,18 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 .rsvp__estado { margin: 0; min-height: 1.4em; text-align: center; font-style: italic; color: var(--terracota-osc); }
 
 /* ===================== PIE ===================== */
-.pie { position: relative; padding: clamp(90px, 12vw, 140px) 16px clamp(80px, 10vw, 120px); text-align: center; }
-.pie__mono { display: inline-block; font-family: var(--f-display); font-weight: 500; font-size: clamp(3.2rem, 9vw, 5.4rem); line-height: 1; color: var(--papel); text-shadow: var(--hundido-ciego); }
+/* Pie: papel blanco con flores en relieve y el sello de cera */
+.pie {
+  position: relative; padding: clamp(110px, 14vw, 170px) 16px clamp(90px, 11vw, 130px); text-align: center;
+  background: var(--grano), url("../img/escenas/relieve-flores.webp") center top / 720px 720px repeat, #FCFBF8;
+  -webkit-mask-image: linear-gradient(transparent, #000 90px); mask-image: linear-gradient(transparent, #000 90px);
+}
+.pie__sello {
+  display: block; width: clamp(120px, 26vw, 170px); height: auto; margin: 0 auto; overflow: visible;
+  filter: drop-shadow(0 1px 1px rgba(90, 70, 45, .18)) drop-shadow(0 10px 14px rgba(90, 70, 45, .2));
+}
+.js .pie__sello.prensa { transform: translateY(-14px) scale(1.06) rotate(-4deg); }
+.js .pie__sello.prensa.impresa { transform: rotate(-4deg); transition-duration: 1s, 1.2s, 1s; }
 .pie__gracias { margin: .7em 0 .3em; font-style: italic; font-size: 1.2em; }
 .pie__fecha { margin: 0; font-family: var(--f-display); letter-spacing: .3em; font-size: .78rem; color: var(--tinta-suave); }
 

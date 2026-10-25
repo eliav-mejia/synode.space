@@ -11,15 +11,6 @@
   var reducido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var abierto = false;
 
-  // Orilla festoneada del disco de papel
-  var feston = sello.querySelector("[data-feston]");
-  var d = "", n = 240;
-  for (var i = 0; i < n; i++) {
-    var a = i / n * Math.PI * 2, r = 112 + 2.6 * Math.cos(a * 60);
-    d += (i ? "L" : "M") + (120 + r * Math.cos(a)).toFixed(1) + " " + (120 + r * Math.sin(a)).toFixed(1);
-  }
-  feston.setAttribute("d", d + "Z");
-
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   window.scrollTo(0, 0);
 

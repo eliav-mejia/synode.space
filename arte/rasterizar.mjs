@@ -5,18 +5,21 @@ import { writeFileSync, mkdirSync } from "node:fs";
 import { createRequire } from "node:module";
 import * as T from "./tetelpan.mjs";
 import * as A from "./arco.mjs";
+import * as R from "./relieve.mjs";
 
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.PW || "playwright-core");
 
 // Escala de salida: el fondo brumoso no necesita resolución completa
 const ESCALA = { "t-montes": .6 };
+const CALIDAD = { "relieve-flores": .86 };
 
 const CAPAS = {
   "t-montes": T.montes,
   "a-muro": A.muro,
   "a-enredadera": A.enredadera,
-  "a-plantas": A.plantas
+  "a-plantas": A.plantas,
+  "relieve-flores": R.flores
 };
 
 const filtro = process.argv[2] || "";
@@ -32,7 +35,7 @@ for (const [nombre, gen] of Object.entries(CAPAS)) {
   if (filtro && !nombre.startsWith(filtro)) continue;
   const svg = gen();
   writeFileSync(new URL(`arte/svg/${nombre}.svg`, raiz), svg);
-  const res = await pag.evaluate(async ({ svg, previa, escala }) => {
+  const res = await pag.evaluate(async ({ svg, previa, escala, calidad }) => {
     const img = new Image();
     img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svg)));
     await img.decode();
@@ -40,7 +43,7 @@ for (const [nombre, gen] of Object.entries(CAPAS)) {
     c.width = Math.round(img.naturalWidth * escala); c.height = Math.round(img.naturalHeight * escala);
     const x = c.getContext("2d");
     x.drawImage(img, 0, 0, c.width, c.height);
-    const webp = c.toDataURL("image/webp", 0.78);
+    const webp = c.toDataURL("image/webp", calidad);
     let jpg = null;
     if (previa) {
       const p = document.createElement("canvas");
@@ -52,7 +55,7 @@ for (const [nombre, gen] of Object.entries(CAPAS)) {
       jpg = p.toDataURL("image/jpeg", 0.85);
     }
     return { webp, jpg };
-  }, { svg, previa: !!process.env.PREVIA, escala: ESCALA[nombre] || 1 });
+  }, { svg, previa: !!process.env.PREVIA, escala: ESCALA[nombre] || 1, calidad: CALIDAD[nombre] || .78 });
   const buf = Buffer.from(res.webp.split(",")[1], "base64");
   writeFileSync(new URL(`img/escenas/${nombre}.webp`, raiz), buf);
   if (res.jpg) writeFileSync(`${process.env.PREVIA}/${nombre}.jpg`, Buffer.from(res.jpg.split(",")[1], "base64"));
