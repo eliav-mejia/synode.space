@@ -1,6 +1,7 @@
 /* Entrada de la invitación. El scroll queda bloqueado (html.sellado) hasta que el sitio terminó de cargar y se abrió.
-   - Variante sello:   se toca el sello de cera; la perforadora baja, el sello se levanta y la invitación aparece.
-   - Variante mosaico: se toca el damasco; el azulejo se cuartea desde ese punto y las teselas caen dejando ver la invitación.
+   - Variante sello y tinta: se toca el sello (de cera o de tinta índigo); la perforadora baja y la invitación aparece.
+   - Variante mosaico: se toca el damasco; el azulejo se parte de golpe en pocas teselas grandes que salen volando,
+     y cuando ya no queda ninguna la placa se retira con su propia animación.
    Atajo para pruebas: synode.space/#abierta abre sin esperar. */
 (function () {
   "use strict";
@@ -10,6 +11,8 @@
   var sello = document.getElementById("sello");
   var romperBtn = document.getElementById("romper");
   var mosaico = html.dataset.variante === "mosaico";
+  // En la variante tinta, el sello de entrada y el del pie son de tinta índigo
+  if (html.dataset.variante === "tinta") document.querySelectorAll('use[href="#sello-cera"]').forEach(function (u) { u.setAttribute("href", "#sello-tinta"); });
   var disparador = mosaico ? romperBtn : sello;
 
   function quedaAbierta() {
@@ -96,16 +99,17 @@
     var dw = damasco.naturalWidth * esc, dh = damasco.naturalHeight * esc;
     fx.drawImage(damasco, (W - dw) / 2 * dpr, (H - dh) / 2 * dpr, dw * dpr, dh * dpr);
 
+    // El lienzo va dentro del intro, debajo de la placa: la placa sigue a la vista mientras el mosaico se rompe
     var lienzo = document.createElement("canvas");
     lienzo.className = "mosaico-lienzo";
     lienzo.width = W * dpr; lienzo.height = H * dpr;
     var cx = lienzo.getContext("2d");
     cx.scale(dpr, dpr);
-    document.body.appendChild(lienzo);
+    intro.insertBefore(lienzo, intro.firstChild);
 
-    // Teselas: rejilla irregular partida en triángulos
-    var lado = W < 600 ? 78 : 112;
-    var cols = Math.max(4, Math.round(W / lado)), filas = Math.max(5, Math.round(H / lado));
+    // Teselas grandes: rejilla irregular, algunas celdas partidas en dos triángulos
+    var lado = W < 600 ? 230 : 380;
+    var cols = Math.max(2, Math.round(W / lado)), filas = Math.max(3, Math.round(H / lado));
     var p = [];
     for (var j = 0; j <= filas; j++) {
       p.push([]);
@@ -114,7 +118,9 @@
         p[j].push([i / cols * W + (borde ? 0 : (Math.random() - .5) * W / cols * .7), j / filas * H + (borde ? 0 : (Math.random() - .5) * H / filas * .7)]);
       }
     }
-    var teselas = [], lejos = Math.hypot(Math.max(x, W - x), Math.max(y, H - y));
+    // Un solo golpe: todo se agrieta en el mismo instante y las teselas salen casi de inmediato
+    var QUIEBRE = 90, CAIDA = 620, G = 2600;
+    var teselas = [];
     function tesela(pts) {
       var mx = 0, my = 0, x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
       pts.forEach(function (q) {
@@ -122,17 +128,18 @@
         x0 = Math.min(x0, q[0]); y0 = Math.min(y0, q[1]); x1 = Math.max(x1, q[0]); y1 = Math.max(y1, q[1]);
       });
       var d = Math.hypot(mx - x, my - y) || 1;
-      var fuerza = 80 + Math.random() * 220;
+      var fuerza = 260 + Math.random() * 320;
       teselas.push({
-        pts: pts, mx: mx, my: my, caja: [x0, y0, x1 - x0, y1 - y0], d: d,
-        espera: 240 + d / lejos * 520 + Math.random() * 90,
-        vx: (mx - x) / d * fuerza, vy: (my - y) / d * fuerza * .5 - 120 - Math.random() * 160,
-        giro: (Math.random() - .5) * 6
+        pts: pts, mx: mx, my: my, caja: [x0, y0, x1 - x0, y1 - y0],
+        espera: QUIEBRE + Math.random() * 20,
+        vx: (mx - x) / d * fuerza, vy: (my - y) / d * fuerza * .6 - 80 - Math.random() * 120,
+        giro: (Math.random() - .5) * 3
       });
     }
     for (j = 0; j < filas; j++) for (i = 0; i < cols; i++) {
       var a = p[j][i], b = p[j][i + 1], c = p[j + 1][i + 1], d = p[j + 1][i];
-      if (Math.random() < .5) { tesela([a, b, c]); tesela([a, c, d]); } else { tesela([a, b, d]); tesela([b, c, d]); }
+      if (Math.random() < .7) tesela([a, b, c, d]);
+      else if (Math.random() < .5) { tesela([a, b, c]); tesela([a, c, d]); } else { tesela([a, b, d]); tesela([b, c, d]); }
     }
 
     // El damasco del intro se sustituye por el lienzo; detrás, la invitación ya está abierta
@@ -140,7 +147,7 @@
     quedaAbierta();
     window.scrollTo(0, 0);
 
-    var inicio = performance.now(), CAIDA = 1000, G = 2200;
+    var inicio = performance.now();
     function trazar(t) {
       cx.beginPath();
       cx.moveTo(t.pts[0][0], t.pts[0][1]);
@@ -150,8 +157,6 @@
     function cuadro(ahora) {
       var dt = ahora - inicio, vivas = 0;
       cx.clearRect(0, 0, W, H);
-      // Las grietas avanzan desde el punto tocado
-      var alcance = Math.min(1, dt / 360) * lejos * 1.05;
       teselas.forEach(function (t) {
         var s = (dt - t.espera) / 1000;
         if (s > CAIDA / 1000) return;
@@ -168,16 +173,19 @@
         cx.clip();
         cx.drawImage(fondo, t.caja[0] * dpr, t.caja[1] * dpr, t.caja[2] * dpr + 2, t.caja[3] * dpr + 2, t.caja[0], t.caja[1], t.caja[2] + 2 / dpr, t.caja[3] + 2 / dpr);
         cx.restore();
-        if (t.d < alcance) {
-          // Junta blanca de azulejo y grieta oscura
-          cx.lineJoin = "round";
-          cx.strokeStyle = "rgba(255, 255, 255, .9)"; cx.lineWidth = s > 0 ? 2 : 1.4; cx.stroke();
-          cx.strokeStyle = "rgba(20, 28, 60, .55)"; cx.lineWidth = .7; cx.stroke();
-        }
+        // Junta blanca de azulejo y grieta oscura
+        cx.lineJoin = "round";
+        cx.strokeStyle = "rgba(255, 255, 255, .9)"; cx.lineWidth = s > 0 ? 2.4 : 1.8; cx.stroke();
+        cx.strokeStyle = "rgba(20, 28, 60, .6)"; cx.lineWidth = .9; cx.stroke();
         cx.restore();
       });
       if (vivas) requestAnimationFrame(cuadro);
-      else { lienzo.remove(); intro.remove(); enfocarNombres(); }
+      else {
+        // Roto el mosaico, la placa queda sola un momento sobre la invitación y luego se retira
+        lienzo.remove();
+        intro.classList.add("cae");
+        setTimeout(function () { intro.remove(); enfocarNombres(); }, 1900);
+      }
     }
     requestAnimationFrame(cuadro);
   }

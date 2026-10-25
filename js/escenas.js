@@ -31,6 +31,8 @@
 
   // La tinta y la acuarela esperan a que se abra el sello (js/sello.js)
   var html = document.documentElement;
+  // Variante tinta: la acuarela se cambia por las ilustraciones a pluma antes de esperar a que carguen
+  if (html.dataset.variante === "tinta") document.querySelectorAll("[data-tinta]").forEach(function (img) { img.src = img.dataset.tinta; });
   var abierta = !html.classList.contains("sellado");
   var alAbrir = [];
   document.addEventListener("invitacion:abierta", function () {

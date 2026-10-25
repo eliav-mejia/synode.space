@@ -25,6 +25,9 @@
   --fibras: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .16' numOctaves='2' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .48 0 0 0 0 .38 0 0 0 .32 -.17'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
   --moteado: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='700'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.01 .0157' numOctaves='4' seed='8' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .62 0 0 0 0 .55 0 0 0 0 .44 0 0 0 .1 -.035'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
 
+  /* Algodón prensado en frío: el diente del papel de acuarela, con luz rasante (sombras del relieve sobre blanco) */
+  --prensado: url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27360%27%20height=%27360%27%3E%3Cfilter%20id=%27p%27%20x=%270%27%20y=%270%27%20width=%27100%25%27%20height=%27100%25%27%3E%3CfeTurbulence%20type=%27fractalNoise%27%20baseFrequency=%27.09%27%20numOctaves=%274%27%20seed=%2719%27%20stitchTiles=%27stitch%27/%3E%3CfeDiffuseLighting%20surfaceScale=%271.5%27%20diffuseConstant=%271%27%20lighting-color=%27%23fff%27%3E%3CfeDistantLight%20azimuth=%27225%27%20elevation=%2760%27/%3E%3C/feDiffuseLighting%3E%3CfeColorMatrix%20values=%270%200%200%200%20.5%200%200%200%200%20.49%200%200%200%200%20.46%20-1.25%200%200%200%201.12%27/%3E%3C/filter%3E%3Crect%20width=%27100%25%27%20height=%27100%25%27%20filter=%27url%28%23p%29%27/%3E%3C/svg%3E");
+
   color-scheme: light;
 }
 
@@ -119,6 +122,41 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 .abriendo .sello__arte { transform: scale(.93); filter: drop-shadow(0 .5px .5px rgba(90, 70, 45, .3)) drop-shadow(0 3px 5px rgba(90, 70, 45, .2)); transition-duration: .22s; }
 .intro.se-va .sello__arte { transform: translateY(-6vh) scale(1.08) rotate(-6deg); filter: blur(1.5px) drop-shadow(0 30px 30px rgba(90, 70, 45, .2)); transition: transform 1.3s cubic-bezier(.5, 0, .2, 1), filter 1.3s ease; }
 
+/* ===================== PAPEL PRENSADO (variante sello) ===================== */
+/* Sin sello ni damasco: hoja blanca de algodón prensado en frío con A & E impreso y hundido en el papel */
+.sello__mono { display: none; }
+[data-variante="sello"] .intro,
+[data-variante="sello"] .pie {
+  background:
+    radial-gradient(ellipse at 50% 46%, transparent 55%, rgba(150, 140, 120, .1) 100%),
+    var(--prensado), var(--grano), #FFFFFF;
+}
+[data-variante="sello"] .sello { width: auto; aspect-ratio: auto; border-radius: 2px; padding: clamp(28px, 6vw, 46px) clamp(34px, 8vw, 64px); scale: 1; }
+[data-variante="sello"] :is(.sello__arte, .sello__aro) { display: none; }
+[data-variante="sello"] .sello__mono {
+  display: block; font-family: var(--f-display); font-weight: 400; font-size: clamp(4.4rem, 3rem + 9vw, 8.5rem); line-height: 1;
+  letter-spacing: .02em; color: var(--tinta);
+  text-shadow: var(--hundido-ciego), 0 0 1px rgba(45, 56, 50, .25);
+  filter: blur(1.6px); opacity: 0;
+  transition: opacity 1.4s ease, filter 1.4s ease, transform .5s cubic-bezier(.2, .8, .2, 1);
+}
+[data-variante="sello"] .sello__mono i { font-family: var(--f-script); font-style: normal; color: var(--terracota); margin: 0 .04em; font-size: .9em; }
+/* Marco ciego: la huella de la plancha alrededor del monograma */
+[data-variante="sello"] .sello::before {
+  content: ""; position: absolute; inset: 0; border-radius: 2px; box-shadow: var(--plancha); opacity: 0; transition: opacity 1.4s ease .3s;
+}
+[data-variante="sello"] .listo .sello__mono { opacity: 1; filter: none; }
+[data-variante="sello"] .listo .sello::before { opacity: 1; }
+[data-variante="sello"] .listo .sello:hover .sello__mono { transform: translateY(-1px); }
+[data-variante="sello"] .abriendo .sello__mono { transform: scale(.97); transition-duration: .22s; }
+[data-variante="sello"] .intro.se-va .sello__mono { transform: scale(1.04); filter: blur(2px); opacity: 0; transition: transform 1.3s ease, filter 1.3s ease, opacity 1.1s ease; }
+[data-variante="sello"] .intro__que { display: none; }
+[data-variante="sello"] .pie__sello { display: none; }
+[data-variante="sello"] .pie__mono {
+  display: block; margin: 0 auto; font-family: var(--f-display); font-size: clamp(2.6rem, 7vw, 4rem); line-height: 1;
+  color: var(--tinta); text-shadow: var(--hundido-ciego);
+}
+
 /* ===================== VARIANTES ===================== */
 .variantes {
   position: fixed; z-index: 70;
@@ -163,9 +201,22 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 .intro__placa-nombres i { font-family: var(--f-script); font-style: normal; color: var(--terracota); }
 .intro__placa-toca { font-style: italic; color: var(--tinta-suave); }
 .listo .intro__placa-toca { animation: latido 2.6s ease-in-out infinite; }
-.intro.rompiendo { background: none !important; transition: none; }
-.intro.rompiendo .intro__placa { visibility: hidden; }
-.mosaico-lienzo { position: fixed; inset: 0; z-index: 61; width: 100%; height: 100%; pointer-events: none; }
+/* Al romperse, el lienzo (dentro del intro) sustituye al damasco; la placa sigue encima y se retira después, renglón por renglón */
+.intro.rompiendo { background: none !important; transition: none; pointer-events: none; }
+.intro.rompiendo .intro__placa-toca { animation: none; }
+.intro.cae .intro__placa { animation: placa-sale 1.1s cubic-bezier(.55, 0, .25, 1) .55s both; }
+.intro.cae .intro__placa > span { animation: renglon-sale .55s ease both; }
+.intro.cae .intro__placa-toca { animation-delay: .05s; }
+.intro.cae .intro__placa-nombres { animation-delay: .2s; }
+.intro.cae .intro__placa-para { animation-delay: .35s; }
+@keyframes renglon-sale { to { opacity: 0; transform: translateY(-8px); filter: blur(3px); letter-spacing: .5em; } }
+@keyframes placa-sale {
+  0% { transform: perspective(700px) translateY(0) scale(1) rotateX(0); }
+  30% { transform: perspective(700px) translateY(4px) scale(1.03) rotateX(0); box-shadow: 0 1px 1px rgba(20, 30, 60, .15), 0 30px 50px -20px rgba(20, 30, 60, .6); }
+  100% { opacity: 0; transform: perspective(700px) translateY(-40px) scale(.86) rotateX(28deg); filter: blur(4px); box-shadow: none; }
+}
+[data-variante="mosaico"] .intro__placa { position: relative; z-index: 1; }
+.mosaico-lienzo { position: fixed; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; }
 
 .pie__mono { display: none; }
 [data-variante="mosaico"] .pie { background: url("../img/escenas/fondo-damasco-color.webp") center / cover no-repeat, #FFFFFF; }
@@ -178,9 +229,41 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 [data-variante="mosaico"] .pie :is(.pie__gracias, .pie__fecha) {
   width: fit-content; margin-inline: auto; padding: .25em .9em; background: rgba(252, 250, 245, .92); text-shadow: none;
 }
-.grieta { position: fixed; z-index: 55; pointer-events: none; overflow: visible; }
-.grieta polygon { stroke: #FBF8F2; stroke-width: 2; stroke-linejoin: round; }
-.grieta__linea { fill: none; stroke: #3B312A; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+/* Tinta: papel verjurado de algodón, sello de tinta índigo y escenas a pluma; el acento terracota pasa a índigo */
+[data-variante="tinta"] {
+  --tinta: #1D254D; --tinta-suave: #515B85; --terracota: #2F4396; --terracota-osc: #1F2C6A; --agave: #2F4396;
+  --verjurado:
+    repeating-linear-gradient(0deg, rgba(110, 90, 60, .045) 0 1px, transparent 1px 5px),
+    repeating-linear-gradient(90deg, transparent 0 calc(min(19vw, 140px) - 1px), rgba(110, 90, 60, .07) calc(min(19vw, 140px) - 1px) min(19vw, 140px));
+}
+[data-variante="tinta"] .papel {
+  background:
+    radial-gradient(ellipse at 50% 40%, transparent 50%, rgba(140, 115, 80, .16) 100%),
+    var(--verjurado), var(--grano), var(--grano), var(--fibras), var(--moteado),
+    #F5EFE2;
+}
+[data-variante="tinta"] .intro {
+  background:
+    radial-gradient(ellipse at 50% 46%, rgba(255, 253, 247, .55), transparent 46%),
+    radial-gradient(ellipse at 50% 40%, transparent 50%, rgba(140, 115, 80, .2) 100%),
+    var(--verjurado), var(--grano), var(--grano), var(--fibras), var(--moteado),
+    #F5EFE2;
+}
+/* La estampa se imprime: llega un poco grande y se asienta sobre el papel; la tinta no proyecta sombra */
+[data-variante="tinta"] .sello { scale: 1.12; transition: opacity .5s ease, scale .5s cubic-bezier(.5, 0, .3, 1.4); }
+[data-variante="tinta"] .listo .sello { scale: 1; }
+[data-variante="tinta"] :is(.sello__arte, .pie__sello) { filter: none; mix-blend-mode: multiply; }
+[data-variante="tinta"] .listo .sello:hover .sello__arte { transform: rotate(-2deg); }
+[data-variante="tinta"] .abriendo .sello__arte { transform: scale(.95); filter: none; }
+[data-variante="tinta"] .intro.se-va .sello__arte { transform: scale(1.05); filter: blur(2px); opacity: .4; transition: transform 1.3s ease, filter 1.3s ease, opacity 1.3s ease; }
+[data-variante="tinta"] .escena__texto::before { background: radial-gradient(closest-side, rgba(245, 239, 226, .85), rgba(245, 239, 226, .55) 55%, transparent); }
+[data-variante="tinta"] .escena__texto--arco :is(.encabezado__script, .lugar__nombre, .lugar__dir, .lugar__hora, .etiqueta) {
+  color: var(--tinta);
+  text-shadow: 0 0 6px #F5EFE2, 0 0 14px #F5EFE2, 0 0 28px rgba(245, 239, 226, .9);
+}
+[data-variante="tinta"] .escena__texto--arco :is(.encabezado__script, .lugar__hora, .etiqueta) { color: var(--terracota); }
+[data-variante="tinta"] .pie { background: none; }
+
 .hoy { font-size: .95em; font-variant-numeric: tabular-nums; }
 .hoy::first-letter { text-transform: uppercase; }
 
@@ -436,7 +519,7 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 .rsvp__estado { margin: 0; min-height: 1.4em; text-align: center; font-style: italic; color: var(--terracota-osc); }
 
 /* ===================== PIE ===================== */
-/* Pie: damasco desvanecido en blanco y el sello de cera */
+/* Pie: damasco desvanecido en blanco y el sello de cera (cada variante lo sustituye) */
 .pie {
   position: relative; padding: clamp(110px, 14vw, 170px) 16px clamp(90px, 11vw, 130px); text-align: center;
   background: url("../img/escenas/fondo-damasco.webp") center / cover no-repeat, #FFFFFF;

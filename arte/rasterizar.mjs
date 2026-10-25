@@ -6,12 +6,13 @@ import { createRequire } from "node:module";
 import * as T from "./tetelpan.mjs";
 import * as A from "./arco.mjs";
 import * as R from "./relieve.mjs";
+import * as I from "./tinta.mjs";
 
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.PW || "playwright-core");
 
 // Escala de salida: el fondo brumoso no necesita resolución completa
-const ESCALA = { "t-montes": .6 };
+const ESCALA = { "t-montes": .6, "i-montes": .6 };
 const CALIDAD = { "relieve-flores": .86 };
 
 const CAPAS = {
@@ -19,6 +20,14 @@ const CAPAS = {
   "a-muro": A.muro,
   "a-enredadera": A.enredadera,
   "a-plantas": A.plantas,
+  // Variante tinta: las mismas escenas a pluma en índigo
+  "i-montes": I.montes,
+  "i-tallos": I.tallos,
+  "i-pintura": I.pintura,
+  "i-ramo": I.ramo,
+  "i-muro": I.muro,
+  "i-enredadera": I.enredadera,
+  "i-plantas": I.plantas,
   // Papel prensado florentino (ya no se publica; el fondo usa el damasco de arte/recortar.mjs)
   // "relieve-flores": R.flores
 };

@@ -1,13 +1,15 @@
 /* Variantes de la invitación. Se elige con ?variante=… (enlace para compartir) y se aplica antes de pintar:
    html[data-variante] decide qué se muestra. Además dibuja el menú para cambiar de variante.
-   - sello    sello de cera para abrir y damasco desvanecido (predeterminada)
-   - mosaico  damasco a todo color que se rompe en teselas para abrir; sin sello (js/sello.js, js/mosaico.js) */
+   - sello    papel de algodón prensado en frío con A & E para abrir (predeterminada; el id se conserva por los enlaces)
+   - mosaico  damasco a todo color que se rompe en teselas para abrir; sin sello (js/sello.js)
+   - tinta    papel texturizado, sello de tinta índigo y escenas dibujadas a pluma (arte/tinta.mjs) */
 (function () {
   "use strict";
 
   var VARIANTES = [
-    { id: "sello", nombre: "Sello de cera", nota: "Se abre con el sello A & E" },
-    { id: "mosaico", nombre: "Mosaico", nota: "Se abre rompiendo el mosaico" }
+    { id: "sello", nombre: "Papel prensado", nota: "Algodón blanco con A & E" },
+    { id: "mosaico", nombre: "Mosaico", nota: "Se abre rompiendo el mosaico" },
+    { id: "tinta", nombre: "Tinta índigo", nota: "Papel texturizado e ilustraciones a pluma" }
   ];
 
   var html = document.documentElement;
