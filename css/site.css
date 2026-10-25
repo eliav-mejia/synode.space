@@ -170,9 +170,13 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 .escena--tetelpan { --cx: 55%; }
 .capa--marco-izq { left: 0; bottom: 0; height: 112%; width: auto; translate: -24% 0; }
 .capa--marco-der { right: 0; bottom: 0; height: 112%; width: auto; translate: 24% 0; }
-.capa--paraiso-izq, .capa--paraiso-der { transform-origin: 50% 100%; }
-.capa--paraiso-izq { left: -3vw; bottom: -8vh; width: min(36vw, 52vh); }
-.capa--paraiso-der { right: -4vw; bottom: -10vh; width: min(32vw, 46vh); }
+/* Montes: la pintura se desvanece abajo, donde entran las aves del paraíso */
+.capa--montes { -webkit-mask-image: linear-gradient(#000 64%, transparent 86%); mask-image: linear-gradient(#000 64%, transparent 86%); }
+/* Composición de aves del paraíso en acuarela: tallos a la izquierda, pintura a la derecha, ramo al centro */
+.capa--tallos, .capa--pintura, .capa--ramo { transform-origin: 50% 100%; width: auto; }
+.capa--tallos { left: max(-2vw, -30px); bottom: -3vh; height: min(90vh, 112vw); }
+.capa--pintura { right: -3vw; bottom: -7vh; height: min(80vh, 100vw); }
+.capa--ramo { left: 50%; bottom: -14vh; height: min(58vh, 60vw); translate: -50% 0; }
 
 .escena__texto {
   position: absolute; inset: 0; z-index: 5;
@@ -232,8 +236,12 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 @keyframes gotea { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
 
 /* ---------- Escena 3: el arco ---------- */
-.escena__texto--arco { padding-top: clamp(48px, 8vh, 100px); }
-.escena__texto--arco::before { top: 2vh; height: min(36vh, 340px); }
+.escena__texto--arco { padding-top: 44vh; color: #FFFDF8; }
+.escena__texto--arco::before { content: none; }
+.escena__texto--arco :is(.encabezado__script, .lugar__nombre, .lugar__dir, .lugar__hora, .etiqueta) {
+  color: #FFFDF8;
+  text-shadow: 0 1px 2px rgba(24, 18, 12, .6), 0 2px 14px rgba(24, 18, 12, .45), 0 0 34px rgba(24, 18, 12, .3);
+}
 .lugar__nombre { margin: 0; font-family: var(--f-display); font-weight: 400; font-size: clamp(2.4rem, 1.2rem + 5vw, 4.8rem); line-height: 1; letter-spacing: .03em; }
 .lugar__hora { margin: 0; font-family: var(--f-script); font-size: clamp(1.9rem, 1.5rem + 1.6vw, 2.6rem); color: var(--terracota); line-height: 1.2; }
 .lugar__dir { margin: .3em 0 0; font-style: italic; color: var(--tinta-suave); font-size: 1.1em; }
@@ -366,9 +374,11 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 @media (max-aspect-ratio: 4/5) {
   .capa--marco-izq { height: 62%; translate: -50% 0; }
   .capa--marco-der { height: 62%; translate: 50% 0; }
-  .capa--paraiso-izq { width: min(60vw, 40vh); left: -8vw; }
-  .capa--paraiso-der { width: min(54vw, 36vh); right: -10vw; }
+  .capa--tallos { height: 60%; left: -10vw; }
+  .capa--pintura { height: 50%; right: -16vw; }
+  .capa--ramo { height: auto; width: 88vw; bottom: -9vh; }
   .escena__texto { padding-top: clamp(64px, 10vh, 110px); }
+  .escena__texto--arco { padding-top: 54vh; }
   /* El arco más lejos para que quepan el maguey y el órgano */
   .escena--arco { --cx: 55%; }
   .capas--arco .capa--ancha { width: 112vh; }

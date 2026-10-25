@@ -14,11 +14,6 @@ const ESCALA = { "t-montes": .6 };
 
 const CAPAS = {
   "t-montes": T.montes,
-  "t-bosque": T.bosque,
-  "t-marco-izq": T.marcoIzq,
-  "t-marco-der": T.marcoDer,
-  "t-paraiso-izq": () => T.paraiso(51, false),
-  "t-paraiso-der": () => T.paraiso(67, true),
   "a-muro": A.muro,
   "a-enredadera": A.enredadera,
   "a-plantas": A.plantas

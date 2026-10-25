@@ -51,7 +51,7 @@
   function abrir(rapido) {
     if (abierto) return;
     abierto = true;
-    if (navigator.vibrate) { try { navigator.vibrate(14); } catch (e) {} }
+    if (!rapido && navigator.vibrate) { try { navigator.vibrate(14); } catch (e) {} }
     var t = rapido ? .15 : 1;
     intro.classList.add("abriendo");
     despues(520 * t, function () { intro.classList.add("se-va"); });
