@@ -551,6 +551,8 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
   .capa--pintura { height: 50%; right: -16vw; }
   .escena__texto { padding-top: clamp(64px, 10vh, 110px); }
   .escena__texto--arco { padding-top: 54vh; }
+  /* Tinta: la línea a pluma no tapa el texto como la acuarela; se sube al cielo, sobre la enredadera */
+  [data-variante="tinta"] .escena__texto--arco { padding-top: 20vh; }
   /* El arco más lejos para que quepan el maguey y el órgano */
   .escena--arco { --cx: 55%; }
   .capas--arco .capa--ancha { width: 112vh; }
