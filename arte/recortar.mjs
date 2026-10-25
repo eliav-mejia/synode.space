@@ -1,5 +1,5 @@
 /* Recorta las acuarelas de arte/fuentes/ quitando el papel blanco (color → alfa, como en GIMP)
-   y las guarda como WebP transparentes en img/escenas/.
+   y las guarda como WebP transparentes en img/escenas/. También desvanece el damasco del fondo hacia el blanco.
    Uso:  PW=/ruta/a/playwright-core CHROME=/ruta/a/chrome node arte/recortar.mjs */
 import { readFileSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
@@ -57,5 +57,22 @@ for (const [fuente, salida, umbral, voltear] of PIEZAS) {
   writeFileSync(new URL(`img/escenas/${salida}.webp`, raiz), buf);
   if (process.env.PREVIA) writeFileSync(`${process.env.PREVIA}/${salida}.jpg`, Buffer.from(res.jpg.split(",")[1], "base64"));
   console.log(salida, res.w + "×" + res.h, "papel", res.bg.join(","), Math.round(buf.length / 1024) + " KB");
+}
+// Fondo: damasco azul desvanecido en blanco (sello de entrada y pie)
+const FONDOS = [["damasco-azul.png", "fondo-damasco", .84]];
+for (const [fuente, salida, velo] of FONDOS) {
+  const datos = "data:image/png;base64," + readFileSync(new URL(`arte/fuentes/${fuente}`, raiz)).toString("base64");
+  const webp = await pag.evaluate(async ({ datos, velo }) => {
+    const img = new Image(); img.src = datos; await img.decode();
+    const c = document.createElement("canvas"); c.width = img.naturalWidth; c.height = img.naturalHeight;
+    const x = c.getContext("2d");
+    x.drawImage(img, 0, 0);
+    x.fillStyle = `rgba(255, 255, 255, ${velo})`;
+    x.fillRect(0, 0, c.width, c.height);
+    return c.toDataURL("image/webp", .82);
+  }, { datos, velo });
+  const buf = Buffer.from(webp.split(",")[1], "base64");
+  writeFileSync(new URL(`img/escenas/${salida}.webp`, raiz), buf);
+  console.log(salida, Math.round(buf.length / 1024) + " KB");
 }
 await nav.close();

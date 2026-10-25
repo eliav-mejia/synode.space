@@ -19,7 +19,8 @@ const CAPAS = {
   "a-muro": A.muro,
   "a-enredadera": A.enredadera,
   "a-plantas": A.plantas,
-  "relieve-flores": R.flores
+  // Papel prensado florentino (ya no se publica; el fondo usa el damasco de arte/recortar.mjs)
+  // "relieve-flores": R.flores
 };
 
 const filtro = process.argv[2] || "";

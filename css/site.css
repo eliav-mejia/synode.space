@@ -76,7 +76,7 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 .intro { display: none; }
 .js .intro {
   position: fixed; inset: 0; z-index: 60;
-  background: var(--grano), url("../img/escenas/relieve-flores.webp") center / 720px 720px repeat, #FCFBF8;
+  background: var(--grano), url("../img/escenas/fondo-damasco.webp") center / cover no-repeat, #FFFFFF;
   display: grid; place-content: center; justify-items: center; gap: clamp(20px, 4vh, 38px);
   padding: 16px; text-align: center; touch-action: none;
   transition: opacity 1.3s ease, visibility 0s linear 1.3s;
@@ -153,6 +153,8 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 .escena { position: relative; height: 330vh; }
 .escena--arco { height: 320vh; }
 .escena__escenario { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+/* Escena 1: sin recorte vertical, los tallos de la izquierda bajan hasta «Nuestra historia» */
+.escena--tetelpan .escena__escenario { overflow: clip visible; }
 .capas { position: absolute; inset: 0; }
 .capa {
   position: absolute; max-width: none; height: auto;
@@ -175,10 +177,10 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 /* Montes: la pintura se desvanece abajo, donde entran las aves del paraíso */
 .capa--montes { -webkit-mask-image: linear-gradient(#000 64%, transparent 86%); mask-image: linear-gradient(#000 64%, transparent 86%); }
 /* Composición de aves del paraíso en acuarela: tallos a la izquierda, pintura a la derecha, ramo al centro */
-.capa--tallos, .capa--pintura, .capa--ramo { transform-origin: 50% 100%; width: auto; }
-.capa--tallos { left: max(-2vw, -30px); bottom: -3vh; height: min(90vh, 112vw); }
-.capa--pintura { right: -3vw; bottom: -7vh; height: min(80vh, 100vw); }
-.capa--ramo { left: 50%; bottom: -14vh; height: min(58vh, 60vw); translate: -50% 0; }
+.capa--tallos, .capa--pintura { transform-origin: 50% 100%; width: auto; }
+/* Más alta que la escena: la flor arriba y los tallos siguen hacia abajo al hacer scroll */
+.capa--tallos { left: -9vw; top: 9vh; height: 128vh; -webkit-mask-image: linear-gradient(#000 82%, transparent); mask-image: linear-gradient(#000 82%, transparent); }
+.capa--pintura { right: -3vw; bottom: -7vh; height: min(80vh, 100vw); -webkit-mask-image: linear-gradient(#000 88%, transparent); mask-image: linear-gradient(#000 88%, transparent); }
 
 .escena__texto {
   position: absolute; inset: 0; z-index: 5;
@@ -271,7 +273,18 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 .boton--linea:hover { color: var(--papel-claro); background: var(--terracota); }
 
 /* ===================== SECCIÓN 2: FOTOS ===================== */
-.historia { position: relative; padding: clamp(110px, 16vw, 200px) 16px clamp(120px, 18vw, 220px); }
+.encabezado--historia { position: relative; width: fit-content; margin-inline: auto; }
+/* Ramo de aves del paraíso inclinado en la esquina superior derecha del título */
+.historia__ramo {
+  position: absolute; z-index: -1; pointer-events: none;
+  left: calc(100% - 3.5em); top: -1.2em;
+  width: clamp(150px, 20vw, 290px); height: auto; max-width: none;
+  rotate: 22deg; transform-origin: 20% 80%;
+}
+@media (max-width: 760px) {
+  .historia__ramo { width: 104px; left: calc(100% - 2.4em); top: -3.6em; }
+}
+.historia { position: relative; z-index: 1; padding: clamp(110px, 16vw, 200px) 16px clamp(120px, 18vw, 220px); }
 .album {
   display: grid; grid-template-columns: 1fr 1.25fr 1fr; align-items: start;
   gap: clamp(20px, 4vw, 56px); width: min(100%, 1120px); margin: 0 auto;
@@ -358,10 +371,10 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 .rsvp__estado { margin: 0; min-height: 1.4em; text-align: center; font-style: italic; color: var(--terracota-osc); }
 
 /* ===================== PIE ===================== */
-/* Pie: papel blanco con flores en relieve y el sello de cera */
+/* Pie: damasco desvanecido en blanco y el sello de cera */
 .pie {
   position: relative; padding: clamp(110px, 14vw, 170px) 16px clamp(90px, 11vw, 130px); text-align: center;
-  background: var(--grano), url("../img/escenas/relieve-flores.webp") center top / 720px 720px repeat, #FCFBF8;
+  background: url("../img/escenas/fondo-damasco.webp") center / cover no-repeat, #FFFFFF;
   -webkit-mask-image: linear-gradient(transparent, #000 90px); mask-image: linear-gradient(transparent, #000 90px);
 }
 .pie__sello {
@@ -386,9 +399,8 @@ html.sellado, html.sellado body { overflow: hidden; height: 100%; overscroll-beh
 @media (max-aspect-ratio: 4/5) {
   .capa--marco-izq { height: 62%; translate: -50% 0; }
   .capa--marco-der { height: 62%; translate: 50% 0; }
-  .capa--tallos { height: 60%; left: -10vw; }
+  .capa--tallos { top: 44svh; height: 96svh; left: -24vw; -webkit-mask-image: linear-gradient(#000 64%, transparent 84%); mask-image: linear-gradient(#000 64%, transparent 84%); }
   .capa--pintura { height: 50%; right: -16vw; }
-  .capa--ramo { height: auto; width: 88vw; bottom: -9vh; }
   .escena__texto { padding-top: clamp(64px, 10vh, 110px); }
   .escena__texto--arco { padding-top: 54vh; }
   /* El arco más lejos para que quepan el maguey y el órgano */
