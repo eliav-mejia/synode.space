@@ -18,7 +18,9 @@ const CALIDAD = { "relieve-flores": .86 };
 const CAPAS = {
   "t-montes": T.montes,
   "a-muro": A.muro,
-  "a-enredadera": A.enredadera,
+  "a-fuente": A.fuente,
+  "a-puerta-izq": () => A.puerta("izq"),
+  "a-puerta-der": () => A.puerta("der"),
   "a-plantas": A.plantas,
   // Variante tinta: las mismas escenas a pluma en índigo
   "i-montes": I.montes,
@@ -26,7 +28,9 @@ const CAPAS = {
   "i-pintura": I.pintura,
   "i-ramo": I.ramo,
   "i-muro": I.muro,
-  "i-enredadera": I.enredadera,
+  "i-fuente": I.fuente,
+  "i-puerta-izq": () => I.puerta("izq"),
+  "i-puerta-der": () => I.puerta("der"),
   "i-plantas": I.plantas,
   // Papel prensado florentino (ya no se publica; el fondo usa el damasco de arte/recortar.mjs)
   // "relieve-flores": R.flores

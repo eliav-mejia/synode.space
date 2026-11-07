@@ -59,7 +59,7 @@
       "&text=" + encodeURIComponent("Ceremonia civil · Alejandra & Eliav") +
       "&dates=" + f(fecha) + "/" + f(fin) +
       "&details=" + encodeURIComponent("https://synode.space") +
-      "&location=" + encodeURIComponent("Casa Maka, Calle Maka, Tetelpan, Ciudad de México");
+      "&location=" + encodeURIComponent("Casa Virreinal Roja, 5 de Mayo, Villa Gustavo A. Madero, 07050 Ciudad de México, CDMX");
     cal.hidden = false;
   }
 

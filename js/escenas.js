@@ -2,6 +2,10 @@
    Cada [data-escena] es alta (≈330vh) con un escenario fijo (sticky); su avance p va de 0 a 1.
    - [data-capa]  se desplaza p·data-y (vh), p·data-x (vw) y escala 1 + p·data-s.
    - [data-fase="a b"]  imprime su tinta mientras a ≤ p < b.
+   - [data-zoom="a b"]  la cámara se acerca entre a y b: lleva la puerta (data-puerta, fracción de la primera capa)
+     al centro horizontal y a --zoom-y de alto, y escala hasta --zoom (variables CSS de la escena).
+     data-hueco = ancho del hueco entre las hojas abiertas (fracción de la capa) → --hueco-texto en la escena.
+   - [data-abre="a b"]  recibe --abre de 0 a 1 entre a y b (el portón gira con CSS).
    Fuera de las escenas, cada .prensa se imprime al entrar en pantalla, y [data-vel] da parallax a las fotos. */
 (function () {
   "use strict";
@@ -32,7 +36,7 @@
   // La tinta y la acuarela esperan a que se abra el sello (js/sello.js)
   var html = document.documentElement;
   // Variante tinta: la acuarela se cambia por las ilustraciones a pluma antes de esperar a que carguen
-  if (html.dataset.variante === "tinta") document.querySelectorAll("[data-tinta]").forEach(function (img) { img.src = img.dataset.tinta; });
+  if (window.CONTENIDO_TINTA) document.querySelectorAll("[data-tinta]").forEach(function (img) { img.src = img.dataset.tinta; });
   var abierta = !html.classList.contains("sellado");
   var alAbrir = [];
   document.addEventListener("invitacion:abierta", function () {
@@ -43,6 +47,8 @@
 
   // --- La acuarela se seca al cargar cada capa ---
   document.querySelectorAll("[data-capa]").forEach(function (img) {
+    // Un contenedor (el portón) no tiene «load»: se da por cargado de inmediato
+    if (img.tagName !== "IMG") { if (abierta) img.classList.add("lista"); else alAbrir.push(function () { img.classList.add("lista"); }); return; }
     var listo = function () { if (abierta) img.classList.add("lista"); else alAbrir.push(function () { img.classList.add("lista"); }); };
     if (img.complete && img.naturalWidth) listo();
     else { img.addEventListener("load", listo, { once: true }); img.addEventListener("error", listo, { once: true }); }
@@ -74,6 +80,16 @@
         var r = f.dataset.fase.split(/\s+/).map(Number);
         return { el: f, a: r[0], b: r[1], on: null, prensas: prensasDe(f) };
       }),
+      zoom: (function () {
+        var z = el.querySelector("[data-zoom]");
+        if (!z) return null;
+        var r = z.dataset.zoom.split(/\s+/).map(Number), pu = (z.dataset.puerta || ".5 .7").split(/\s+/).map(Number);
+        return { el: z, a: r[0], b: r[1], px: pu[0], py: pu[1], hueco: +z.dataset.hueco || 0, ref: z.querySelector("[data-capa]") };
+      })(),
+      abre: Array.prototype.map.call(el.querySelectorAll("[data-abre]"), function (a) {
+        var r = a.dataset.abre.split(/\s+/).map(Number);
+        return { el: a, a: r[0], b: r[1] };
+      }),
       p: 0, meta: 0
     };
   });
@@ -93,6 +109,25 @@
   var desliza = document.querySelector(".desliza");
   var fotos = Array.prototype.map.call(document.querySelectorAll("[data-vel]"), function (el) { return { el: el, v: +el.dataset.vel }; });
 
+  // Cámara: punto de la puerta en pantalla según el ancho real de la capa y el encuadre --cx de la escena
+  function acercar(e) {
+    var z = e.zoom, t = Math.min(1, Math.max(0, (e.p - z.a) / (z.b - z.a)));
+    var k = t * t * (3 - 2 * t);
+    var cs = getComputedStyle(e.el);
+    var S = parseFloat(cs.getPropertyValue("--zoom")) || 1.6;
+    var objY = parseFloat(cs.getPropertyValue("--zoom-y")) || .52;
+    var cx = (parseFloat(cs.getPropertyValue("--cx")) || 50) / 100;
+    var W = z.ref.offsetWidth, H = z.ref.offsetHeight, vw = z.el.clientWidth, vh = z.el.clientHeight;
+    var dx = vw / 2 - cx * W + z.px * W, dy = vh - H + z.py * H;
+    // Hueco entre las hojas abiertas, ya acercado: el texto de la escena se centra ahí con margen (--hueco-texto)
+    if (z.hueco) {
+      var hueco = z.hueco * W * S, margen = Math.max(14, hueco * .1);
+      e.el.style.setProperty("--hueco-texto", Math.max(120, hueco - 2 * margen).toFixed(0) + "px");
+    }
+    z.el.style.transformOrigin = dx.toFixed(1) + "px " + dy.toFixed(1) + "px";
+    z.el.style.transform = "translate3d(" + ((vw / 2 - dx) * k).toFixed(1) + "px," + ((vh * objY - dy) * k).toFixed(1) + "px,0) scale(" + (1 + (S - 1) * k).toFixed(4) + ")";
+  }
+
   var corriendo = false;
   function pedir() { if (!corriendo) { corriendo = true; requestAnimationFrame(cuadro); } }
 
@@ -109,7 +144,13 @@
 
       e.fases.forEach(function (f) { imprimir(f, abierta && e.meta >= f.a && e.meta < f.b); });
 
-      if (reducido || r.bottom < -vh * .2 || r.top > vh * 1.2) return;
+      if (r.bottom < -vh * .2 || r.top > vh * 1.2) return;
+      if (e.zoom) acercar(e);
+      e.abre.forEach(function (a) {
+        var t = Math.min(1, Math.max(0, (e.p - a.a) / (a.b - a.a)));
+        a.el.style.setProperty("--abre", (t * t * (3 - 2 * t)).toFixed(4));
+      });
+      if (reducido) return;
       e.capas.forEach(function (c) {
         c.el.style.transform = "translate3d(" + (c.x * e.p * vw / 100).toFixed(1) + "px," + (c.y * e.p * vh / 100).toFixed(1) + "px,0)" +
           (c.s ? " scale(" + (1 + c.s * e.p).toFixed(4) + ")" : "");

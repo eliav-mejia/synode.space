@@ -2,11 +2,13 @@
    (como un grabado o una toile azul), con alguna aguada muy ligera. Mismos tamaños que las capas de acuarela
    para que el CSS de las escenas sirva sin cambios. */
 import { Lienzo, curva, f } from "./pincel.mjs";
+import { G, vanos } from "./arco.mjs";
 
 const INDIGO = "#26357A";
 const INDIGO_OSC = "#1A2558";
 const AGUADA = "#3552C4";
-const PAPEL = "#F3ECDE";
+// Tono medio del algodón blanco prensado en frío (--prensado sobre blanco): los rellenos se funden con el papel
+const PAPEL = "#F4F3F0";
 
 // Pluma: orilla temblorosa y tinta que no carga igual en todo el trazo
 const PLUMA = `
@@ -306,193 +308,224 @@ export function ramo() {
   return L.svg();
 }
 
-// ================= Escena 3 · El arco =================
-const SUELO = 1310, CX = 1200, ARRANQUE = 1010, RADIO = 232;
+// ================= Escena 3 · Casa Virreinal Roja =================
+// Misma geometría que la acuarela (arte/arco.mjs): fachada de frente, pilastras, portón, fuente y macetas
+const { SUELO, CX, ARRANQUE, RADIO, MARCO, X0, X1, PRETIL, CORNISA, CORNISA_B, VENT_B, BANDA_B, ZOCALO, PIL, PW, FX, FY } = G;
+
+// Bloque de cantera a pluma: contorno, hiladas y la cara derecha achurada
+function bloque(L, x, y, w, h, juntas = 0) {
+  const d = `M${f(x)} ${f(y)}h${f(w)}v${f(h)}h${f(-w)}Z`;
+  let s = L.contorno(d, 2.4);
+  if (juntas) { let j = ""; for (let yy = y + juntas; yy < y + h - 8; yy += juntas) j += `M${f(x)} ${f(yy)}h${f(w)}`; s += `<path d="${j}" stroke="${INDIGO}" stroke-width="1.6" fill="none"/>`; }
+  s += L.rayado(`M${f(x + w * .78)} ${f(y)}h${f(w * .22)}v${f(h)}h${f(-w * .22)}Z`, [x, y, x + w, y + h], { ang: -1.2, sep: 5, w: 1, op: .6 });
+  return s;
+}
 
 export function muro() {
   const L = new Pluma(2400, 1500, 251);
-  const muroD = `M240 1010 C420 990 640 900 830 830 L830 700 C1000 694 1400 694 1570 700 L1570 772 L2220 780 L2220 ${SUELO} L240 ${SUELO}Z`;
-  const clip = L.id("muro");
-  L.def(`<clipPath id="${clip}"><path d="${muroD}"/></clipPath>`);
+  const muroD = `M${X0} ${PRETIL}H${X1}V${SUELO}H${X0}Z`;
+  // Aplanado: aguada ligera y punteado de cal
+  L.add(`<path d="${muroD}" fill="${PAPEL}"/><path d="${muroD}" fill="${AGUADA}" opacity=".07"/>`);
   let s = L.contorno(muroD, 3.4);
-  // Piedra braza: cantos de contorno, con sombra achurada en la mitad de abajo
-  let piedras = "";
-  for (let y = 700; y < SUELO + 20; y += L.r(44, 58)) {
-    for (let x = 230 + L.r(-40, 0); x < 2240; x += L.r(70, 130)) {
-      if (Math.abs(x + 30 - CX) < RADIO + 40 && y > ARRANQUE - RADIO - 30) continue;
-      const w = L.r(26, 56), h = L.r(16, 26), cx = x + w, cy = y + L.r(-6, 6);
-      const d = L.mancha(cx, cy, w, h, .22, 7, L.r(-.15, .15));
-      piedras += L.contorno(d, 2);
-      if (L.R() < .7) piedras += L.rayado(d, [cx - w, cy, cx + w, cy + h], { ang: -.8, sep: 5, w: 1, op: .6 });
-    }
+  let punteo = "";
+  for (let i = 0; i < 900; i++) {
+    const x = L.r(X0, X1), y = L.r(PRETIL + 10, SUELO - 10);
+    if (Math.abs(x - CX) < RADIO + MARCO + 10 || PIL.some((p) => Math.abs(x - p) < PW / 2 + 12)) continue;
+    punteo += `M${f(x)} ${f(y)}h1.6`;
   }
-  s += `<g clip-path="url(#${clip})">${piedras}</g>`;
-  // Arco de ladrillo: dovelas entre dos arcos
-  const r2 = RADIO + 62;
-  let dovelas = `M${CX - r2} ${ARRANQUE}A${r2} ${r2} 0 0 1 ${CX + r2} ${ARRANQUE}M${CX - RADIO} ${ARRANQUE}A${RADIO} ${RADIO} 0 0 1 ${CX + RADIO} ${ARRANQUE}`;
-  for (let i = 0; i <= 17; i++) {
-    const a = Math.PI + i / 17 * Math.PI;
-    dovelas += `M${f(CX + Math.cos(a) * RADIO)} ${f(ARRANQUE + Math.sin(a) * RADIO)}L${f(CX + Math.cos(a) * r2)} ${f(ARRANQUE + Math.sin(a) * r2)}`;
-  }
-  s += `<path d="M${CX - r2} ${ARRANQUE}A${r2} ${r2} 0 0 1 ${CX + r2} ${ARRANQUE}L${CX + RADIO} ${ARRANQUE}A${RADIO} ${RADIO} 0 0 0 ${CX - RADIO} ${ARRANQUE}Z" fill="${PAPEL}"/>`;
-  s += `<path d="${dovelas}" stroke="${INDIGO}" stroke-width="2.6" fill="none"/>`;
-  // Jambas de ladrillo
-  [CX - RADIO - 62, CX + RADIO].forEach((x) => {
-    let j = `M${x} ${ARRANQUE}V${SUELO}M${x + 62} ${ARRANQUE}V${SUELO}`;
-    for (let y = ARRANQUE + 34; y < SUELO; y += 34) j += `M${x} ${y}h62`;
-    s += `<rect x="${x}" y="${ARRANQUE}" width="62" height="${SUELO - ARRANQUE}" fill="${PAPEL}"/><path d="${j}" stroke="${INDIGO}" stroke-width="2.2" fill="none"/>`;
+  s += `<path d="${punteo}" stroke="${INDIGO}" stroke-width="2" opacity=".35" stroke-linecap="round"/>`;
+  // Pretil y cornisa con su sombra achurada
+  s += bloque(L, X0 - 14, PRETIL - 14, X1 - X0 + 28, 20);
+  s += bloque(L, X0 - 26, CORNISA, X1 - X0 + 52, CORNISA_B - CORNISA);
+  s += L.linea([[X0 - 26, CORNISA + 8], [X1 + 26, CORNISA + 8]], 1.4);
+  s += L.rayado(`M${X0} ${CORNISA_B}H${X1}V${CORNISA_B + 22}H${X0}Z`, [X0, CORNISA_B, X1, CORNISA_B + 22], { ang: -.8, sep: 6, w: 1, op: .7 });
+  // Ventanales de vitroblock: retícula fina, banda abajo
+  vanos().forEach(([a, b]) => {
+    const x0 = a + 16, x1 = b - 16, y0 = CORNISA_B + 18, y1 = VENT_B;
+    const marco = `M${x0 - 6} ${y0 - 6}H${x1 + 6}V${y1}H${x0 - 6}Z`;
+    s += L.contorno(marco, 2.6);
+    const cols = Math.round((x1 - x0) / 30), filas = Math.round((y1 - y0) / 30);
+    let g = "";
+    for (let i = 1; i < cols; i++) g += `M${f(x0 + i * (x1 - x0) / cols)} ${y0}V${y1}`;
+    for (let j = 1; j < filas; j++) g += `M${x0} ${f(y0 + j * (y1 - y0) / filas)}H${x1}`;
+    s += `<path d="${g}" stroke="${INDIGO}" stroke-width="1.5" fill="none"/>`;
+    s += L.rayado(`M${x0} ${y0}H${x1}V${y0 + 26}H${x0}Z`, [x0, y0, x1, y0 + 26], { ang: -.8, sep: 4.5, w: .9, op: .55 });
+    const banda = `M${a} ${VENT_B}H${b}V${BANDA_B}H${a}Z`;
+    s += L.rayado(banda, [a, VENT_B, b, BANDA_B], { ang: 0, sep: 5, w: 1, op: .55, temblor: .4 }) + L.contorno(banda, 2.2);
   });
-  // Portón de tablones a pluma, apenas sombreado: el texto de la escena se imprime encima
+  // Zócalo
+  s += bloque(L, X0, ZOCALO, X1 - X0, SUELO - ZOCALO);
+  // Pilastras de ángulo recto
+  PIL.forEach((x) => {
+    const a = x - PW / 2;
+    s += bloque(L, a, CORNISA_B, PW, ZOCALO - CORNISA_B, 64);
+    s += bloque(L, a - 9, CORNISA_B, PW + 18, 30);
+    s += bloque(L, a - 10, ZOCALO - 34, PW + 20, SUELO - ZOCALO + 34);
+  });
+  // Vano: interior oscuro en índigo denso, para que el texto blanco se lea encima. Las hojas son capas aparte
   const vano = `M${CX - RADIO} ${SUELO}L${CX - RADIO} ${ARRANQUE}A${RADIO} ${RADIO} 0 0 1 ${CX + RADIO} ${ARRANQUE}L${CX + RADIO} ${SUELO}Z`;
-  let tablas = "";
-  for (let x = CX - RADIO + 38; x < CX + RADIO; x += 38) tablas += `M${x} ${ARRANQUE - RADIO + 10}V${SUELO}`;
-  s += `<path d="${vano}" fill="${PAPEL}"/>` + L.lavado(vano, .08);
-  s += L.rayado(vano, [CX - RADIO, ARRANQUE - RADIO, CX + RADIO, SUELO], { ang: -1.52, sep: 9, w: 1, op: .3 });
-  s += `<path d="${tablas}" stroke="${INDIGO}" stroke-width="2" fill="none" opacity=".75"/>`;
-  s += `<path d="M${CX - RADIO} 1110H${CX + RADIO}M${CX - RADIO} 1240H${CX + RADIO}" stroke="${INDIGO}" stroke-width="7" fill="none"/>`;
-  let clavos = "";
-  for (let x = CX - RADIO + 20; x < CX + RADIO; x += 38) clavos += `<circle cx="${x}" cy="1110" r="3.2"/><circle cx="${x}" cy="1240" r="3.2"/>`;
-  s += `<g fill="${PAPEL}">${clavos}</g>`;
-  s += `<path d="M${CX} ${ARRANQUE - RADIO}V${SUELO}" stroke="${INDIGO_OSC}" stroke-width="4"/>`;
-  s += `<circle cx="${CX - 22}" cy="1170" r="9" fill="none" stroke="${INDIGO}" stroke-width="2.4"/><circle cx="${CX + 22}" cy="1170" r="9" fill="none" stroke="${INDIGO}" stroke-width="2.4"/>`;
+  L.add(`<path d="${vano}" fill="${INDIGO_OSC}"/><path d="${vano}" fill="#0E1433" opacity=".55"/>`);
+  s += L.rayado(vano, [CX - RADIO, ARRANQUE - RADIO, CX + RADIO, SUELO], { ang: -.8, sep: 7, w: 1, color: "#5A6AB0", op: .25 });
   s += L.contorno(vano, 3.4);
-  // Remate del muro
-  s += L.linea([[240, 1004], [420, 984], [640, 894], [830, 824]], 9, INDIGO, .9);
-  s += L.linea([[830, 694], [1200, 688], [1570, 694]], 9, INDIGO, .9);
-  s += L.linea([[1570, 766], [2220, 774]], 9, INDIGO, .9);
-  // Empedrado del suelo en perspectiva
-  let suelo = `M120 ${SUELO}H2300`;
-  for (let k = 0; k < 6; k++) {
-    const y = SUELO + 18 + k * k * 6 + k * 18, h = 7 + k * 3;
-    for (let x = 160 + L.r(0, 40); x < 2260; x += L.r(50, 80) + k * 10) {
-      suelo += `M${f(x)} ${f(y)}a${f(20 + k * 5)} ${f(h)} 0 1 0 1 0`;
-    }
+  // Marco de cantera: jambas, impostas, dovelas y clave
+  [CX - RADIO - MARCO, CX + RADIO].forEach((x) => {
+    s += bloque(L, x, ARRANQUE, MARCO, ZOCALO - ARRANQUE, 56);
+    s += bloque(L, x - 8, ARRANQUE - 4, MARCO + 16, 24);
+  });
+  const n = 15, r0 = RADIO, r1 = RADIO + MARCO;
+  const pt = (r, a) => `${f(CX + Math.cos(a) * r)} ${f(ARRANQUE + Math.sin(a) * r)}`;
+  let dov = "";
+  for (let i = 0; i < n; i++) {
+    const a0 = Math.PI + i / n * Math.PI, a1 = Math.PI + (i + 1) / n * Math.PI, ra = i === (n - 1) / 2 ? r1 + 18 : r1;
+    dov += `<path d="M${pt(r0, a0)}L${pt(ra, a0)}A${ra} ${ra} 0 0 1 ${pt(ra, a1)}L${pt(r0, a1)}A${r0} ${r0} 0 0 0 ${pt(r0, a0)}Z" fill="none" stroke="${INDIGO}" stroke-width="2.4"/>`;
   }
-  s += `<path d="${suelo}" stroke="${INDIGO}" stroke-width="1.8" fill="none" opacity=".65"/>`;
+  s += dov;
+  // Farol
+  const fx = PIL[3] + PW / 2 + 44, fy = 800;
+  s += `<path d="M${PIL[3] + PW / 2} ${fy - 30}h40q12 0 12 14v14" stroke="${INDIGO_OSC}" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+  s += L.contorno(`M${fx - 18} ${fy}h36l-6 12h-24zM${fx - 14} ${fy + 12}h28l-5 46h-18zM${fx - 12} ${fy + 58}h24l-12 14z`, 2.6, INDIGO, PAPEL);
+  s += `<path d="M${fx} ${fy + 12}v46" stroke="${INDIGO}" stroke-width="1.6"/>`;
+  // Banqueta de losas y guarnición
+  let suelo = `M${X0 - 80} ${SUELO}H${X1 + 80}M${X0 - 80} ${SUELO + 96}H${X1 + 80}M${X0 - 80} ${SUELO + 110}H${X1 + 80}`;
+  for (let x = X0 - 60 + L.r(0, 30); x < X1 + 60; x += L.r(110, 160)) suelo += `M${f(x)} ${SUELO + 4}l${f(L.r(-30, -10))} 92`;
+  s += `<path d="${suelo}" stroke="${INDIGO}" stroke-width="1.8" fill="none" opacity=".7"/>`;
+  s += L.rayado(`M${X0 - 80} ${SUELO + 110}H${X1 + 80}V${SUELO + 170}H${X0 - 80}Z`, [X0 - 80, SUELO + 110, X1 + 80, SUELO + 170], { ang: -.15, sep: 9, w: 1, op: .35 });
   L.add(`<g filter="url(#pluma)">${s}</g>`);
   return L.svg();
 }
 
-// Hojita de enredadera y bugambilia (tres brácteas con aguada)
-function hojita(L, x, y, r, a) {
-  const e = eje(x, y, a, r * 2, L.r(-.15, .15), 8), d = lanceola(e, r * .75, .4);
-  // Las hojas de abajo quedan en sombra: medio achurado
-  const sombra = L.R() < .45 ? L.rayado(d, [x - r * 2, y - r * 2, x + r * 2, y + r * 2], { ang: -.8, sep: 3.6, w: .9, op: .6, temblor: .4 }) : "";
-  return `<path d="${d}" fill="${PAPEL}"/>` + sombra + L.contorno(d, 1.9) + L.linea([[x, y], [e[5][0], e[5][1]]], 1.1, INDIGO, .7);
+// Hojas del portón a pluma
+export function puerta(lado) {
+  const L = new Pluma(2400, 1500, lado === "izq" ? 253 : 255);
+  const R2 = RADIO - 20, x0 = lado === "izq" ? CX - R2 : CX, x1 = lado === "izq" ? CX : CX + R2;
+  const porton = `M${CX - R2} ${SUELO}L${CX - R2} ${ARRANQUE + 12}A${R2} ${R2} 0 0 1 ${CX + R2} ${ARRANQUE + 12}L${CX + R2} ${SUELO}Z`;
+  const cm = L.id("mitad"), cp = L.id("porton");
+  L.def(`<clipPath id="${cm}"><rect x="${x0}" y="0" width="${x1 - x0}" height="1500"/></clipPath><clipPath id="${cp}"><path d="${porton}"/></clipPath>`);
+  // Relleno de papel fuera de la pluma (sin grano) y la línea encima
+  L.add(`<g clip-path="url(#${cm})"><path d="${porton}" fill="${PAPEL}"/><path d="${porton}" fill="${AGUADA}" opacity=".08"/></g>`);
+  let s = L.rayado(`M${x0} ${ARRANQUE - R2}H${x1}V${SUELO}H${x0}Z`, [x0, ARRANQUE - R2, x1, SUELO], { ang: -1.52, sep: 9, w: 1, op: .3 });
+  let tablas = "";
+  for (let x = CX - R2 + 36; x < CX + R2; x += 36) if (x > x0 + 2 && x < x1 - 2) tablas += `M${x} ${ARRANQUE - R2 + 14}V${SUELO}`;
+  s += `<path d="${tablas}" stroke="${INDIGO}" stroke-width="2" fill="none" opacity=".75"/>`;
+  s += `<path d="M${x0} ${ARRANQUE + 40}H${x1}M${x0} ${SUELO - 150}H${x1}" stroke="${INDIGO}" stroke-width="7" fill="none"/>`;
+  let clavos = "";
+  for (let x = CX - R2 + 18; x < CX + R2; x += 36) if (x > x0 && x < x1) clavos += `<circle cx="${x}" cy="${ARRANQUE + 40}" r="3.2"/><circle cx="${x}" cy="${SUELO - 150}" r="3.2"/>`;
+  s += `<g fill="${PAPEL}">${clavos}</g>`;
+  s += `<circle cx="${lado === "izq" ? CX - 22 : CX + 22}" cy="1170" r="9" fill="none" stroke="${INDIGO}" stroke-width="2.4"/>`;
+  s += `<path d="${porton}" fill="none" stroke="${INDIGO}" stroke-width="3.4"/><path d="M${lado === "izq" ? x1 - 2 : x0 + 2} ${ARRANQUE - R2}V${SUELO}" stroke="${INDIGO_OSC}" stroke-width="4"/>`;
+  L.add(`<g clip-path="url(#${cm})"><g clip-path="url(#${cp})" filter="url(#pluma)">${s}</g></g>`);
+  return L.svg();
 }
-function bugambilia(L, x, y, r) {
+
+// Perfil de balaustre (igual que en la acuarela)
+function balaustre(cx, y0, y1, perfil) {
+  const h = y0 - y1;
+  const izq = perfil.map(([t, w]) => [cx - w, y0 - t * h]);
+  const der = perfil.map(([t, w]) => [cx + w, y0 - t * h]).reverse();
+  return curva(izq.concat(der), true);
+}
+function tazaTinta(L, cx, y, rx, ry, fondo) {
+  const cuerpo = `M${cx - rx} ${y}C${cx - rx * .9} ${y + fondo * .7} ${cx - rx * .35} ${y + fondo} ${cx} ${y + fondo}C${cx + rx * .35} ${y + fondo} ${cx + rx * .9} ${y + fondo * .7} ${cx + rx} ${y}Z`;
+  let s = `<path d="${cuerpo}" fill="${PAPEL}"/>` + L.rayado(cuerpo, [cx - rx, y, cx + rx, y + fondo], { ang: -1.1, sep: 6, w: 1, op: .4 });
+  s += L.rayado(`M${cx + rx * .2} ${y}H${cx + rx}V${y + fondo}H${cx + rx * .2}Z`, [cx, y, cx + rx, y + fondo], { ang: -.7, sep: 4.5, w: 1, op: .5 });
+  s += L.contorno(cuerpo, 2.6);
+  let g = "";
+  for (let k = -3; k <= 3; k++) { const x = cx + k * rx * .26; g += `M${f(x)} ${f(y + 6)}Q${f(x - k * 4)} ${f(y + fondo * .6)} ${f(cx + k * rx * .08)} ${f(y + fondo - 4)}`; }
+  s += `<path d="${g}" stroke="${INDIGO}" stroke-width="1.3" fill="none" opacity=".7"/>`;
+  s += `<ellipse cx="${cx}" cy="${y}" rx="${rx}" ry="${ry}" fill="${PAPEL}" stroke="${INDIGO}" stroke-width="2.6"/>`;
+  s += `<ellipse cx="${cx}" cy="${y - ry * .25}" rx="${rx - 14}" ry="${ry * .45}" fill="${AGUADA}" fill-opacity=".18" stroke="${INDIGO}" stroke-width="1.4"/>`;
+  const n = Math.round(rx / 16);
+  let fe = "";
+  for (let i = 0; i <= n; i++) { const a = Math.PI * i / n, x = cx - Math.cos(a) * rx, yy = y + Math.sin(a) * ry; fe += `M${f(x - rx / n * .5)} ${f(yy + 2)}a${f(rx / n * .5)} ${f(rx / n * .5)} 0 0 0 ${f(rx / n)} 0`; }
+  s += `<path d="${fe}" stroke="${INDIGO}" stroke-width="1.6" fill="none"/>`;
+  return s;
+}
+function fuste(L, d, caja) {
+  return `<path d="${d}" fill="${PAPEL}"/>` + L.rayado(d, caja, { ang: -1.4, sep: 5, w: 1, op: .35 }) + L.contorno(d, 2.4);
+}
+function chorrosTinta(L, cx, y, rx, yFin, n) {
   let s = "";
-  for (let i = 0; i < 3; i++) {
-    const a = i / 3 * Math.PI * 2 + L.r(0, 1);
-    const e = eje(x, y, a, r, 0, 8);
-    const d = lanceola(e, r * .55, .55);
-    s += `<path d="${d}" fill="${PAPEL}"/><path d="${d}" fill="${AGUADA}" opacity=".32"/>` + L.contorno(d, 1.7);
+  for (let i = 0; i < n; i++) {
+    const a = Math.PI * (i + .5) / n, x = cx - Math.cos(a) * rx * .96, y0 = y + Math.sin(a) * 8;
+    s += `<path d="M${f(x)} ${f(y0)}Q${f(x + (x - cx) * .08)} ${f((y0 + yFin) / 2)} ${f(x + (x - cx) * .12)} ${f(yFin)}" stroke="${INDIGO}" stroke-width="1.2" fill="none" stroke-dasharray="${f(L.r(10, 22))} ${f(L.r(5, 10))}" opacity=".7"/>`;
   }
   return s;
 }
 
-export function enredadera() {
-  const L = new Pluma(2400, 1500, 263);
+export function fuente() {
+  const L = new Pluma(2400, 1500, 257);
+  const rx = 255, ry = 46, h = 96, top = FY - h, B1 = 1236, B2 = 1084, B3 = 968;
   let s = "";
-  // Guías que recorren el remate y cuelgan
-  const guias = [];
-  for (let i = 0; i < 16; i++) {
-    const x0 = L.r(620, 2380), y0 = x0 < 830 ? 900 - (x0 - 620) * .3 : x0 < 1570 ? L.r(640, 700) : L.r(500, 760);
-    const pts = [[x0, y0]];
-    let x = x0, y = y0;
-    const cae = x0 > 1700 ? L.r(250, 650) : L.r(60, 220);
-    for (let k = 0; k < 8; k++) { x += L.r(-60, 60); y += cae / 8; pts.push([x, y]); }
-    guias.push(pts);
-    s += L.linea(pts, 2.6, INDIGO, .9);
-  }
-  // Masa de follaje a lo largo de la cima
-  for (let i = 0; i < 1100; i++) {
-    const x = L.r(600, 2400);
-    const tope = x < 830 ? 860 - (x - 600) * .5 : x < 1700 ? 640 : 520 - (x - 1700) * .25;
-    const y = L.r(tope, tope + (x > 1700 ? 320 : 150));
-    if (x > CX - RADIO - 70 && x < CX + RADIO + 70 && y > ARRANQUE - RADIO - 20) continue;
-    s += hojita(L, x, y, L.r(12, 20), L.r(0, Math.PI * 2));
-  }
-  // Hojas sobre las guías que cuelgan
-  guias.forEach((pts) => pts.forEach((p, k) => { if (k) s += hojita(L, p[0] + L.r(-10, 10), p[1], L.r(8, 13), L.r(0, 6.3)); }));
-  // Bugambilia, sobre todo a la derecha
-  for (let i = 0; i < 110; i++) {
-    const x = L.r(1400, 2400), y = L.r(470 - (x - 1400) * .1, 840);
-    s += bugambilia(L, x, y, L.r(16, 24));
-  }
-  for (let i = 0; i < 18; i++) s += bugambilia(L, L.r(700, 1250), L.r(640, 720), L.r(13, 18));
-  // Mata a la izquierda, sobre el muro bajo
-  for (let i = 0; i < 160; i++) s += hojita(L, L.r(250, 620), L.r(870, 1010), L.r(11, 17), L.r(0, 6.3));
+  // Pileta
+  s += `<ellipse cx="${FX}" cy="${top}" rx="${rx}" ry="${ry}" fill="${PAPEL}" stroke="${INDIGO}" stroke-width="2.6"/>`;
+  s += `<ellipse cx="${FX}" cy="${top + 4}" rx="${rx - 20}" ry="${ry - 9}" fill="${AGUADA}" fill-opacity=".14" stroke="${INDIGO}" stroke-width="1.6"/>`;
+  let ondas = "";
+  for (let i = 0; i < 7; i++) ondas += `<ellipse cx="${f(FX + L.r(-150, 150))}" cy="${f(top + L.r(6, 22))}" rx="${f(L.r(16, 34))}" ry="${f(L.r(3, 6))}"/>`;
+  s += `<g fill="none" stroke="${INDIGO}" stroke-width="1.2" opacity=".6">${ondas}</g>`;
+  s += fuste(L, balaustre(FX, top + 14, B1 + 30, [[0, 34], [.25, 28], [.5, 44], [.72, 26], [.9, 22], [1, 30]]), [FX - 50, B1, FX + 50, top + 14]);
+  const frente = `M${FX - rx} ${top}A${rx} ${ry} 0 0 0 ${FX + rx} ${top}V${FY}A${rx} ${ry} 0 0 1 ${FX - rx} ${FY}Z`;
+  s += `<path d="${frente}" fill="${PAPEL}"/>`;
+  s += L.rayado(`M${FX + rx * .35} ${top}H${FX + rx}V${FY + ry}H${FX + rx * .35}Z`, [FX, top, FX + rx, FY + ry], { ang: -1.2, sep: 5, w: 1, op: .55 });
+  let j = "";
+  for (let k = 1; k < 8; k++) { const a = Math.PI - k / 8 * Math.PI, x = FX + Math.cos(a) * rx; j += `M${f(x)} ${f(top + Math.sin(a) * ry)}V${f(FY + Math.sin(a) * ry)}`; }
+  s += `<path d="${j}" stroke="${INDIGO}" stroke-width="1.6" fill="none"/>` + L.contorno(frente, 3);
+  s += `<path d="M${FX - rx} ${top + 10}A${rx} ${ry} 0 0 0 ${FX + rx} ${top + 10}" stroke="${INDIGO}" stroke-width="1.4" fill="none"/>`;
+  // Tazas, fustes y remate
+  s += tazaTinta(L, FX, B1, 172, 20, 80);
+  s += fuste(L, balaustre(FX, B1 - 6, B2 + 24, [[0, 30], [.2, 22], [.45, 40], [.7, 20], [.88, 16], [1, 22]]), [FX - 45, B2, FX + 45, B1]);
+  s += tazaTinta(L, FX, B2, 112, 15, 58);
+  s += fuste(L, balaustre(FX, B2 - 4, B3 + 18, [[0, 22], [.25, 15], [.5, 28], [.75, 14], [1, 17]]), [FX - 35, B3, FX + 35, B2]);
+  s += tazaTinta(L, FX, B3, 66, 10, 40);
+  s += fuste(L, balaustre(FX, B3 - 2, B3 - 96, [[0, 12], [.18, 9], [.42, 22], [.7, 18], [.88, 8], [1, 2]]), [FX - 25, B3 - 100, FX + 25, B3]);
+  let pina = "";
+  for (let k = 0; k < 4; k++) pina += `M${FX - 16} ${B3 - 34 - k * 12}q16 10 32 0`;
+  s += `<path d="${pina}" stroke="${INDIGO}" stroke-width="1.4" fill="none"/>`;
+  s += chorrosTinta(L, FX, B3, 66, B2 - 2, 9) + chorrosTinta(L, FX, B2, 112, B1 - 2, 14) + chorrosTinta(L, FX, B1, 172, top + 14, 20);
   L.add(`<g filter="url(#pluma)">${s}</g>`);
   return L.svg();
 }
 
-// Maguey de contorno: pencas largas con dientes y espina
-function maguey(L, x, y, s, inc = 0) {
+// Cuna de Moisés en maceta de barro
+function cunaTinta(L, x, y, esc) {
   let o = "";
-  const n = 13;
+  const n = 13, hojas = [];
   for (let i = 0; i < n; i++) {
-    const a = -Math.PI / 2 + inc + (i / (n - 1) - .5) * 2.7 + L.r(-.08, .08);
-    const largo = s * L.r(380, 560) * (1 - Math.abs(i / (n - 1) - .5) * .7);
-    const e = eje(x, y, a, largo, L.r(-.05, .05) + (a + Math.PI / 2) * .05);
-    const d = lanceola(e, s * 34, .25);
-    o += `<path d="${d}" fill="${PAPEL}"/>` + L.contorno(d, 2.6);
-    o += L.linea(e.slice(2, -2).map((p) => [p[0], p[1]]), 1.2, INDIGO, .6);
-    o += L.rayado(lanceola(e.map((p) => [p[0] + Math.cos(a + 1.57) * 14 * s, p[1] + Math.sin(a + 1.57) * 14 * s, p[2]]), s * 22, .25), [x - 700 * s, y - 700 * s, x + 700 * s, y], { ang: a + .3, sep: 8, w: 1, op: .5 });
-    const tip = e[e.length - 1];
-    o += L.linea([[tip[0], tip[1]], [tip[0] + Math.cos(a) * 26 * s, tip[1] + Math.sin(a) * 26 * s]], 2.6, INDIGO_OSC);
+    const a = -Math.PI / 2 + (i / (n - 1) - .5) * 2.6 + L.r(-.12, .12);
+    hojas.push({ a, largo: L.r(190, 260) * esc * (1 - Math.abs(a + Math.PI / 2) * .15) });
   }
-  return o;
-}
-// Órgano: columnas con costillas y areolas
-function organo(L, x, y) {
-  let o = "";
-  [[-120, 560, 46], [-40, 820, 52], [50, 700, 50], [140, 480, 44]].forEach(([dx, h, w]) => {
-    const x0 = x + dx, d = `M${x0 - w / 2} ${y}V${y - h + w / 2}A${w / 2} ${w / 2} 0 0 1 ${x0 + w / 2} ${y - h + w / 2}V${y}Z`;
-    o += `<path d="${d}" fill="${PAPEL}"/>` + L.contorno(d, 2.8);
-    let c = "";
-    [-.22, 0, .22].forEach((k) => { c += `M${f(x0 + k * w)} ${y}V${f(y - h + w * .3)}`; });
-    o += `<path d="${c}" stroke="${INDIGO}" stroke-width="1.5" opacity=".75" fill="none"/>`;
-    o += L.rayado(`M${x0 + w * .1} ${y}V${y - h}H${x0 + w}V${y}Z`, [x0, y - h, x0 + w, y], { ang: -1.4, sep: 6, w: 1, op: .5 });
-    let ar = "";
-    for (let yy = y - h + 30; yy < y; yy += 22) [-.22, 0, .22].forEach((k) => { ar += `M${f(x0 + k * w - 2)} ${f(yy + L.r(-4, 4))}h4`; });
-    o += `<path d="${ar}" stroke="${INDIGO_OSC}" stroke-width="2.4" stroke-linecap="round"/>`;
+  hojas.sort((p, q) => Math.abs(q.a + Math.PI / 2) - Math.abs(p.a + Math.PI / 2));
+  for (let k = 0; k < 3; k++) {
+    const fx = x + L.r(-50, 50) * esc, fy = y - L.r(230, 300) * esc, inc = L.r(-.3, .3);
+    o += L.linea([[x + (fx - x) * .3, y], [fx, fy + 110 * esc], [fx, fy + 30 * esc]], 2);
+    const e = eje(fx, fy + 30 * esc, -Math.PI / 2 + inc, 80 * esc, .05, 10), d = lanceola(e, 28 * esc, .4);
+    o += `<path d="${d}" fill="${PAPEL}"/>` + L.contorno(d, 2) + L.linea([[fx - 3 * esc, fy + 26 * esc], [fx, fy - 6 * esc]], 4, INDIGO, .8);
+  }
+  hojas.forEach(({ a, largo }) => {
+    const pl = largo * .42, px = x + Math.cos(a) * pl, py = y + Math.sin(a) * pl;
+    o += L.linea([[x, y], [px, py]], 2);
+    const ab = a + (a + Math.PI / 2) * .45;
+    const e = eje(px, py, ab, largo * .7, (a + Math.PI / 2) * .12, 12), d = lanceola(e, largo * .16, .45);
+    o += `<path d="${d}" fill="${PAPEL}"/>`;
+    if (a > -Math.PI / 2) o += L.rayado(d, [px - largo, py - largo, px + largo, py + largo], { ang: -.8, sep: 4, w: .9, op: .5, temblor: .4 });
+    o += L.contorno(d, 2) + L.linea(e.slice(0, -1).map((p) => [p[0], p[1]]), 1.1, INDIGO, .7);
   });
   return o;
 }
-function echeveria(L, x, y, r) {
-  let o = "";
-  for (let k = 2; k >= 0; k--) {
-    const rr = r * (1 - k * .28);
-    for (let i = 0; i < 7; i++) {
-      const a = i / 7 * Math.PI * 2 + k * .4;
-      const e = eje(x, y, a, rr, 0, 6);
-      const d = lanceola(e, rr * .32, .55);
-      o += `<path d="${d}" fill="${PAPEL}"/>` + L.contorno(d, 1.6);
-    }
-  }
-  return o;
+function macetaTinta(L, x, y, esc) {
+  const w = 74 * esc, wb = 52 * esc, h = 110 * esc, borde = 22 * esc;
+  const cuerpo = `M${f(x - w)} ${f(y - h)}L${f(x + w)} ${f(y - h)}L${f(x + wb)} ${f(y)}L${f(x - wb)} ${f(y)}Z`;
+  const ceja = `M${f(x - w - 8 * esc)} ${f(y - h - borde)}h${f(2 * w + 16 * esc)}v${f(borde)}h${f(-2 * w - 16 * esc)}Z`;
+  return `<path d="${cuerpo}" fill="${PAPEL}"/>` + L.lavado(cuerpo, .1) +
+    L.rayado(`M${f(x + w * .2)} ${f(y - h)}H${f(x + w)}L${f(x + wb)} ${f(y)}H${f(x + w * .2)}Z`, [x - w, y - h, x + w, y], { ang: -1.1, sep: 5, w: 1, op: .6 }) +
+    L.contorno(cuerpo, 2.6) + `<path d="${ceja}" fill="${PAPEL}"/>` + L.contorno(ceja, 2.6);
 }
 
 export function plantas() {
   const L = new Pluma(2400, 1500, 271);
   let s = "";
-  // Arriates: línea de tierra y matitas
-  s += L.linea([[1470, 1500], [1500, 1380], [1620, 1330], [1800, 1310], [2000, 1294], [2400, 1290]], 2.6);
-  s += L.linea([[0, 1350], [200, 1330], [520, 1350], [760, 1420], [830, 1500]], 2.6);
-  let pasto = "";
-  for (let i = 0; i < 260; i++) {
-    const der = L.R() < .65;
-    const x = der ? L.r(1500, 2400) : L.r(0, 800), y = der ? L.r(1340, 1500) : L.r(1380 + x * .06, 1500);
-    const h = L.r(10, 24), a = L.r(-.4, .4);
-    pasto += `M${f(x)} ${f(y)}q${f(a * h)} ${f(-h * .5)} ${f(a * h * 2)} ${f(-h)}`;
-  }
-  s += `<path d="${pasto}" stroke="${INDIGO}" stroke-width="1.4" fill="none" opacity=".7" stroke-linecap="round"/>`;
-  s += organo(L, 1720, 1400);
-  s += maguey(L, 2050, 1450, .8, .1);
-  s += maguey(L, 2330, 1480, .55, -.1);
-  s += maguey(L, 380, 1500, 1.05);
-  [[1560, 1440, 40], [1660, 1470, 46], [1800, 1455, 38], [1920, 1490, 44], [1500, 1490, 34], [640, 1470, 36], [740, 1495, 30]].forEach(([x, y, r]) => { s += echeveria(L, x, y, r); });
+  [[1975, 1480, 1.05], [2160, 1496, .85], [430, 1490, 1.1], [690, 1498, .9], [250, 1500, .75]].forEach(([x, y, e]) => {
+    s += cunaTinta(L, x, y - 122 * e, e) + macetaTinta(L, x, y, e);
+  });
   L.add(`<g filter="url(#pluma)">${s}</g>`);
   return L.svg();
 }

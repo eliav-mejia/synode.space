@@ -1,5 +1,5 @@
 /* Entrada de la invitación. El scroll queda bloqueado (html.sellado) hasta que el sitio terminó de cargar y se abrió.
-   - Variante sello y tinta: se toca el sello (de cera o de tinta índigo); la perforadora baja y la invitación aparece.
+   - Variantes sello, tinta y vintage: se toca el sello (cera, tinta índigo o lacre); la perforadora baja y la invitación aparece.
    - Variante mosaico: se toca el damasco; el azulejo se parte de golpe en pocas teselas grandes que salen volando,
      y cuando ya no queda ninguna la placa se retira con su propia animación.
    Atajo para pruebas: synode.space/#abierta abre sin esperar. */
@@ -12,7 +12,7 @@
   var romperBtn = document.getElementById("romper");
   var mosaico = html.dataset.variante === "mosaico";
   // En la variante tinta, el sello de entrada y el del pie son de tinta índigo
-  if (html.dataset.variante === "tinta") document.querySelectorAll('use[href="#sello-cera"]').forEach(function (u) { u.setAttribute("href", "#sello-tinta"); });
+  if (window.CONTENIDO_TINTA) document.querySelectorAll('use[href="#sello-cera"]').forEach(function (u) { u.setAttribute("href", "#sello-tinta"); });
   var disparador = mosaico ? romperBtn : sello;
 
   function quedaAbierta() {

@@ -2,14 +2,19 @@
    html[data-variante] decide qué se muestra. Además dibuja el menú para cambiar de variante.
    - sello    papel de algodón prensado en frío con A & E para abrir (predeterminada; el id se conserva por los enlaces)
    - mosaico  damasco a todo color que se rompe en teselas para abrir; sin sello (js/sello.js)
-   - tinta    papel texturizado, sello de tinta índigo y escenas dibujadas a pluma (arte/tinta.mjs) */
+   - tinta    papel texturizado, sello de tinta índigo y escenas dibujadas a pluma (arte/tinta.mjs)
+   - prensado-indigo  abre como «sello» (algodón prensado con A & E) y el contenido es el de «tinta»
+   - vintage  papel envejecido en sepia con manchas de tiempo, sello de lacre rojo, acuarelas y fotos viradas a sepia
+              con esquineros de álbum (solo CSS: usa las mismas capas que la variante sello) */
 (function () {
   "use strict";
 
   var VARIANTES = [
     { id: "sello", nombre: "Papel prensado", nota: "Algodón blanco con A & E" },
     { id: "mosaico", nombre: "Mosaico", nota: "Se abre rompiendo el mosaico" },
-    { id: "tinta", nombre: "Tinta índigo", nota: "Papel texturizado e ilustraciones a pluma" }
+    { id: "tinta", nombre: "Tinta índigo", nota: "Papel texturizado e ilustraciones a pluma" },
+    { id: "prensado-indigo", nombre: "Prensado e índigo", nota: "Abre en papel prensado; contenido a pluma índigo" },
+    { id: "vintage", nombre: "Vintage", nota: "Sepia, papel envejecido y sello de lacre" }
   ];
 
   var html = document.documentElement;
@@ -17,6 +22,8 @@
   var actual = VARIANTES.some(function (v) { return v.id === pedida; }) ? pedida : VARIANTES[0].id;
   html.dataset.variante = actual;
   window.VARIANTE = actual;
+  // Escenas a pluma, papel verjurado y sello índigo en el pie
+  window.CONTENIDO_TINTA = actual === "tinta" || actual === "prensado-indigo";
 
   document.addEventListener("DOMContentLoaded", function () {
     var nav = document.createElement("nav");
