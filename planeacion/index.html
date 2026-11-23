@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Planeación de boda</title>
+  <meta name="description" content="Panel privado de planeación de la boda de Alejandra y Eliav: presupuesto, invitados, fechas y acomodo de mesas alrededor de la fuente.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#F7F2E8">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap">
+  <!-- Fecha de la boda: misma fuente única que la invitación -->
+  <script src="../js/config.js"></script>
+  <style>
+    /* synode.space · Panel de planeación. Misma paleta de la invitación (tinta de prensa sobre papel de algodón). */
+    :root {
+      --papel: #F7F2E8;
+      --papel-claro: #FCFAF5;
+      --papel-sombra: #E7DFD0;
+      --linea: #DDD2BF;
+      --tinta: #2D3832;
+      --tinta-suave: #66705F;
+      --terracota: #A8502E;
+      --terracota-osc: #84391D;
+      --agave: #4F6F78;
+      --agave-claro: #D3E0E3;
+      --oro: #B6975E;
+      --ok: #5E7550;
+      --f-display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+      --f-texto: "Cormorant Garamond", Garamond, Georgia, serif;
+      --radio: 10px;
+      color-scheme: light;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; background: var(--papel); color: var(--tinta);
+      font-family: var(--f-texto); font-size: 1.08rem; line-height: 1.5;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    :focus-visible { outline: 2px dashed var(--terracota); outline-offset: 3px; }
+    [hidden] { display: none !important; }
+    .num { font-variant-numeric: tabular-nums lining-nums; }
+
+    /* ---------- Encabezado ---------- */
+    header.cabeza {
+      max-width: 1240px; margin: 0 auto; padding: 28px 16px 8px;
+      display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 24px;
+    }
+    .cabeza h1 { font-family: var(--f-display); font-weight: 500; font-size: clamp(1.7rem, 1.2rem + 2vw, 2.5rem); margin: 0; line-height: 1.1; letter-spacing: .01em; }
+    .cabeza h1 em { color: var(--terracota); font-style: italic; }
+    .cabeza p { margin: 4px 0 0; color: var(--tinta-suave); font-style: italic; }
+    .acciones-globales { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .estado-guardado { font-size: .95rem; color: var(--tinta-suave); font-style: italic; min-width: 9ch; }
+
+    /* ---------- Pestañas ---------- */
+    nav.pestanas {
+      position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--papel) 92%, transparent);
+      backdrop-filter: blur(6px); border-bottom: 1px solid var(--linea);
+    }
+    nav.pestanas .fila { max-width: 1240px; margin: 0 auto; padding: 0 16px; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+    nav.pestanas .fila::-webkit-scrollbar { display: none; }
+    nav.pestanas button {
+      background: none; border: 0; padding: 12px 14px 10px; cursor: pointer; white-space: nowrap;
+      font-family: var(--f-display); font-size: 1rem; color: var(--tinta-suave); border-bottom: 2px solid transparent;
+    }
+    nav.pestanas button[aria-selected="true"] { color: var(--tinta); border-bottom-color: var(--terracota); }
+    nav.pestanas button:hover { color: var(--tinta); }
+
+    main { max-width: 1240px; margin: 0 auto; padding: 20px 16px 64px; }
+    section.panel > h2 { font-family: var(--f-display); font-weight: 500; font-size: 1.6rem; margin: 0 0 4px; }
+    section.panel > .bajada { margin: 0 0 18px; color: var(--tinta-suave); font-style: italic; }
+    h3 { font-family: var(--f-display); font-weight: 500; font-size: 1.15rem; margin: 0 0 10px; }
+
+    /* ---------- Piezas comunes ---------- */
+    .tarjeta { background: var(--papel-claro); border: 1px solid var(--linea); border-radius: var(--radio); padding: 16px; }
+    .rejilla { display: grid; gap: 14px; }
+    .kpis { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); margin-bottom: 14px; }
+    .kpi .etq { font-size: .92rem; color: var(--tinta-suave); text-transform: uppercase; letter-spacing: .08em; }
+    .kpi .valor { font-family: var(--f-display); font-size: 1.9rem; line-height: 1.15; margin: 4px 0 2px; }
+    .kpi .nota { font-size: .95rem; color: var(--tinta-suave); }
+    .kpi .nota.mal { color: var(--terracota); }
+    .kpi .nota.bien { color: var(--ok); }
+    .dos-col { grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); }
+
+    .boton {
+      display: inline-flex; align-items: center; gap: 6px; cursor: pointer; border-radius: 999px;
+      padding: 6px 14px; border: 1px solid var(--tinta); background: var(--tinta); color: var(--papel-claro);
+      font-size: 1rem; line-height: 1.3;
+    }
+    .boton:hover { background: #1f2823; }
+    .boton.sec { background: transparent; color: var(--tinta); border-color: var(--linea); }
+    .boton.sec:hover { border-color: var(--tinta-suave); background: var(--papel-claro); }
+    .boton.peligro { background: transparent; color: var(--terracota); border-color: color-mix(in srgb, var(--terracota) 40%, transparent); }
+    .boton.peligro:hover { background: #F5E6DE; }
+    .boton.chico { padding: 3px 10px; font-size: .95rem; }
+
+    input[type="text"], input[type="number"], input[type="date"], input[type="search"], select, textarea {
+      background: var(--papel-claro); border: 1px solid var(--linea); border-radius: 6px; padding: 5px 8px; min-width: 0;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--agave); outline: none; box-shadow: 0 0 0 2px var(--agave-claro); }
+    label.campo { display: grid; gap: 2px; font-size: .92rem; color: var(--tinta-suave); }
+    label.campo > span { text-transform: uppercase; letter-spacing: .07em; font-size: .8rem; }
+    .formulario { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
+    .formulario .crece { flex: 1 1 200px; }
+    .formulario .crece input { width: 100%; }
+
+    /* Tablas editables */
+    .tabla-scroll { overflow-x: auto; border: 1px solid var(--linea); border-radius: var(--radio); background: var(--papel-claro); }
+    table.datos { width: 100%; border-collapse: collapse; font-size: 1rem; }
+    table.datos th { text-align: left; font-weight: 600; font-size: .8rem; letter-spacing: .07em; text-transform: uppercase; color: var(--tinta-suave); padding: 10px 8px; border-bottom: 1px solid var(--linea); white-space: nowrap; background: var(--papel); }
+    table.datos td { padding: 4px 6px; border-bottom: 1px solid #EEE7DA; vertical-align: middle; }
+    table.datos tr:last-child td { border-bottom: 0; }
+    table.datos td input, table.datos td select { width: 100%; border-color: transparent; background: transparent; }
+    table.datos td input:hover, table.datos td select:hover { border-color: var(--linea); }
+    table.datos td input[type="number"] { text-align: right; min-width: 100px; }
+    table.datos tfoot td { font-weight: 600; border-top: 1px solid var(--linea); padding: 10px 8px; background: var(--papel); }
+    table.datos .der { text-align: right; }
+    .quitar { background: none; border: 0; cursor: pointer; color: var(--tinta-suave); font-size: 1.3rem; line-height: 1; padding: 2px 8px; border-radius: 4px; }
+    .quitar:hover { color: var(--terracota); background: #F5E6DE; }
+    .vacio { padding: 18px; text-align: center; color: var(--tinta-suave); font-style: italic; }
+
+    /* Barras */
+    .barra { height: 10px; background: var(--papel-sombra); border-radius: 99px; overflow: hidden; display: flex; }
+    .barra > span { display: block; height: 100%; }
+    .leyenda { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .95rem; color: var(--tinta-suave); margin-top: 8px; }
+    .leyenda i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: 0; }
+    .cat-fila { display: grid; grid-template-columns: minmax(110px, 160px) 1fr auto; gap: 10px; align-items: center; padding: 5px 0; }
+    .cat-fila .pista { position: relative; height: 12px; background: var(--papel-sombra); border-radius: 99px; overflow: hidden; }
+    .cat-fila .pista .est { position: absolute; inset: 0 auto 0 0; background: #E6D9BD; border-radius: 99px; }
+    .cat-fila .pista .real { position: absolute; inset: 0 auto 0 0; background: var(--agave); border-radius: 99px; }
+    .cat-fila .pista .real.excede { background: var(--terracota); }
+    .cat-fila .cifra { font-size: .95rem; color: var(--tinta-suave); white-space: nowrap; }
+
+    /* Lista de fechas */
+    .lista { list-style: none; margin: 0; padding: 0; }
+    .lista li { display: grid; grid-template-columns: auto auto 1fr auto auto; gap: 10px; align-items: center; padding: 8px 4px; border-bottom: 1px solid #EEE7DA; }
+    .lista li:last-child { border-bottom: 0; }
+    .lista li.hecho .titulo input { text-decoration: line-through; color: var(--tinta-suave); }
+    .lista .titulo input { width: 100%; border-color: transparent; background: transparent; }
+    .lista .titulo input:hover { border-color: var(--linea); }
+    .chip-tipo { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; padding: 1px 8px; border-radius: 99px; background: var(--papel-sombra); color: var(--tinta-suave); white-space: nowrap; }
+    .rel { font-size: .95rem; color: var(--tinta-suave); white-space: nowrap; }
+    .rel.vencida { color: var(--terracota); font-weight: 600; }
+    .rel.pronto { color: var(--agave); font-weight: 600; }
+    .resumen-lista li { grid-template-columns: 92px 1fr auto; }
+    .fecha-corta { font-family: var(--f-display); font-size: .95rem; white-space: nowrap; }
+
+    /* ---------- Mesas ---------- */
+    .config-mesas { margin-bottom: 14px; }
+    .config-mesas input[type="number"] { width: 76px; }
+    .capacidad { font-size: 1rem; color: var(--tinta-suave); }
+    .capacidad b { color: var(--tinta); }
+    .capacidad .mal { color: var(--terracota); font-weight: 600; }
+    .mesas-layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 14px; align-items: start; }
+    @media (max-width: 900px) { .mesas-layout { grid-template-columns: 1fr; } }
+    .plano { padding: 8px; }
+    .plano svg { display: block; width: 100%; height: auto; max-height: 78vh; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+    .asiento { cursor: pointer; }
+    .asiento circle { stroke-width: 1.6; transition: stroke-width .12s; }
+    .asiento:hover circle { stroke-width: 3; }
+    .asiento.vacio-a circle { fill: var(--papel-claro); stroke: #B9AE9A; stroke-dasharray: 3 3; }
+    .asiento.vacio-a text { fill: #A79C88; font-size: 11px; }
+    .asiento text { font-family: var(--f-texto); font-size: 13px; font-weight: 700; fill: var(--tinta); text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+    .asiento.sel circle { stroke: var(--terracota) !important; stroke-width: 4; }
+    .asiento.declinado circle { stroke: var(--terracota); stroke-dasharray: 2 2; }
+    .asiento.destino circle { stroke: var(--agave); stroke-width: 4; }
+    .mesa-rect { fill: #EFE6D4; stroke: #A99A7E; stroke-width: 1.5; }
+    .mesa-txt { font-family: var(--f-display); font-size: 15px; fill: var(--tinta-suave); text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+    .lateral { display: grid; gap: 14px; position: sticky; top: 56px; }
+    @media (max-width: 900px) { .lateral { position: static; } }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; max-height: 340px; overflow-y: auto; padding: 2px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px 3px 6px; border-radius: 99px; cursor: grab;
+      border: 1px solid var(--linea); background: var(--papel-claro); font-size: .98rem; line-height: 1.3;
+    }
+    .chip i { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+    .chip[aria-pressed="true"] { border-color: var(--terracota); box-shadow: 0 0 0 2px #F1D9CC; }
+    .seleccion { font-size: 1rem; }
+    .seleccion .nombre { font-family: var(--f-display); font-size: 1.2rem; }
+    .ayuda { font-size: .95rem; color: var(--tinta-suave); font-style: italic; margin: 6px 0 0; }
+    .grupos-leyenda { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: .92rem; color: var(--tinta-suave); }
+    .grupos-leyenda i { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; border: 1.5px solid; }
+    .mesas-lista { grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); margin-top: 14px; }
+    .mesas-lista .tarjeta { padding: 12px 14px; }
+    .mesas-lista input.nombre-mesa { font-family: var(--f-display); font-size: 1.05rem; border-color: transparent; background: transparent; width: 100%; padding: 2px 4px; }
+    .mesas-lista input.nombre-mesa:hover { border-color: var(--linea); }
+    .mesas-lista ol { margin: 6px 0 0; padding-left: 26px; font-size: 1rem; }
+    .mesas-lista ol li::marker { color: var(--tinta-suave); font-size: .85rem; }
+    .mesas-lista ol li.libre { color: #B0A590; font-style: italic; }
+    .mesas-lista .cuenta { font-size: .9rem; color: var(--tinta-suave); }
+
+    .pie { margin-top: 30px; font-size: .95rem; color: var(--tinta-suave); font-style: italic; text-align: center; }
+
+    @media (max-width: 640px) {
+      .lista li { grid-template-columns: auto 1fr auto; }
+      .lista li .chip-tipo, .lista li .fecha-input { grid-column: 2; }
+      .resumen-lista li { grid-template-columns: 80px 1fr; }
+      .resumen-lista li .rel { grid-column: 2; }
+    }
+
+    @media print {
+      nav.pestanas, .acciones-globales, .no-imprimir, .formulario, .quitar, .lateral { display: none !important; }
+      body { background: #fff; font-size: 11pt; }
+      .tarjeta, .tabla-scroll { border-color: #ccc; background: #fff; }
+      .mesas-layout { grid-template-columns: 1fr; }
+      .plano svg { max-height: none; }
+      table.datos td input, table.datos td select { border: 0; appearance: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="cabeza">
+  <div>
+    <h1>Alejandra <em>&amp;</em> Eliav · Planeación</h1>
+    <p id="sub-cabeza">Casa Virreinal Roja · Ciudad de México</p>
+  </div>
+  <div class="acciones-globales">
+    <span class="estado-guardado" id="estado" aria-live="polite"></span>
+    <button class="boton sec chico" id="btn-exportar" type="button" title="Descarga una copia de todos los datos">Exportar respaldo</button>
+    <label class="boton sec chico" title="Carga un respaldo .json">Importar<input type="file" id="btn-importar" accept="application/json,.json" hidden></label>
+    <button class="boton sec chico" type="button" onclick="window.print()">Imprimir</button>
+  </div>
+</header>
+
+<nav class="pestanas" aria-label="Secciones">
+  <div class="fila" role="tablist">
+    <button role="tab" data-tab="resumen" aria-selected="true">Resumen</button>
+    <button role="tab" data-tab="presupuesto" aria-selected="false">Presupuesto</button>
+    <button role="tab" data-tab="invitados" aria-selected="false">Invitados</button>
+    <button role="tab" data-tab="fechas" aria-selected="false">Fechas importantes</button>
+    <button role="tab" data-tab="mesas" aria-selected="false">Mesas</button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ===================== RESUMEN ===================== -->
+  <section class="panel" id="tab-resumen" role="tabpanel">
+    <h2>Resumen</h2>
+    <p class="bajada">Todo de un vistazo. Los datos viven en este navegador; exporta un respaldo de vez en cuando.</p>
+    <div class="rejilla kpis" id="res-kpis"></div>
+    <div class="rejilla dos-col">
+      <div class="tarjeta">
+        <h3>Confirmaciones</h3>
+        <div class="barra" id="res-rsvp-barra"></div>
+        <div class="leyenda" id="res-rsvp-ley"></div>
+      </div>
+      <div class="tarjeta">
+        <h3>Presupuesto</h3>
+        <div class="barra" id="res-pres-barra"></div>
+        <div class="leyenda" id="res-pres-ley"></div>
+      </div>
+      <div class="tarjeta">
+        <h3>Próximas fechas</h3>
+        <ul class="lista resumen-lista" id="res-fechas"></ul>
+      </div>
+      <div class="tarjeta">
+        <h3>Pagos pendientes</h3>
+        <ul class="lista resumen-lista" id="res-pagos"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PRESUPUESTO ===================== -->
+  <section class="panel" id="tab-presupuesto" role="tabpanel" hidden>
+    <h2>Presupuesto</h2>
+    <p class="bajada">Estimado = lo que planeas gastar · Real = lo contratado · Pagado = lo que ya salió. Montos en pesos mexicanos.</p>
+    <div class="formulario tarjeta no-imprimir" style="margin-bottom:14px">
+      <label class="campo"><span>Presupuesto total (MXN)</span>
+        <input type="number" id="pres-total" min="0" step="1000" inputmode="decimal" placeholder="0" style="width:180px">
+      </label>
+    </div>
+    <div class="rejilla kpis" id="pres-kpis"></div>
+    <div class="tabla-scroll">
+      <table class="datos">
+        <thead><tr><th>Concepto</th><th>Categoría</th><th>Proveedor</th><th class="der">Estimado</th><th class="der">Real</th><th class="der">Pagado</th><th>Vence</th><th></th></tr></thead>
+        <tbody id="pres-filas"></tbody>
+        <tfoot><tr><td colspan="3">Totales</td><td class="der num" id="pt-est"></td><td class="der num" id="pt-real"></td><td class="der num" id="pt-pag"></td><td colspan="2"></td></tr></tfoot>
+      </table>
+    </div>
+    <p class="no-imprimir"><button class="boton sec" type="button" data-accion="pres-agregar">+ Agregar concepto</button></p>
+    <div class="tarjeta">
+      <h3>Por categoría</h3>
+      <div id="pres-cats"></div>
+      <div class="leyenda"><span><i style="background:#E6D9BD"></i>Estimado</span><span><i style="background:var(--agave)"></i>Real</span><span><i style="background:var(--terracota)"></i>Real por encima de lo estimado</span></div>
+    </div>
+  </section>
+
+  <!-- ===================== INVITADOS ===================== -->
+  <section class="panel" id="tab-invitados" role="tabpanel" hidden>
+    <h2>Lista de invitados</h2>
+    <p class="bajada">Una fila por persona. La columna «Mesa» se llena desde la pestaña Mesas.</p>
+    <div class="rejilla kpis" id="inv-kpis"></div>
+    <form class="formulario tarjeta no-imprimir" id="inv-form" style="margin-bottom:10px">
+      <label class="campo crece"><span>Nombre</span><input type="text" id="inv-nombre" required autocomplete="off" placeholder="Nombre y apellido"></label>
+      <label class="campo"><span>Grupo</span><select id="inv-grupo"></select></label>
+      <label class="campo"><span>Confirmación</span><select id="inv-rsvp"></select></label>
+      <button class="boton" type="submit">Agregar</button>
+      <details style="flex-basis:100%">
+        <summary style="cursor:pointer;color:var(--tinta-suave)">Agregar varios a la vez (uno por renglón)</summary>
+        <div class="formulario" style="margin-top:8px">
+          <textarea id="inv-varios" rows="5" style="flex:1 1 280px" placeholder="María López&#10;Juan Pérez&#10;…"></textarea>
+          <button class="boton sec" type="button" data-accion="inv-varios">Agregar lista</button>
+        </div>
+      </details>
+    </form>
+    <div class="formulario no-imprimir" style="margin-bottom:10px">
+      <label class="campo crece"><span>Buscar</span><input type="search" id="inv-buscar" placeholder="Nombre, dieta o nota"></label>
+      <label class="campo"><span>Grupo</span><select id="inv-f-grupo"><option value="">Todos</option></select></label>
+      <label class="campo"><span>Confirmación</span><select id="inv-f-rsvp"><option value="">Todas</option></select></label>
+      <label class="campo"><span>Meta de invitados</span><input type="number" id="inv-meta" min="1" style="width:90px"></label>
+      <button class="boton sec" type="button" data-accion="inv-csv">Descargar CSV</button>
+    </div>
+    <div class="tabla-scroll">
+      <table class="datos">
+        <thead><tr><th>#</th><th>Nombre</th><th>Grupo</th><th>Confirmación</th><th>Dieta / alergias</th><th>Notas</th><th>Mesa</th><th></th></tr></thead>
+        <tbody id="inv-filas"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== FECHAS ===================== -->
+  <section class="panel" id="tab-fechas" role="tabpanel" hidden>
+    <h2>Fechas importantes</h2>
+    <p class="bajada">Citas, pagos, pruebas y fechas límite. Marca cada una cuando quede lista.</p>
+    <form class="formulario tarjeta no-imprimir" id="fec-form" style="margin-bottom:14px">
+      <label class="campo crece"><span>Qué</span><input type="text" id="fec-titulo" required autocomplete="off" placeholder="Ej. Prueba de menú"></label>
+      <label class="campo"><span>Fecha</span><input type="date" id="fec-fecha" required></label>
+      <label class="campo"><span>Tipo</span><select id="fec-tipo"></select></label>
+      <button class="boton" type="submit">Agregar</button>
+    </form>
+    <div class="tarjeta">
+      <ul class="lista" id="fec-lista"></ul>
+    </div>
+  </section>
+
+  <!-- ===================== MESAS ===================== -->
+  <section class="panel" id="tab-mesas" role="tabpanel" hidden>
+    <h2>Acomodo de mesas</h2>
+    <p class="bajada">Mesas largas rectangulares alrededor de la fuente del patio. Elige un invitado y toca un asiento (o arrástralo).</p>
+    <div class="formulario tarjeta config-mesas no-imprimir">
+      <label class="campo"><span>Distribución</span>
+        <select id="mes-preset">
+          <option value="">Personalizada</option>
+          <option value="4,7,1">4 mesas · 7 por lado + cabeceras (64)</option>
+          <option value="4,7,0">4 mesas · 7 por lado (56)</option>
+          <option value="4,8,0">4 mesas · 8 por lado (64)</option>
+          <option value="5,6,0">5 mesas · 6 por lado (60)</option>
+          <option value="6,5,0">6 mesas · 5 por lado (60)</option>
+          <option value="8,4,0">8 mesas · 4 por lado (64)</option>
+        </select>
+      </label>
+      <label class="campo"><span>Mesas</span><input type="number" id="mes-n" min="2" max="10"></label>
+      <label class="campo"><span>Sillas por lado</span><input type="number" id="mes-lado" min="1" max="14"></label>
+      <label class="campo" style="flex-direction:row"><span>Cabeceras</span>
+        <select id="mes-cab"><option value="1">Sí, una en cada extremo</option><option value="0">No</option></select>
+      </label>
+      <div class="capacidad" id="mes-capacidad"></div>
+    </div>
+    <div class="mesas-layout">
+      <div class="tarjeta plano"><svg id="plano" role="img" aria-label="Plano de mesas alrededor de la fuente"></svg></div>
+      <aside class="lateral">
+        <div class="tarjeta seleccion" id="mes-seleccion"></div>
+        <div class="tarjeta">
+          <h3 id="mes-sin-titulo">Sin asiento</h3>
+          <input type="search" id="mes-buscar" placeholder="Buscar invitado" style="width:100%;margin-bottom:8px">
+          <div class="chips" id="mes-sin"></div>
+          <p class="ayuda">Solo aparecen quienes no han declinado.</p>
+        </div>
+        <div class="tarjeta">
+          <div class="grupos-leyenda" id="mes-leyenda"></div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
+            <button class="boton chico" type="button" data-accion="mes-auto" title="Llena los asientos libres agrupando por grupo">Acomodar automático</button>
+            <button class="boton peligro chico" type="button" data-accion="mes-vaciar">Vaciar mesas</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+    <div class="rejilla mesas-lista" id="mes-lista"></div>
+  </section>
+
+  <p class="pie">Panel privado · no enlazado desde la invitación · los datos se guardan solo en este navegador.</p>
+</main>
+
+<script>
+(() => {
+  "use strict";
+
+  /* ---------------- Constantes ---------------- */
+  const CLAVE = "synode-planeacion-v1";
+  const GRUPOS = ["Novia", "Novio", "Familia", "Amigos", "Trabajo", "Otros"];
+  // [relleno, borde] por grupo — tonos de la invitación
+  const COLOR = {
+    Novia: ["#F1D9CC", "#A8502E"], Novio: ["#D3E0E3", "#4F6F78"], Familia: ["#EFE3C8", "#9C7D3F"],
+    Amigos: ["#DDE5D3", "#5E7550"], Trabajo: ["#E5DAE6", "#7A5F7C"], Otros: ["#E8E3DA", "#7E776B"]
+  };
+  const RSVP = { pendiente: "Pendiente", confirmado: "Confirmado", declinado: "No asiste" };
+  const RSVP_COLOR = { confirmado: "#5E7550", pendiente: "#B6975E", declinado: "#A8502E" };
+  const CATS = ["Lugar", "Banquete", "Bebidas", "Música", "Fotografía y video", "Flores y decoración", "Vestuario", "Invitaciones", "Transporte", "Otros"];
+  const TIPOS = ["Hito", "Proveedor", "Pago", "Cita", "Invitados"];
+  const BODA_ISO = (window.BODA && window.BODA.fecha) || "2027-01-31T13:00:00-06:00";
+
+  /* ---------------- Utilidades ---------------- */
+  const $ = (s, r = document) => r.querySelector(s);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const uid = () => Math.random().toString(36).slice(2, 10);
+  const mxn = new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 });
+  const n0 = v => Number(v) || 0;
+  const hoy0 = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
+  const aFecha = s => { if (!s) return null; const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+  const fmtFecha = (s, larga) => { const d = aFecha(s); return d ? d.toLocaleDateString("es-MX", larga ? { weekday: "short", day: "numeric", month: "short", year: "numeric" } : { day: "numeric", month: "short", year: "2-digit" }) : "—"; };
+  const diasHasta = s => { const d = aFecha(s); return d ? Math.round((d - hoy0()) / 864e5) : null; };
+  const relativo = dias => dias === 0 ? "hoy" : dias === 1 ? "mañana" : dias === -1 ? "ayer" : dias > 0 ? `en ${dias} días` : `hace ${-dias} días`;
+  const iniciales = nombre => nombre.trim().split(/\s+/).filter(Boolean).slice(0, 2).map(p => p[0]).join("").toUpperCase() || "?";
+  const opciones = (lista, actual, etiquetas) => lista.map(v => `<option value="${esc(v)}"${v === actual ? " selected" : ""}>${esc(etiquetas ? etiquetas[v] : v)}</option>`).join("");
+
+  /* ---------------- Estado ---------------- */
+  function semilla() {
+    return {
+      version: 1,
+      meta: 60,
+      presupuesto: { total: 0, items: CATS.map(c => ({ id: uid(), concepto: c, categoria: c, proveedor: "", estimado: 0, real: 0, pagado: 0, vence: "" })) },
+      invitados: [],
+      fechas: [{ id: uid(), titulo: "Ceremonia civil y celebración", fecha: BODA_ISO.slice(0, 10), tipo: "Hito", hecho: false }],
+      mesas: { n: 4, porLado: 7, cabeceras: true, nombres: [], asientos: {} }
+    };
+  }
+  function cargar() {
+    const base = semilla();
+    try {
+      const d = JSON.parse(localStorage.getItem(CLAVE));
+      if (d && typeof d === "object") return normalizar(d, base);
+    } catch (e) { /* almacenamiento no disponible */ }
+    return base;
+  }
+  function normalizar(d, base = semilla()) {
+    return {
+      version: 1,
+      meta: n0(d.meta) || base.meta,
+      presupuesto: { total: n0(d.presupuesto?.total), items: Array.isArray(d.presupuesto?.items) ? d.presupuesto.items : base.presupuesto.items },
+      invitados: Array.isArray(d.invitados) ? d.invitados : [],
+      fechas: Array.isArray(d.fechas) ? d.fechas : base.fechas,
+      mesas: Object.assign({}, base.mesas, d.mesas || {}, { asientos: (d.mesas && d.mesas.asientos) || {} })
+    };
+  }
+  let S = cargar();
+  let temporizador;
+  function guardar() {
+    let ok = true;
+    try { localStorage.setItem(CLAVE, JSON.stringify(S)); } catch (e) { ok = false; }
+    const el = $("#estado");
+    el.textContent = ok ? "Guardado ✓" : "No se pudo guardar — exporta un respaldo";
+    clearTimeout(temporizador);
+    if (ok) temporizador = setTimeout(() => (el.textContent = ""), 1800);
+  }
+  const invitado = id => S.invitados.find(g => g.id === id);
+
+  /* ---------------- Pestañas ---------------- */
+  const RENDER = { resumen: renderResumen, presupuesto: renderPresupuesto, invitados: renderInvitados, fechas: renderFechas, mesas: renderMesas };
+  let pestana = "resumen";
+  function mostrar(tab) {
+    if (!RENDER[tab]) tab = "resumen";
+    pestana = tab;
+    document.querySelectorAll("nav.pestanas button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === tab)));
+    Object.keys(RENDER).forEach(k => ($("#tab-" + k).hidden = k !== tab));
+    RENDER[tab]();
+    if (location.hash.slice(1) !== tab) history.replaceState(null, "", "#" + tab);
+  }
+  document.querySelectorAll("nav.pestanas button").forEach(b => b.addEventListener("click", () => mostrar(b.dataset.tab)));
+  window.addEventListener("hashchange", () => mostrar(location.hash.slice(1)));
+
+  /* ---------------- Cabecera ---------------- */
+  function renderCabecera() {
+    const f = new Date(BODA_ISO);
+    $("#sub-cabeza").textContent = `${f.toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long", year: "numeric" })} · Casa Virreinal Roja · Ciudad de México`;
+  }
+
+  /* ---------------- Cálculos compartidos ---------------- */
+  function sumas() {
+    const it = S.presupuesto.items, s = k => it.reduce((a, b) => a + n0(b[k]), 0);
+    return { est: s("estimado"), real: s("real"), pag: s("pagado") };
+  }
+  function conteoRsvp() {
+    const c = { confirmado: 0, pendiente: 0, declinado: 0 };
+    S.invitados.forEach(g => (c[g.rsvp] = (c[g.rsvp] || 0) + 1));
+    return c;
+  }
+  function kpi(etq, valor, nota = "", clase = "") {
+    return `<div class="tarjeta kpi"><div class="etq">${esc(etq)}</div><div class="valor num">${esc(valor)}</div><div class="nota ${clase}">${esc(nota)}</div></div>`;
+  }
+  function barraApilada(partes, total) {
+    if (!total) return `<span style="width:0"></span>`;
+    return partes.map(([v, c]) => `<span style="width:${(v / total) * 100}%;background:${c}"></span>`).join("");
+  }
+
+  /* ---------------- Resumen ---------------- */
+  function renderResumen() {
+    const dias = Math.ceil((new Date(BODA_ISO) - new Date()) / 864e5);
+    const c = conteoRsvp(), s = sumas(), t = S.presupuesto.total;
+    const geo = geometria(S.mesas);
+    const sentados = Object.values(S.mesas.asientos).filter(id => invitado(id)).length;
+    const asistentes = c.confirmado + c.pendiente;
+    $("#res-kpis").innerHTML =
+      kpi("Faltan", dias > 0 ? `${dias} días` : dias === 0 ? "¡Hoy!" : "Celebrado", new Date(BODA_ISO).toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" })) +
+      kpi("Confirmados", `${c.confirmado} / ${S.meta}`, `${c.pendiente} pendientes · ${c.declinado} no asisten`) +
+      kpi("Gastado (real)", mxn.format(s.real), t ? `${Math.round((s.real / t) * 100)}% de ${mxn.format(t)}` : "Define el presupuesto total", t && s.real > t ? "mal" : "") +
+      kpi("Asientos asignados", `${sentados} / ${geo.asientos.length}`, asistentes > geo.asientos.length ? `Faltan ${asistentes - geo.asientos.length} sillas` : `${geo.asientos.length - asistentes} sillas de sobra`, asistentes > geo.asientos.length ? "mal" : "");
+
+    const totInv = c.confirmado + c.pendiente + c.declinado;
+    $("#res-rsvp-barra").innerHTML = barraApilada([[c.confirmado, RSVP_COLOR.confirmado], [c.pendiente, RSVP_COLOR.pendiente], [c.declinado, RSVP_COLOR.declinado]], Math.max(totInv, 1));
+    $("#res-rsvp-ley").innerHTML = totInv
+      ? ["confirmado", "pendiente", "declinado"].map(k => `<span><i style="background:${RSVP_COLOR[k]}"></i>${RSVP[k]}: <b class="num">${c[k]}</b></span>`).join("")
+      : "<span>Aún no hay invitados. Agrégalos en la pestaña Invitados.</span>";
+
+    const base = Math.max(t, s.real, 1);
+    $("#res-pres-barra").innerHTML = barraApilada([[s.pag, "#4F6F78"], [Math.max(s.real - s.pag, 0), "#A9BEC4"]], base);
+    $("#res-pres-ley").innerHTML = `<span><i style="background:#4F6F78"></i>Pagado: <b class="num">${mxn.format(s.pag)}</b></span>
+      <span><i style="background:#A9BEC4"></i>Por pagar: <b class="num">${mxn.format(Math.max(s.real - s.pag, 0))}</b></span>
+      <span><i style="background:var(--papel-sombra)"></i>Disponible: <b class="num">${t ? mxn.format(t - s.real) : "—"}</b></span>`;
+
+    const proximas = S.fechas.filter(f => !f.hecho && f.fecha).sort((a, b) => a.fecha.localeCompare(b.fecha)).slice(0, 6);
+    $("#res-fechas").innerHTML = proximas.length
+      ? proximas.map(f => { const d = diasHasta(f.fecha); return `<li><span class="fecha-corta">${esc(fmtFecha(f.fecha))}</span><span>${esc(f.titulo)}</span><span class="rel ${d < 0 ? "vencida" : d <= 14 ? "pronto" : ""}">${relativo(d)}</span></li>`; }).join("")
+      : `<li class="vacio" style="display:block">Sin fechas pendientes.</li>`;
+
+    const pagos = S.presupuesto.items.filter(i => n0(i.real) > n0(i.pagado)).sort((a, b) => (a.vence || "9999").localeCompare(b.vence || "9999")).slice(0, 6);
+    $("#res-pagos").innerHTML = pagos.length
+      ? pagos.map(i => { const d = diasHasta(i.vence); return `<li><span class="fecha-corta">${i.vence ? esc(fmtFecha(i.vence)) : "Sin fecha"}</span><span>${esc(i.concepto)}${i.proveedor ? ` · <i>${esc(i.proveedor)}</i>` : ""}</span><span class="rel num ${d !== null && d < 0 ? "vencida" : ""}">${mxn.format(n0(i.real) - n0(i.pagado))}</span></li>`; }).join("")
+      : `<li class="vacio" style="display:block">Nada por pagar.</li>`;
+  }
+
+  /* ---------------- Presupuesto ---------------- */
+  function renderPresupuesto() {
+    $("#pres-total").value = S.presupuesto.total || "";
+    $("#pres-filas").innerHTML = S.presupuesto.items.length ? S.presupuesto.items.map(it => `<tr data-id="${esc(it.id)}">
+      <td><input type="text" data-f="concepto" value="${esc(it.concepto)}" aria-label="Concepto" style="min-width:150px"></td>
+      <td><select data-f="categoria" aria-label="Categoría">${opciones(CATS, it.categoria)}</select></td>
+      <td><input type="text" data-f="proveedor" value="${esc(it.proveedor)}" aria-label="Proveedor" style="min-width:130px"></td>
+      <td><input type="number" data-f="estimado" min="0" step="100" inputmode="decimal" value="${n0(it.estimado) || ""}" placeholder="0" aria-label="Estimado"></td>
+      <td><input type="number" data-f="real" min="0" step="100" inputmode="decimal" value="${n0(it.real) || ""}" placeholder="0" aria-label="Real"></td>
+      <td><input type="number" data-f="pagado" min="0" step="100" inputmode="decimal" value="${n0(it.pagado) || ""}" placeholder="0" aria-label="Pagado"></td>
+      <td><input type="date" data-f="vence" value="${esc(it.vence)}" aria-label="Fecha de pago"></td>
+      <td><button class="quitar" type="button" data-accion="pres-borrar" aria-label="Eliminar concepto">×</button></td></tr>`).join("")
+      : `<tr><td colspan="8" class="vacio">Sin conceptos.</td></tr>`;
+    totalesPresupuesto();
+  }
+  function totalesPresupuesto() {
+    const t = S.presupuesto.total, s = sumas();
+    $("#pt-est").textContent = mxn.format(s.est);
+    $("#pt-real").textContent = mxn.format(s.real);
+    $("#pt-pag").textContent = mxn.format(s.pag);
+    const disp = t - s.real;
+    $("#pres-kpis").innerHTML =
+      kpi("Presupuesto", t ? mxn.format(t) : "—", t ? "" : "Escribe el total arriba") +
+      kpi("Estimado", mxn.format(s.est), t ? (s.est > t ? `${mxn.format(s.est - t)} por encima` : `${mxn.format(t - s.est)} de margen`) : "", t && s.est > t ? "mal" : "bien") +
+      kpi("Real contratado", mxn.format(s.real), t ? `${Math.round((s.real / t) * 100)}% del presupuesto` : "") +
+      kpi("Pagado", mxn.format(s.pag), `Por pagar: ${mxn.format(Math.max(s.real - s.pag, 0))}`) +
+      kpi("Disponible", t ? mxn.format(disp) : "—", t ? (disp < 0 ? "Excedido" : "Presupuesto − real") : "", disp < 0 ? "mal" : "");
+
+    const porCat = {};
+    S.presupuesto.items.forEach(i => { const c = porCat[i.categoria] || (porCat[i.categoria] = { est: 0, real: 0 }); c.est += n0(i.estimado); c.real += n0(i.real); });
+    const filas = Object.entries(porCat).filter(([, v]) => v.est || v.real).sort((a, b) => Math.max(b[1].est, b[1].real) - Math.max(a[1].est, a[1].real));
+    const max = Math.max(1, ...filas.map(([, v]) => Math.max(v.est, v.real)));
+    $("#pres-cats").innerHTML = filas.length ? filas.map(([c, v]) => `<div class="cat-fila">
+        <span>${esc(c)}</span>
+        <div class="pista"><span class="est" style="width:${(v.est / max) * 100}%"></span><span class="real${v.real > v.est && v.est ? " excede" : ""}" style="width:${(v.real / max) * 100}%"></span></div>
+        <span class="cifra num">${mxn.format(v.real)} / ${mxn.format(v.est)}</span></div>`).join("")
+      : `<p class="vacio">Escribe montos en la tabla para ver el reparto por categoría.</p>`;
+  }
+  $("#pres-total").addEventListener("input", e => { S.presupuesto.total = n0(e.target.value); guardar(); totalesPresupuesto(); });
+  $("#pres-filas").addEventListener("input", e => {
+    const tr = e.target.closest("tr[data-id]"), f = e.target.dataset.f; if (!tr || !f) return;
+    const it = S.presupuesto.items.find(i => i.id === tr.dataset.id); if (!it) return;
+    it[f] = ["estimado", "real", "pagado"].includes(f) ? n0(e.target.value) : e.target.value;
+    guardar(); totalesPresupuesto();
+  });
+
+  /* ---------------- Invitados ---------------- */
+  $("#inv-grupo").innerHTML = opciones(GRUPOS, "Amigos");
+  $("#inv-rsvp").innerHTML = opciones(Object.keys(RSVP), "pendiente", RSVP);
+  $("#inv-f-grupo").innerHTML += opciones(GRUPOS);
+  $("#inv-f-rsvp").innerHTML += opciones(Object.keys(RSVP), null, RSVP);
+
+  function mesaDe(id) {
+    const k = Object.keys(S.mesas.asientos).find(k => S.mesas.asientos[k] === id);
+    if (!k) return null;
+    const [m, a] = k.split("-").map(Number);
+    return { mesa: m, asiento: a, etiqueta: `${nombreMesa(m)} · silla ${a + 1}` };
+  }
+  function renderInvitados() {
+    const c = conteoRsvp(), tot = S.invitados.length;
+    $("#inv-meta").value = S.meta;
+    $("#inv-kpis").innerHTML =
+      kpi("Invitados", `${tot}`, `Meta: ${S.meta}${tot > S.meta ? ` · ${tot - S.meta} de más` : ""}`, tot > S.meta ? "mal" : "") +
+      kpi("Confirmados", `${c.confirmado}`, "", "bien") + kpi("Pendientes", `${c.pendiente}`) + kpi("No asisten", `${c.declinado}`);
+    const q = $("#inv-buscar").value.trim().toLowerCase(), fg = $("#inv-f-grupo").value, fr = $("#inv-f-rsvp").value;
+    const lista = S.invitados.filter(g => (!fg || g.grupo === fg) && (!fr || g.rsvp === fr) && (!q || [g.nombre, g.dieta, g.notas].join(" ").toLowerCase().includes(q)));
+    $("#inv-filas").innerHTML = lista.length ? lista.map(g => {
+      const m = mesaDe(g.id);
+      return `<tr data-id="${esc(g.id)}">
+        <td class="num" style="color:var(--tinta-suave)">${S.invitados.indexOf(g) + 1}</td>
+        <td><input type="text" data-f="nombre" value="${esc(g.nombre)}" aria-label="Nombre" style="min-width:170px"></td>
+        <td><select data-f="grupo" aria-label="Grupo">${opciones(GRUPOS, g.grupo)}</select></td>
+        <td><select data-f="rsvp" aria-label="Confirmación" style="color:${RSVP_COLOR[g.rsvp]};font-weight:600">${opciones(Object.keys(RSVP), g.rsvp, RSVP)}</select></td>
+        <td><input type="text" data-f="dieta" value="${esc(g.dieta)}" aria-label="Dieta" placeholder="—" style="min-width:120px"></td>
+        <td><input type="text" data-f="notas" value="${esc(g.notas)}" aria-label="Notas" style="min-width:140px"></td>
+        <td style="white-space:nowrap;color:var(--tinta-suave)">${m ? esc(m.etiqueta) : "—"}</td>
+        <td><button class="quitar" type="button" data-accion="inv-borrar" aria-label="Eliminar invitado">×</button></td></tr>`;
+    }).join("") : `<tr><td colspan="8" class="vacio">${tot ? "Nadie coincide con el filtro." : "Aún no hay invitados. Agrega el primero arriba."}</td></tr>`;
+  }
+  function agregarInvitado(nombre, grupo, rsvp) {
+    nombre = nombre.trim(); if (!nombre) return;
+    S.invitados.push({ id: uid(), nombre, grupo, rsvp, dieta: "", notas: "" });
+  }
+  $("#inv-form").addEventListener("submit", e => {
+    e.preventDefault();
+    agregarInvitado($("#inv-nombre").value, $("#inv-grupo").value, $("#inv-rsvp").value);
+    $("#inv-nombre").value = ""; $("#inv-nombre").focus();
+    guardar(); renderInvitados();
+  });
+  ["#inv-buscar", "#inv-f-grupo", "#inv-f-rsvp"].forEach(s => $(s).addEventListener("input", renderInvitados));
+  $("#inv-meta").addEventListener("input", e => { S.meta = Math.max(1, n0(e.target.value)) || 60; guardar(); });
+  $("#inv-meta").addEventListener("change", renderInvitados);
+  $("#inv-filas").addEventListener("input", e => {
+    const tr = e.target.closest("tr[data-id]"), f = e.target.dataset.f; if (!tr || !f) return;
+    const g = invitado(tr.dataset.id); if (!g) return;
+    g[f] = e.target.value; guardar();
+    if (f === "rsvp") { e.target.style.color = RSVP_COLOR[g.rsvp]; }
+    if (f === "rsvp" || f === "grupo") {
+      const c = conteoRsvp(), tot = S.invitados.length;
+      $("#inv-kpis").innerHTML = kpi("Invitados", `${tot}`, `Meta: ${S.meta}`) + kpi("Confirmados", `${c.confirmado}`, "", "bien") + kpi("Pendientes", `${c.pendiente}`) + kpi("No asisten", `${c.declinado}`);
+    }
+  });
+
+  function descargar(nombre, contenido, tipo) {
+    const url = URL.createObjectURL(new Blob([contenido], { type: tipo }));
+    const a = Object.assign(document.createElement("a"), { href: url, download: nombre });
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+  function csvInvitados() {
+    const c = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
+    const filas = [["Nombre", "Grupo", "Confirmación", "Dieta", "Notas", "Mesa", "Silla"]].concat(
+      S.invitados.map(g => { const m = mesaDe(g.id); return [g.nombre, g.grupo, RSVP[g.rsvp], g.dieta, g.notas, m ? nombreMesa(m.mesa) : "", m ? m.asiento + 1 : ""]; }));
+    descargar("invitados-alejandra-eliav.csv", "﻿" + filas.map(f => f.map(c).join(",")).join("\r\n"), "text/csv;charset=utf-8");
+  }
+
+  /* ---------------- Fechas ---------------- */
+  $("#fec-tipo").innerHTML = opciones(TIPOS, "Cita");
+  function renderFechas() {
+    const lista = [...S.fechas].sort((a, b) => (a.fecha || "9999").localeCompare(b.fecha || "9999"));
+    $("#fec-lista").innerHTML = lista.length ? lista.map(f => {
+      const d = diasHasta(f.fecha);
+      const cls = f.hecho ? "" : d !== null && d < 0 ? "vencida" : d !== null && d <= 14 ? "pronto" : "";
+      return `<li data-id="${esc(f.id)}" class="${f.hecho ? "hecho" : ""}">
+        <input type="checkbox" data-f="hecho" ${f.hecho ? "checked" : ""} aria-label="Hecho">
+        <input type="date" class="fecha-input" data-f="fecha" value="${esc(f.fecha)}" aria-label="Fecha">
+        <span class="titulo"><input type="text" data-f="titulo" value="${esc(f.titulo)}" aria-label="Descripción"></span>
+        <span><span class="chip-tipo">${esc(f.tipo)}</span> <span class="rel ${cls}">${f.hecho ? "lista" : d === null ? "" : (cls === "vencida" ? "vencida · " : "") + relativo(d)}</span></span>
+        <button class="quitar" type="button" data-accion="fec-borrar" aria-label="Eliminar fecha">×</button></li>`;
+    }).join("") : `<li class="vacio" style="display:block">Sin fechas todavía.</li>`;
+  }
+  $("#fec-form").addEventListener("submit", e => {
+    e.preventDefault();
+    S.fechas.push({ id: uid(), titulo: $("#fec-titulo").value.trim(), fecha: $("#fec-fecha").value, tipo: $("#fec-tipo").value, hecho: false });
+    $("#fec-titulo").value = ""; guardar(); renderFechas(); $("#fec-titulo").focus();
+  });
+  $("#fec-lista").addEventListener("input", e => {
+    const li = e.target.closest("li[data-id]"), f = e.target.dataset.f; if (!li || !f) return;
+    const it = S.fechas.find(x => x.id === li.dataset.id); if (!it) return;
+    it[f] = f === "hecho" ? e.target.checked : e.target.value;
+    guardar();
+    if (f !== "titulo") renderFechas();
+  });
+
+  /* ---------------- Mesas: geometría ---------------- */
+  // Mesas largas tangentes a un anillo alrededor de la fuente. Mesa 1 arriba, luego en sentido horario.
+  const SP = 46, ANCHO = 64, OFF = ANCHO / 2 + 22, FUENTE = 96, CAB = 24;
+  function geometria(m) {
+    const n = Math.min(10, Math.max(2, m.n | 0)), p = Math.min(14, Math.max(1, m.porLado | 0)), cab = !!m.cabeceras;
+    const L = p * SP + 16, extremo = L / 2 + (cab ? CAB + 18 : 0);
+    const R = Math.max((extremo + 26) / Math.tan(Math.PI / n) + OFF + 20, FUENTE + 70 + OFF);
+    const mesas = [], asientos = [];
+    let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+    const caja = (x, y, r) => { x0 = Math.min(x0, x - r); x1 = Math.max(x1, x + r); y0 = Math.min(y0, y - r); y1 = Math.max(y1, y + r); };
+    for (let i = 0; i < n; i++) {
+      const th = (i * 2 * Math.PI) / n, dx = Math.sin(th), dy = -Math.cos(th), tx = Math.cos(th), ty = Math.sin(th);
+      const punto = (u, v) => [dx * (R + v) + tx * u, dy * (R + v) + ty * u];
+      const [cx, cy] = punto(0, 0);
+      mesas.push({ i, cx, cy, grados: (th * 180) / Math.PI, L, cap: p * 2 + (cab ? 2 : 0) });
+      [[-L / 2, -ANCHO / 2], [L / 2, -ANCHO / 2], [-L / 2, ANCHO / 2], [L / 2, ANCHO / 2]].forEach(([u, v]) => caja(...punto(u, v), 4));
+      // Orden: cabecera izquierda, luego parejas frente a frente (afuera, adentro), cabecera derecha
+      const locales = [];
+      if (cab) locales.push([-(L / 2 + CAB), 0]);
+      for (let k = 0; k < p; k++) { const u = -L / 2 + 8 + SP / 2 + k * SP; locales.push([u, OFF], [u, -OFF]); }
+      if (cab) locales.push([L / 2 + CAB, 0]);
+      locales.forEach(([u, v], idx) => { const [x, y] = punto(u, v); asientos.push({ clave: `${i}-${idx}`, mesa: i, idx, x, y }); caja(x, y, 26); });
+    }
+    caja(0, 0, FUENTE + 10);
+    return { n, p, cab, R, mesas, asientos, vb: [x0 - 10, y0 - 10, x1 - x0 + 20, y1 - y0 + 20] };
+  }
+  const nombreMesa = i => (S.mesas.nombres[i] || "").trim() || `Mesa ${i + 1}`;
+
+  /* ---------------- Mesas: estado y acciones ---------------- */
+  let sel = null; // id del invitado seleccionado
+  function limpiarAsientos(geo) {
+    const validas = new Set(geo.asientos.map(a => a.clave));
+    for (const k of Object.keys(S.mesas.asientos)) if (!validas.has(k) || !invitado(S.mesas.asientos[k])) delete S.mesas.asientos[k];
+  }
+  const asientoDe = id => Object.keys(S.mesas.asientos).find(k => S.mesas.asientos[k] === id) || null;
+  function asignar(id, clave) {
+    const A = S.mesas.asientos, ocupante = A[clave], desde = asientoDe(id);
+    if (desde === clave) return;
+    if (desde) delete A[desde];
+    if (ocupante && desde) A[desde] = ocupante; // intercambio
+    A[clave] = id;
+    guardar();
+  }
+  function quitarAsiento(id) { const k = asientoDe(id); if (k) { delete S.mesas.asientos[k]; guardar(); } }
+
+  function renderMesas() {
+    const m = S.mesas, geo = geometria(m);
+    limpiarAsientos(geo);
+    $("#mes-n").value = geo.n; $("#mes-lado").value = geo.p; $("#mes-cab").value = geo.cab ? "1" : "0";
+    const clavePreset = `${geo.n},${geo.p},${geo.cab ? 1 : 0}`;
+    $("#mes-preset").value = [...$("#mes-preset").options].some(o => o.value === clavePreset) ? clavePreset : "";
+    const cap = geo.asientos.length, c = conteoRsvp(), asist = c.confirmado + c.pendiente;
+    $("#mes-capacidad").innerHTML = `Capacidad <b class="num">${cap}</b> · Invitados que asisten o pendientes <b class="num">${asist}</b>${asist > cap ? ` · <span class="mal">faltan ${asist - cap} sillas</span>` : ""}`;
+
+    // Plano SVG
+    const A = m.asientos;
+    let svg = `<defs>
+        <radialGradient id="agua" cx="45%" cy="40%" r="70%"><stop offset="0" stop-color="#C8DCE0"/><stop offset="1" stop-color="#7FA0A8"/></radialGradient>
+        <pattern id="losas" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#F3ECDF"/><path d="M40 0H0V40" fill="none" stroke="#E6DCCA" stroke-width="1"/></pattern>
+      </defs>
+      <rect x="${geo.vb[0]}" y="${geo.vb[1]}" width="${geo.vb[2]}" height="${geo.vb[3]}" fill="url(#losas)" rx="12"/>
+      <g aria-label="Fuente">
+        <circle r="${FUENTE}" fill="#E4D8C2" stroke="#A99A7E" stroke-width="2"/>
+        <circle r="${FUENTE - 14}" fill="url(#agua)" stroke="#8E8068" stroke-width="1.5"/>
+        <circle r="${FUENTE - 34}" fill="none" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="1.2"/>
+        <circle r="${FUENTE - 54}" fill="none" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="1"/>
+        <circle r="20" fill="#E4D8C2" stroke="#8E8068" stroke-width="1.5"/>
+        <circle r="8" fill="#BFD4D9"/>
+        <text y="${FUENTE + 22}" class="mesa-txt" style="font-size:13px;font-style:italic">Fuente</text>
+      </g>`;
+    geo.mesas.forEach(t => {
+      const g = ((t.grados % 360) + 360) % 360, giro = g > 90 && g <= 270 ? g - 180 : g > 270 ? g - 360 : g; // texto siempre legible
+      const ocupadas = geo.asientos.filter(a => a.mesa === t.i && A[a.clave]).length;
+      svg += `<g transform="translate(${t.cx.toFixed(1)} ${t.cy.toFixed(1)})">
+        <rect class="mesa-rect" x="${-t.L / 2}" y="${-ANCHO / 2}" width="${t.L}" height="${ANCHO}" rx="6" transform="rotate(${t.grados.toFixed(2)})"/>
+        <text class="mesa-txt" transform="rotate(${giro.toFixed(2)})">${esc(nombreMesa(t.i))} · ${ocupadas}/${t.cap}</text></g>`;
+    });
+    const destino = sel ? asientoDe(sel) : null;
+    geo.asientos.forEach(a => {
+      const id = A[a.clave], g = id && invitado(id);
+      const cls = ["asiento", g ? "" : "vacio-a", g && g.id === sel ? "sel" : "", g && g.rsvp === "declinado" ? "declinado" : ""].join(" ");
+      const [f, b] = g ? COLOR[g.grupo] || COLOR.Otros : ["", ""];
+      svg += `<g class="${cls}" data-clave="${a.clave}" transform="translate(${a.x.toFixed(1)} ${a.y.toFixed(1)})" tabindex="0" role="button"
+          aria-label="${esc(nombreMesa(a.mesa))}, silla ${a.idx + 1}${g ? ": " + esc(g.nombre) : ", libre"}">
+        <circle r="19" ${g ? `fill="${f}" stroke="${b}"` : ""}/>
+        <text>${g ? esc(iniciales(g.nombre)) : a.idx + 1}</text>
+        <title>${g ? esc(g.nombre) + " · " + esc(g.grupo) + (g.rsvp === "declinado" ? " · NO ASISTE" : "") : "Libre"} — ${esc(nombreMesa(a.mesa))}, silla ${a.idx + 1}</title></g>`;
+    });
+    const svgEl = $("#plano");
+    svgEl.setAttribute("viewBox", geo.vb.map(v => v.toFixed(1)).join(" "));
+    svgEl.innerHTML = svg;
+
+    // Sin asiento
+    const q = $("#mes-buscar").value.trim().toLowerCase();
+    const sin = S.invitados.filter(g => g.rsvp !== "declinado" && !asientoDe(g.id));
+    const visibles = sin.filter(g => !q || g.nombre.toLowerCase().includes(q));
+    $("#mes-sin-titulo").textContent = `Sin asiento (${sin.length})`;
+    $("#mes-sin").innerHTML = visibles.length ? visibles.map(g => `<button type="button" class="chip" draggable="true" data-id="${esc(g.id)}" aria-pressed="${g.id === sel}">
+        <i style="background:${COLOR[g.grupo]?.[1] || "#999"}"></i>${esc(g.nombre)}</button>`).join("")
+      : `<span class="ayuda">${S.invitados.length ? (sin.length ? "Nadie coincide." : "Todos tienen asiento.") : "Agrega invitados en la pestaña Invitados."}</span>`;
+
+    // Selección
+    const gs = sel && invitado(sel);
+    if (!gs) sel = null;
+    const ms = gs && mesaDe(gs.id);
+    $("#mes-seleccion").innerHTML = gs
+      ? `<div class="etq" style="font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-suave)">Seleccionado</div>
+         <div class="nombre">${esc(gs.nombre)}</div>
+         <div style="color:var(--tinta-suave)">${esc(gs.grupo)} · ${esc(RSVP[gs.rsvp])}${gs.dieta ? " · " + esc(gs.dieta) : ""}</div>
+         <div style="margin-top:4px">${ms ? esc(ms.etiqueta) : "<i>Sin asiento</i>"}</div>
+         <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+           ${ms ? `<button class="boton sec chico" type="button" data-accion="mes-quitar">Quitar del asiento</button>` : ""}
+           <button class="boton sec chico" type="button" data-accion="mes-deseleccionar">Listo</button></div>
+         <p class="ayuda">Toca una silla libre para sentarlo, o una ocupada para intercambiar lugares.</p>`
+      : `<h3 style="margin:0 0 4px">Cómo acomodar</h3>
+         <p class="ayuda" style="margin:0">1. Elige a alguien de «Sin asiento» (o toca una silla ocupada).<br>2. Toca la silla destino. Si está ocupada, se intercambian.<br>En computadora también puedes arrastrar.</p>`;
+
+    $("#mes-leyenda").innerHTML = GRUPOS.map(g => `<span><i style="background:${COLOR[g][0]};border-color:${COLOR[g][1]}"></i>${g}</span>`).join("") +
+      `<span><i style="background:var(--papel-claro);border-color:#B9AE9A;border-style:dashed"></i>Libre</span>`;
+
+    // Lista por mesa
+    $("#mes-lista").innerHTML = geo.mesas.map(t => {
+      const sillas = geo.asientos.filter(a => a.mesa === t.i);
+      const ocup = sillas.filter(a => A[a.clave]).length;
+      return `<div class="tarjeta"><input class="nombre-mesa" data-mesa="${t.i}" value="${esc(nombreMesa(t.i))}" aria-label="Nombre de la mesa ${t.i + 1}">
+        <div class="cuenta">${ocup} de ${t.cap} sillas</div>
+        <ol>${sillas.map(a => { const g = invitado(A[a.clave]); return g ? `<li>${esc(g.nombre)}${g.rsvp === "declinado" ? ' <span style="color:var(--terracota)">(no asiste)</span>' : ""}${g.dieta ? ` <i style="color:var(--tinta-suave)">· ${esc(g.dieta)}</i>` : ""}</li>` : `<li class="libre">libre</li>`; }).join("")}</ol></div>`;
+    }).join("");
+  }
+
+  function tocarAsiento(clave) {
+    const ocupante = S.mesas.asientos[clave];
+    if (sel) {
+      if (ocupante === sel) { sel = null; }
+      else { asignar(sel, clave); sel = null; }
+    } else if (ocupante) {
+      sel = ocupante;
+    }
+    renderMesas();
+  }
+  $("#plano").addEventListener("click", e => { const g = e.target.closest(".asiento"); if (g) tocarAsiento(g.dataset.clave); });
+  $("#plano").addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.closest(".asiento")) { e.preventDefault(); tocarAsiento(e.target.closest(".asiento").dataset.clave); } });
+  $("#mes-sin").addEventListener("click", e => { const c = e.target.closest(".chip"); if (c) { sel = sel === c.dataset.id ? null : c.dataset.id; renderMesas(); } });
+  $("#mes-buscar").addEventListener("input", renderMesas);
+
+  // Arrastrar (escritorio): desde «Sin asiento» o desde una silla ocupada
+  let arrastrado = null;
+  $("#mes-sin").addEventListener("dragstart", e => { const c = e.target.closest(".chip"); if (!c) return; arrastrado = c.dataset.id; e.dataTransfer.setData("text/plain", arrastrado); e.dataTransfer.effectAllowed = "move"; });
+  const plano = $("#plano");
+  plano.addEventListener("dragover", e => {
+    const g = e.target.closest && e.target.closest(".asiento");
+    plano.querySelectorAll(".destino").forEach(x => x !== g && x.classList.remove("destino"));
+    if (g && arrastrado) { e.preventDefault(); g.classList.add("destino"); }
+  });
+  plano.addEventListener("dragleave", e => { const g = e.target.closest && e.target.closest(".asiento"); if (g) g.classList.remove("destino"); });
+  plano.addEventListener("drop", e => {
+    e.preventDefault();
+    const g = e.target.closest && e.target.closest(".asiento");
+    if (g && arrastrado) { asignar(arrastrado, g.dataset.clave); sel = null; }
+    arrastrado = null; renderMesas();
+  });
+  document.addEventListener("dragend", () => { arrastrado = null; plano.querySelectorAll(".destino").forEach(x => x.classList.remove("destino")); });
+
+  // Configuración de mesas
+  function aplicarConfig(n, p, cab) {
+    const antes = Object.keys(S.mesas.asientos).length;
+    Object.assign(S.mesas, { n: Math.min(10, Math.max(2, n | 0)), porLado: Math.min(14, Math.max(1, p | 0)), cabeceras: !!cab });
+    limpiarAsientos(geometria(S.mesas));
+    const perdidos = antes - Object.keys(S.mesas.asientos).length;
+    guardar(); renderMesas();
+    if (perdidos > 0) $("#estado").textContent = `${perdidos} invitado(s) volvieron a «Sin asiento»`;
+  }
+  $("#mes-preset").addEventListener("change", e => { if (!e.target.value) return; const [n, p, c] = e.target.value.split(",").map(Number); aplicarConfig(n, p, c); });
+  ["#mes-n", "#mes-lado", "#mes-cab"].forEach(s => $(s).addEventListener("change", () => aplicarConfig(n0($("#mes-n").value), n0($("#mes-lado").value), $("#mes-cab").value === "1")));
+  $("#mes-lista").addEventListener("input", e => {
+    const i = e.target.dataset.mesa; if (i === undefined) return;
+    S.mesas.nombres[+i] = e.target.value; guardar();
+  });
+  $("#mes-lista").addEventListener("change", renderMesas);
+
+  function autoAcomodar() {
+    const geo = geometria(S.mesas); limpiarAsientos(geo);
+    const libres = geo.asientos.filter(a => !S.mesas.asientos[a.clave]);
+    const pendientes = S.invitados.filter(g => g.rsvp !== "declinado" && !asientoDe(g.id))
+      .sort((a, b) => GRUPOS.indexOf(a.grupo) - GRUPOS.indexOf(b.grupo) || (a.rsvp === "confirmado" ? -1 : 0) - (b.rsvp === "confirmado" ? -1 : 0));
+    pendientes.slice(0, libres.length).forEach((g, i) => (S.mesas.asientos[libres[i].clave] = g.id));
+    guardar(); renderMesas();
+    if (pendientes.length > libres.length) $("#estado").textContent = `${pendientes.length - libres.length} sin lugar: agrega sillas`;
+  }
+
+  /* ---------------- Acciones (delegadas) ---------------- */
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-accion]"); if (!b) return;
+    const id = b.closest("[data-id]")?.dataset.id;
+    switch (b.dataset.accion) {
+      case "pres-agregar":
+        S.presupuesto.items.push({ id: uid(), concepto: "", categoria: "Otros", proveedor: "", estimado: 0, real: 0, pagado: 0, vence: "" });
+        guardar(); renderPresupuesto();
+        $("#pres-filas tr:last-child input").focus();
+        break;
+      case "pres-borrar": {
+        const it = S.presupuesto.items.find(i => i.id === id);
+        if (it && (!(n0(it.estimado) || n0(it.real) || n0(it.pagado)) || confirm(`¿Eliminar «${it.concepto || "concepto"}»?`))) {
+          S.presupuesto.items = S.presupuesto.items.filter(i => i.id !== id); guardar(); renderPresupuesto();
+        }
+        break;
+      }
+      case "inv-borrar": {
+        const g = invitado(id);
+        if (g && confirm(`¿Eliminar a ${g.nombre || "este invitado"} de la lista?`)) {
+          S.invitados = S.invitados.filter(x => x.id !== id); quitarAsiento(id); guardar(); renderInvitados();
+        }
+        break;
+      }
+      case "inv-varios": {
+        const lineas = $("#inv-varios").value.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+        lineas.forEach(nm => agregarInvitado(nm, $("#inv-grupo").value, $("#inv-rsvp").value));
+        $("#inv-varios").value = ""; guardar(); renderInvitados();
+        $("#estado").textContent = `${lineas.length} invitados agregados`;
+        break;
+      }
+      case "inv-csv": csvInvitados(); break;
+      case "fec-borrar":
+        S.fechas = S.fechas.filter(f => f.id !== id); guardar(); renderFechas(); break;
+      case "mes-auto": autoAcomodar(); break;
+      case "mes-vaciar":
+        if (confirm("¿Quitar a todos de sus asientos?")) { S.mesas.asientos = {}; sel = null; guardar(); renderMesas(); }
+        break;
+      case "mes-quitar": quitarAsiento(sel); renderMesas(); break;
+      case "mes-deseleccionar": sel = null; renderMesas(); break;
+    }
+  });
+
+  /* ---------------- Respaldo ---------------- */
+  $("#btn-exportar").addEventListener("click", () => {
+    const f = new Date().toISOString().slice(0, 10);
+    descargar(`planeacion-boda-${f}.json`, JSON.stringify(S, null, 2), "application/json");
+  });
+  $("#btn-importar").addEventListener("change", async e => {
+    const archivo = e.target.files[0]; e.target.value = "";
+    if (!archivo) return;
+    try {
+      const d = JSON.parse(await archivo.text());
+      if (!d || !Array.isArray(d.invitados)) throw new Error("formato");
+      if (!confirm("Esto reemplaza todos los datos actuales con el respaldo. ¿Continuar?")) return;
+      S = normalizar(d); sel = null; guardar(); mostrar(pestana);
+    } catch (err) { alert("Ese archivo no parece un respaldo válido de este panel."); }
+  });
+
+  /* ---------------- Inicio ---------------- */
+  renderCabecera();
+  mostrar(location.hash.slice(1) || "resumen");
+})();
+</script>
+</body>
+</html>
