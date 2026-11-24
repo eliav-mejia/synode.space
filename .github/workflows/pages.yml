@@ -31,7 +31,7 @@ jobs:
           mkdir _site
           rsync -a ./ _site/ \
             --exclude '.git*' --exclude '.github/' --exclude '.claude/' \
-            --exclude '_interno/' --exclude 'arte/' --exclude '_site/' \
+            --exclude '_interno/' --exclude 'arte/' --exclude 'supabase/' --exclude '_site/' \
             --exclude '*.png' --exclude '*.jpg' --exclude '*.jpeg'
           touch _site/.nojekyll
 

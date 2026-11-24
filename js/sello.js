@@ -2,7 +2,7 @@
    - Variantes sello, tinta y vintage: se toca el sello (cera, tinta índigo o lacre); la perforadora baja y la invitación aparece.
    - Variante mosaico: se toca el damasco; el azulejo se parte de golpe en pocas teselas grandes que salen volando,
      y cuando ya no queda ninguna la placa se retira con su propia animación.
-   Atajo para pruebas: synode.space/#abierta abre sin esperar. */
+   Atajo para pruebas: synode.space/bodas/2027/0001-alejandra-y-eliav/#abierta abre sin esperar. */
 (function () {
   "use strict";
 
@@ -37,11 +37,12 @@
     if (["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].indexOf(e.key) > -1 && e.target !== disparador) e.preventDefault();
   });
 
+  var RAIZ_IMG = new URL("../img/", document.currentScript.src).href;
   // El damasco a todo color se precarga para poder romperlo en un lienzo
   var damasco = null;
   if (mosaico) {
     damasco = new Image();
-    damasco.src = "img/escenas/fondo-damasco-color.webp";
+    damasco.src = RAIZ_IMG + "escenas/fondo-damasco-color.webp";
   }
 
   // Listo = página cargada + fuentes, con un mínimo para que la entrada se vea llegar y un tope para redes lentas.
@@ -56,7 +57,7 @@
   Promise.race([Promise.all([cargado, fuentes, imagen, minimo]), tope]).then(function () {
     intro.classList.add("listo");
     disparador.disabled = false;
-    if (location.hash === "#abierta") { if (mosaico) romper(innerWidth / 2, innerHeight / 2, true); else abrir(true); }
+    if (location.hash === "#abierta" || window.PLANTILLA_ABIERTA) { if (mosaico) romper(innerWidth / 2, innerHeight / 2, true); else abrir(true); }
   });
 
   function despues(ms, fn) { setTimeout(fn, reducido ? Math.min(ms, 200) : ms); }

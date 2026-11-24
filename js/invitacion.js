@@ -56,10 +56,10 @@
     var fin = new Date(fecha.getTime() + 8 * 3600 * 1000);
     var f = function (d) { return d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); };
     cal.href = "https://calendar.google.com/calendar/render?action=TEMPLATE" +
-      "&text=" + encodeURIComponent("Ceremonia civil · Alejandra & Eliav") +
+      "&text=" + encodeURIComponent((B.tipo || "Ceremonia civil") + " · " + (B.pareja || "Alejandra & Eliav")) +
       "&dates=" + f(fecha) + "/" + f(fin) +
-      "&details=" + encodeURIComponent("https://synode.space") +
-      "&location=" + encodeURIComponent("Casa Virreinal Roja, 5 de Mayo, Villa Gustavo A. Madero, 07050 Ciudad de México, CDMX");
+      "&details=" + encodeURIComponent(B.url || "https://synode.space/bodas/2027/0001-alejandra-y-eliav/") +
+      "&location=" + encodeURIComponent(B.lugarMapa !== undefined ? B.lugarMapa : "Casa Virreinal Roja, 5 de Mayo, Villa Gustavo A. Madero, 07050 Ciudad de México, CDMX");
     cal.hidden = false;
   }
 
@@ -72,7 +72,7 @@
     var nombre = (d.get("nombre") || "").trim();
     if (!nombre) { estado.textContent = "Escribe tu nombre, por favor."; form.nombre.focus(); return; }
 
-    var texto = "Confirmación de asistencia · Alejandra & Eliav\n\n" +
+    var texto = "Confirmación de asistencia · " + (B.pareja || "Alejandra & Eliav") + "\n\n" +
       "Nombre: " + nombre + "\n" +
       "Respuesta: " + d.get("asiste") + "\n" +
       "Personas: " + d.get("personas") +

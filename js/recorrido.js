@@ -5,7 +5,7 @@
 (function () {
   "use strict";
 
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (window.PLANTILLA_ABIERTA || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   var html = document.documentElement;
   var REANUDA = 7000;          // quietud necesaria tras navegar a mano para retomar el recorrido

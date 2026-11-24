@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Crea tu invitación de boda digital · Plantillas Synode</title>
+  <meta name="description" content="Elige una de cinco plantillas de invitación de boda digital, responde una encuesta breve y mira tu invitación en vivo. Incluidas en Synode Premium por $380 MXN.">
+  <link rel="canonical" href="https://synode.space/plantillas/">
+  <meta name="theme-color" content="#F7F2E8">
+  <link rel="icon" href="../img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="../css/marca.css">
+  <style>
+    .editor { padding: 34px 0 70px; }
+    .pasos { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0 0 22px; padding: 0; list-style: none; color: var(--suave); }
+    .pasos li[aria-current="step"] { color: var(--acento); font-weight: 700; }
+    .estilos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 14px; }
+    .estilo { display: grid; gap: 8px; padding: 8px 8px 12px; text-align: left; border: 1px solid var(--linea); border-radius: 12px; background: var(--claro); color: inherit; font: inherit; cursor: pointer; }
+    .estilo:hover { border-color: var(--acento); }
+    .estilo[aria-pressed="true"] { border-color: var(--acento); box-shadow: 0 0 0 2px #EBCDBE; }
+    .estilo img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: top; border-radius: 7px; background: var(--sombra); }
+    .estilo b { font-family: var(--display); font-weight: 500; font-size: 1.15rem; padding: 0 4px; }
+    .estilo span { padding: 0 4px; color: var(--suave); line-height: 1.2; }
+    .trabajo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 430px); gap: 24px; align-items: start; }
+    @media (max-width: 900px) { .trabajo { grid-template-columns: 1fr; } }
+    .vista { position: sticky; top: 14px; }
+    @media (max-width: 900px) { .vista { position: static; } }
+    .vista iframe { display: block; width: 100%; height: min(78vh, 760px); border: 1px solid var(--linea); border-radius: 18px; background: var(--claro); }
+    fieldset { margin: 0 0 16px; padding: 14px 16px; border: 1px solid var(--linea); border-radius: 12px; background: var(--claro); }
+    legend { padding: 0 6px; font-family: var(--display); font-size: 1.15rem; }
+    .campos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; }
+    @media (max-width: 520px) { .campos { grid-template-columns: 1fr; } }
+    .campo { display: grid; gap: 3px; font-size: 1rem; }
+    .campo.ancho { grid-column: 1 / -1; }
+    .campo small { color: var(--suave); }
+    .campo input, .campo textarea, .campo select, #nombres { width: 100%; padding: 8px 10px; border: 1px solid var(--linea); border-radius: 7px; background: #fff; color: inherit; font: inherit; }
+    .acciones { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .enlaces { display: grid; gap: 6px; margin-top: 12px; }
+    .enlace { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 10px; border: 1px solid var(--linea); border-radius: 7px; background: #fff; }
+    .enlace span { min-width: 0; overflow-wrap: anywhere; }
+    .premium { margin-top: 18px; padding: 18px; border-radius: 12px; background: var(--tinta); color: #F7F2E8; }
+    .premium h3 { margin: 0 0 6px; font-family: var(--display); font-weight: 500; }
+    .premium p { margin: 0 0 12px; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+<header class="barra"><div class="ancho">
+  <a class="logo" href="../">Synode</a>
+  <nav aria-label="Principal"><a href="../#incluye">Qué incluye</a><a href="../#precio">Precio</a></nav>
+</div></header>
+
+<main class="editor"><div class="ancho">
+  <h1 class="titulo">Crea tu invitación</h1>
+  <ol class="pasos">
+    <li data-paso="1">1. Elige un estilo</li>
+    <li data-paso="2">2. Responde la encuesta</li>
+    <li data-paso="3">3. Activa y comparte</li>
+  </ol>
+
+  <section id="paso-1" aria-label="Elige un estilo">
+    <div class="estilos" id="estilos"></div>
+    <div class="acciones"><button class="btn" type="button" data-ir="2">Continuar con este estilo</button></div>
+  </section>
+
+  <div class="trabajo" id="trabajo" hidden>
+    <div>
+      <form id="encuesta" autocomplete="off" hidden>
+        <fieldset><legend>La pareja</legend><div class="campos">
+          <label class="campo"><span>Primer nombre *</span><input name="uno" maxlength="40" required placeholder="Valeria"></label>
+          <label class="campo"><span>Segundo nombre *</span><input name="dos" maxlength="40" required placeholder="Mateo"></label>
+          <label class="campo"><span>Padres de la primera persona</span><input name="padres1" maxlength="120"><small>Si lo dejas vacío, no aparece.</small></label>
+          <label class="campo"><span>Padres de la segunda persona</span><input name="padres2" maxlength="120"></label>
+          <label class="campo ancho"><span>Mensaje de invitación</span><textarea name="mensaje" rows="2" maxlength="160" placeholder="Queremos invitarte a conmemorar esta unión."></textarea></label>
+        </div></fieldset>
+        <fieldset><legend>Fecha y ceremonia</legend><div class="campos">
+          <label class="campo"><span>Fecha *</span><input name="fecha" type="date" required></label>
+          <label class="campo"><span>Hora *</span><input name="hora" type="time" value="13:00" required><small>Hora del centro de México.</small></label>
+          <label class="campo"><span>Tipo de ceremonia</span><select name="tipo"><option>Ceremonia civil</option><option>Ceremonia religiosa</option><option>Ceremonia simbólica</option></select></label>
+          <label class="campo"><span>Ciudad</span><input name="ciudad" maxlength="60" placeholder="Ciudad de México"></label>
+          <label class="campo"><span>Lugar</span><input name="lugar" maxlength="90" placeholder="Nombre del lugar"></label>
+          <label class="campo"><span>Dirección</span><input name="direccion" maxlength="160" placeholder="Calle, colonia, ciudad"></label>
+        </div></fieldset>
+        <fieldset><legend>Recepción e itinerario</legend><div class="campos">
+          <label class="campo"><span>Lugar de recepción</span><input name="lugarRecepcion" maxlength="90"></label>
+          <label class="campo"><span>Hora de recepción</span><input name="horaRecepcion" type="time"></label>
+          <label class="campo ancho"><span>Dirección de recepción</span><input name="direccionRecepcion" maxlength="160"></label>
+          <label class="campo ancho"><span>Itinerario, uno por renglón</span><textarea name="itinerario" rows="5" maxlength="500" placeholder="13:00 Ceremonia&#10;14:00 Cóctel&#10;16:00 Cena&#10;18:00 Primer baile"></textarea></label>
+        </div></fieldset>
+        <fieldset><legend>Detalles para tus invitados</legend><div class="campos">
+          <label class="campo"><span>Código de vestimenta</span><input name="vestimenta" maxlength="50" placeholder="Formal"></label>
+          <label class="campo"><span>Hashtag</span><input name="hashtag" maxlength="40" placeholder="#ValeriaYMateo"></label>
+          <label class="campo ancho"><span>Nota de vestimenta</span><input name="vestimentaNota" maxlength="180"></label>
+          <label class="campo ancho"><span>Mesa de regalos</span><textarea name="regalos" rows="2" maxlength="220"></textarea></label>
+          <label class="campo ancho"><span>Mensaje de despedida</span><input name="gracias" maxlength="100" placeholder="Gracias por ser parte de nuestra historia"></label>
+        </div></fieldset>
+        <fieldset><legend>Confirmaciones</legend><div class="campos">
+          <label class="campo"><span>WhatsApp para confirmar</span><input name="whatsapp" inputmode="tel" maxlength="16" placeholder="5215512345678"><small>Con lada de país, solo números. Será visible para quien reciba el enlace.</small></label>
+          <label class="campo"><span>O correo para confirmar</span><input name="correo" type="email" maxlength="120"></label>
+          <label class="campo ancho"><span>Confirmar antes del</span><input name="confirmarAntes" maxlength="50" placeholder="15 de diciembre"></label>
+        </div></fieldset>
+        <p class="nota" id="error" role="alert" hidden></p>
+        <div class="acciones">
+          <button class="btn sec" type="button" data-ir="1">Cambiar estilo</button>
+          <button class="btn" type="button" data-ir="3">Continuar</button>
+        </div>
+      </form>
+
+      <section id="paso-3" hidden aria-label="Activa tus enlaces">
+        <div id="sin-premium">
+          <div class="premium">
+            <h3>Tu invitación está lista para activarse</h3>
+            <p>Con Synode Premium, $380 MXN en pago único, obtienes tu plantilla, enlaces personales con confirmación, invitados en la nube y acomodo de mesas.</p>
+            <a class="btn claro" id="comprar" href="https://buy.stripe.com/00waEW4Vxgv0gq338Ddby00" rel="noopener">Activar Premium</a>
+          </div>
+          <p class="nota">Tus respuestas quedan guardadas en este navegador.</p>
+        </div>
+        <div id="con-premium" hidden>
+          <fieldset><legend>Tu invitación</legend>
+            <div class="acciones" style="margin-top:0">
+              <button class="btn" type="button" id="copiar">Copiar enlace general</button>
+              <a class="btn sec" id="abrir" target="_blank" rel="noopener">Abrir invitación</a>
+            </div>
+            <p class="nota" id="copiado" role="status"></p>
+          </fieldset>
+          <fieldset><legend>Enlaces personales</legend>
+            <label class="campo"><span>Nombres de tus invitados, uno por renglón</span><textarea id="nombres" rows="5" placeholder="Familia López&#10;Ana Torres"></textarea></label>
+            <small style="color:var(--suave)">Cada persona ve su nombre en la invitación y lo encuentra listo al confirmar.</small>
+            <div class="enlaces" id="enlaces"></div>
+          </fieldset>
+        </div>
+        <div class="acciones"><button class="btn sec" type="button" data-ir="2">Editar respuestas</button></div>
+      </section>
+    </div>
+    <aside class="vista" aria-label="Vista previa"><iframe id="vista" title="Vista previa de tu invitación"></iframe></aside>
+  </div>
+</div></main>
+
+<script src="../js/nube-config.js"></script>
+<script>
+(function () {
+  "use strict";
+  var ESTILOS = [
+    { id: "sello", nombre: "Papel prensado", nota: "Algodón blanco con iniciales en relieve" },
+    { id: "mosaico", nombre: "Mosaico", nota: "Damasco a color que se abre en teselas" },
+    { id: "tinta", nombre: "Tinta índigo", nota: "Papel texturizado e ilustraciones a pluma" },
+    { id: "prensado-indigo", nombre: "Prensado e índigo", nota: "Abre en algodón, contenido a pluma" },
+    { id: "vintage", nombre: "Vintage", nota: "Sepia, papel envejecido y lacre rojo" }
+  ];
+  var CLAVE = "synode-plantilla-borrador", $ = function (s) { return document.querySelector(s); };
+  var form = $("#encuesta"), estado = { estilo: "sello", datos: {} }, temporizador = null, turno = 0;
+  try { var g = JSON.parse(localStorage.getItem(CLAVE)); if (g && g.datos) estado = { estilo: ESTILOS.some(function (e) { return e.id === g.estilo; }) ? g.estilo : "sello", datos: g.datos }; } catch (e) {}
+  var pedido = new URLSearchParams(location.search).get("estilo");
+  if (ESTILOS.some(function (e) { return e.id === pedido; })) estado.estilo = pedido;
+
+  function guardar() { try { localStorage.setItem(CLAVE, JSON.stringify(estado)); } catch (e) {} }
+  function codificar() {
+    var d = {};
+    Object.keys(estado.datos).forEach(function (k) { if (estado.datos[k]) d[k] = estado.datos[k]; });
+    var b = new TextEncoder().encode(JSON.stringify(d)), s = "";
+    for (var i = 0; i < b.length; i++) s += String.fromCharCode(b[i]);
+    return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  }
+  function enlace(para) {
+    var u = new URL("vista/", location.href);
+    u.search = "?variante=" + encodeURIComponent(estado.estilo);
+    u.hash = "d=" + codificar() + (para ? "&p=" + encodeURIComponent(para) : "");
+    return u.href;
+  }
+  function pintarEstilos() {
+    $("#estilos").innerHTML = ESTILOS.map(function (e) {
+      return '<button class="estilo" type="button" data-estilo="' + e.id + '" aria-pressed="' + (e.id === estado.estilo) + '">' +
+        '<img src="../img/plantillas/' + e.id + '.webp" alt="" width="360" height="480" loading="lazy"><b>' + e.nombre + '</b><span>' + e.nota + '</span></button>';
+    }).join("");
+  }
+  function actualizarVista() {
+    var f = $("#vista"), y = 0;
+    try { y = f.contentWindow.scrollY || 0; } catch (e) {}
+    turno++;
+    f.onload = function () { try { f.contentWindow.scrollTo(0, y); } catch (e) {} };
+    var u = new URL("vista/", location.href);
+    u.search = "?variante=" + encodeURIComponent(estado.estilo) + "&vista=1&t=" + turno;
+    u.hash = "d=" + codificar();
+    f.src = u.href;
+  }
+  function validar() {
+    var faltan = ["uno", "dos", "fecha", "hora"].filter(function (k) { return !String(estado.datos[k] || "").trim(); });
+    var e = $("#error");
+    e.hidden = !faltan.length;
+    e.textContent = faltan.length ? "Completa los nombres, la fecha y la hora." : "";
+    if (faltan.length) { var c = form.elements[faltan[0]]; if (c) c.focus(); return false; }
+    return true;
+  }
+  function pasos(n) {
+    $("#paso-1").hidden = n !== 1; $("#trabajo").hidden = n === 1; form.hidden = n !== 2; $("#paso-3").hidden = n !== 3;
+    document.querySelectorAll(".pasos li").forEach(function (l) { if (+l.dataset.paso === n) l.setAttribute("aria-current", "step"); else l.removeAttribute("aria-current"); });
+    if (n > 1) actualizarVista();
+    if (n === 3) revisarPremium();
+    scrollTo(0, 0);
+  }
+  // Los enlaces para compartir son parte de Premium
+  async function revisarPremium() {
+    var c = window.SYNODE_NUBE || {}, activa = !!(c.url && c.anonKey), ok = false;
+    if (activa) {
+      $("#comprar").href = "../planeacion/#invitados";
+      try {
+        var s = JSON.parse(localStorage.getItem("synode-nube-sesion"));
+        if (s && s.id && Date.now() < s.expira) {
+          var r = await fetch(c.url + "/rest/v1/nube_accesos?select=estado&user_id=eq." + encodeURIComponent(s.id), { headers: { apikey: c.anonKey, authorization: "Bearer " + s.access } });
+          if (r.ok) { var f = await r.json(); ok = !!(f[0] && f[0].estado === "pagado"); }
+        }
+      } catch (e) { ok = false; }
+    }
+    $("#sin-premium").hidden = ok; $("#con-premium").hidden = !ok;
+    if (ok) { $("#abrir").href = enlace(); pintarEnlaces(); }
+  }
+  function pintarEnlaces() {
+    var cont = $("#enlaces"); cont.textContent = "";
+    $("#nombres").value.split(/\r?\n/).map(function (n) { return n.trim().slice(0, 60); }).filter(Boolean).slice(0, 500).forEach(function (n) {
+      var f = document.createElement("div"), t = document.createElement("span"), b = document.createElement("button");
+      f.className = "enlace"; t.textContent = n; b.type = "button"; b.className = "btn sec chico"; b.textContent = "Copiar enlace"; b.dataset.para = n;
+      f.append(t, b); cont.appendChild(f);
+    });
+  }
+  async function copiar(texto, boton) {
+    try { await navigator.clipboard.writeText(texto); if (boton) { boton.textContent = "Copiado"; } else $("#copiado").textContent = "Enlace copiado."; }
+    catch (e) { prompt("Copia este enlace:", texto); }
+  }
+  Object.keys(estado.datos).forEach(function (k) { if (form.elements[k]) form.elements[k].value = estado.datos[k]; });
+  estado.datos.hora = form.elements.hora.value; estado.datos.tipo = form.elements.tipo.value;
+  pintarEstilos();
+  $("#estilos").addEventListener("click", function (e) { var b = e.target.closest("[data-estilo]"); if (b) { estado.estilo = b.dataset.estilo; guardar(); pintarEstilos(); } });
+  form.addEventListener("input", function (e) {
+    if (!e.target.name) return;
+    estado.datos[e.target.name] = e.target.value; guardar();
+    clearTimeout(temporizador); temporizador = setTimeout(actualizarVista, 450);
+  });
+  form.addEventListener("submit", function (e) { e.preventDefault(); });
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-ir]");
+    if (b) { var n = +b.dataset.ir; if (n === 3 && !validar()) return; pasos(n); return; }
+    var c = e.target.closest("[data-para]");
+    if (c) copiar(enlace(c.dataset.para), c);
+  });
+  $("#copiar").addEventListener("click", function () { copiar(enlace()); });
+  $("#nombres").addEventListener("input", pintarEnlaces);
+  pasos(pedido ? 2 : 1);
+})();
+</script>
+</body>
+</html>

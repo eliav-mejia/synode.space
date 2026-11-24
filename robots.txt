@@ -1,2 +1,7 @@
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /bodas/
+Disallow: /planeacion/
+Disallow: /plantillas/vista/
+
+Sitemap: https://synode.space/sitemap.xml

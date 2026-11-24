@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap">
   <!-- Fecha de la boda: misma fuente única que la invitación -->
   <script src="../js/config.js"></script>
+  <script src="../js/nube-config.js"></script>
   <style>
     /* synode.space · Panel de planeación. Misma paleta de la invitación (tinta de prensa sobre papel de algodón). */
     :root {
@@ -193,6 +194,72 @@
     .mesas-lista ol li::marker { color: var(--tinta-suave); font-size: .85rem; }
     .mesas-lista ol li.libre { color: #B0A590; font-style: italic; }
     .mesas-lista .cuenta { font-size: .9rem; color: var(--tinta-suave); }
+    /* ---------- Contactos ---------- */
+    .inv-persona { display: flex; align-items: center; gap: 8px; }
+    .avatar-caja { position: relative; flex: none; }
+    .avatar { display: grid; place-items: center; width: 36px; height: 36px; padding: 0; overflow: hidden; border-radius: 50%; border: 1px solid var(--linea); background: #EFE6D4; color: var(--tinta-suave); font: inherit; font-size: .82rem; font-weight: 700; cursor: pointer; }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    button.avatar:hover { border-color: var(--terracota); }
+    .avatar-quitar { position: absolute; top: -5px; right: -5px; width: 16px; height: 16px; padding: 0; line-height: 13px; border-radius: 50%; border: 1px solid var(--linea); background: var(--papel-claro); color: var(--tinta-suave); font-size: 11px; cursor: pointer; opacity: 0; }
+    .avatar-caja:hover .avatar-quitar, .avatar-quitar:focus-visible { opacity: 1; }
+    @media (hover: none) { .avatar-quitar { opacity: 1; } }
+    #con-dialogo, #nube-dialogo { width: min(680px, calc(100vw - 20px)); max-height: calc(100dvh - 20px); padding: 0; border: 1px solid var(--linea); border-radius: 12px; background: var(--papel-claro); color: var(--tinta); }
+    #nube-dialogo { width: min(480px, calc(100vw - 20px)); }
+    #con-dialogo::backdrop, #nube-dialogo::backdrop { background: rgba(45, 36, 26, .45); }
+    #nube-cuerpo p { margin: 0 0 10px; }
+    #nube-cuerpo input[type="email"] { width: 100%; margin-bottom: 10px; }
+    .nube-precio { font-family: var(--f-display); font-size: 1.7rem; }
+    .nube-permiso { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 10px; font-size: .95rem; }
+    .nube-permiso input { margin-top: 4px; flex: none; }
+    .nube-error { color: var(--terracota); }
+    .premium-caja { max-width: 560px; margin: 24px auto; padding: 26px; text-align: center; }
+    .premium-caja h2 { margin: 0 0 6px; }
+    .premium-caja ul { display: inline-block; margin: 0 0 16px; padding-left: 20px; text-align: left; }
+    .premium-volada { margin: 0 0 6px; color: var(--terracota); font-size: .85rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .premium-monto { margin: 0 0 12px; font-family: var(--f-display); font-size: 2.2rem; }
+    .premium-monto small { font-family: var(--f-texto); font-size: 1rem; }
+    nav.pestanas button.con-candado::after { content: " · Premium"; color: var(--terracota); font-size: .78em; }
+    .con-marco { display: flex; flex-direction: column; max-height: calc(100dvh - 22px); }
+    .con-cab { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--linea); }
+    .con-cab h3 { margin: 0; }
+    .con-cuerpo { padding: 14px 16px; overflow-y: auto; }
+    .con-acciones { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px; }
+    #con-origen details { border-top: 1px solid var(--linea); padding: 8px 0; }
+    #con-origen summary { cursor: pointer; }
+    #con-origen ol { margin: 6px 0 2px; padding-left: 22px; }
+    .con-filtros { display: flex; flex-wrap: wrap; align-items: end; gap: 8px; margin-bottom: 10px; }
+    #con-lista { display: grid; gap: 2px; max-height: 44dvh; overflow-y: auto; border: 1px solid var(--linea); border-radius: 8px; padding: 4px; }
+    .con-fila { display: flex; align-items: center; gap: 9px; padding: 4px 6px; border-radius: 6px; cursor: pointer; }
+    .con-fila:hover { background: #F3ECDF; }
+    .con-fila .avatar { cursor: inherit; }
+    .con-datos { min-width: 0; flex: 1; line-height: 1.2; }
+    .con-datos b { display: block; font-weight: 600; overflow-wrap: anywhere; }
+    .con-datos small { color: var(--tinta-suave); font-size: .86rem; overflow-wrap: anywhere; }
+    .con-dup { flex: none; font-size: .8rem; color: var(--terracota); }
+    .con-pie { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 16px; border-top: 1px solid var(--linea); }
+
+    .acomodo { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 18px; }
+    @media (max-width: 900px) { .acomodo { grid-template-columns: 1fr; } }
+    .acomodo h3 { margin: 0 0 8px; }
+    .formas { display: grid; grid-template-columns: repeat(auto-fill, minmax(86px, 1fr)); gap: 8px; }
+    .forma { display: grid; gap: 2px; padding: 5px 4px 4px; border: 1px solid var(--linea); border-radius: 8px; background: var(--papel-claro); color: var(--tinta); font: inherit; font-size: .9rem; cursor: pointer; }
+    .forma svg { display: block; width: 100%; height: 54px; }
+    .forma:hover { border-color: #A99A7E; }
+    .forma[aria-pressed="true"] { border-color: var(--terracota); box-shadow: 0 0 0 2px #F1D9CC; }
+    .elementos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .elemento { display: grid; justify-items: center; gap: 5px; font-size: .95rem; }
+    .brujula { display: grid; grid-template-columns: repeat(3, 30px); grid-template-rows: repeat(3, 30px); gap: 2px; grid-template-areas: ". norte ." "oeste centro este" ". sur ."; }
+    .brujula button, .elemento .quitar { border: 1px solid var(--linea); border-radius: 5px; background: var(--papel-claro); color: var(--tinta); font: inherit; font-size: .8rem; cursor: pointer; padding: 0; }
+    .brujula button[aria-pressed="true"] { background: var(--terracota); border-color: var(--terracota); color: #fff; }
+    .elemento .quitar { padding: 2px 8px; color: var(--tinta-suave); }
+    .elemento .quitar[aria-pressed="true"] { border-color: var(--terracota); color: var(--terracota); }
+    .mesas-centro { display: grid; gap: 14px; min-width: 0; }
+    .vista3d { padding: 10px; }
+    .vista-cab { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; margin-bottom: 6px; }
+    .vista-cab h3 { margin: 0; }
+    .vista-cab .ayuda { margin: 0; flex: 1; }
+    #render3d { display: block; width: 100%; height: clamp(300px, 52vh, 520px); border-radius: 8px; background: #EFE7D8; cursor: grab; touch-action: pan-y; }
+    #render3d:active { cursor: grabbing; }
 
     .pie { margin-top: 30px; font-size: .95rem; color: var(--tinta-suave); font-style: italic; text-align: center; }
 
@@ -302,6 +369,7 @@
       <label class="campo"><span>Grupo</span><select id="inv-grupo"></select></label>
       <label class="campo"><span>Confirmación</span><select id="inv-rsvp"></select></label>
       <button class="boton" type="submit">Agregar</button>
+      <button class="boton sec" type="button" data-accion="con-abrir">Importar contactos</button>
       <details style="flex-basis:100%">
         <summary style="cursor:pointer;color:var(--tinta-suave)">Agregar varios a la vez (uno por renglón)</summary>
         <div class="formulario" style="margin-top:8px">
@@ -311,18 +379,20 @@
       </details>
     </form>
     <div class="formulario no-imprimir" style="margin-bottom:10px">
-      <label class="campo crece"><span>Buscar</span><input type="search" id="inv-buscar" placeholder="Nombre, dieta o nota"></label>
+      <label class="campo crece"><span>Buscar</span><input type="search" id="inv-buscar" placeholder="Nombre, teléfono, correo, dieta o nota"></label>
       <label class="campo"><span>Grupo</span><select id="inv-f-grupo"><option value="">Todos</option></select></label>
       <label class="campo"><span>Confirmación</span><select id="inv-f-rsvp"><option value="">Todas</option></select></label>
       <label class="campo"><span>Meta de invitados</span><input type="number" id="inv-meta" min="1" style="width:90px"></label>
       <button class="boton sec" type="button" data-accion="inv-csv">Descargar CSV</button>
+      <button class="boton" type="button" data-accion="nube-abrir">Subir a la nube</button>
     </div>
     <div class="tabla-scroll">
       <table class="datos">
-        <thead><tr><th>#</th><th>Nombre</th><th>Grupo</th><th>Confirmación</th><th>Dieta / alergias</th><th>Notas</th><th>Mesa</th><th></th></tr></thead>
+        <thead><tr><th>#</th><th>Nombre</th><th>Teléfono</th><th>Correo</th><th>Grupo</th><th>Confirmación</th><th>Dieta / alergias</th><th>Notas</th><th>Mesa</th><th></th></tr></thead>
         <tbody id="inv-filas"></tbody>
       </table>
     </div>
+    <input type="file" id="inv-foto-archivo" accept="image/*" hidden>
   </section>
 
   <!-- ===================== FECHAS ===================== -->
@@ -340,10 +410,74 @@
     </div>
   </section>
 
+  <!-- ===================== PREMIUM ===================== -->
+  <section class="panel" id="premium-bloqueo" hidden>
+    <div class="tarjeta premium-caja">
+      <p class="premium-volada">Synode Premium</p>
+      <h2 id="premium-titulo">Invitados y mesas</h2>
+      <p class="premium-monto">$380 <small>MXN · pago único</small></p>
+      <ul>
+        <li>Lista de invitados en la nube, con importación de contactos</li>
+        <li>Confirmación con enlaces personales</li>
+        <li>Acomodo de mesas con formas y render 3D</li>
+        <li>Plantillas de invitación incluidas</li>
+      </ul>
+      <button class="boton" type="button" data-accion="nube-abrir">Entrar o activar Premium</button>
+      <p class="ayuda">Resumen, Presupuesto y Fechas importantes siguen gratis. Si ya tenías invitados aquí, se conservan.</p>
+    </div>
+  </section>
+
+    <dialog id="con-dialogo" aria-labelledby="con-titulo">
+      <div class="con-marco">
+        <div class="con-cab"><h3 id="con-titulo">Importar contactos</h3>
+          <button class="quitar" type="button" data-accion="con-cerrar" aria-label="Cerrar">×</button></div>
+        <div class="con-cuerpo" id="con-origen">
+          <p style="margin:0">Trae foto, nombre, teléfono y correo. Los datos que falten quedan vacíos. Tus contactos se guardan solo en este navegador.</p>
+          <div class="con-acciones">
+            <button class="boton" type="button" id="con-picker" hidden>Elegir de mis contactos</button>
+            <button class="boton sec" type="button" data-accion="con-elegir">Subir archivo de contactos (.vcf)</button>
+          </div>
+          <input type="file" id="con-archivo" accept=".vcf,.vcard,text/vcard,text/x-vcard" multiple hidden>
+          <p class="ayuda" id="con-error" role="alert" style="color:var(--terracota)" hidden></p>
+          <details><summary>iPhone o iPad</summary>
+            <ol><li>Abre la app Contactos y toca «Listas».</li><li>Mantén presionada la lista que quieras y elige «Exportar».</li><li>Guarda el archivo en Archivos y súbelo aquí.</li></ol></details>
+          <details><summary>Mac o iCloud</summary>
+            <ol><li>En Contactos o en icloud.com/contacts, selecciona los contactos.</li><li>Elige «Exportar vCard».</li><li>Sube aquí el archivo .vcf.</li></ol></details>
+          <details><summary>Android</summary>
+            <ol><li>En Chrome para Android usa «Elegir de mis contactos» si aparece arriba.</li><li>Si no aparece, abre la app Contactos y busca «Exportar» en sus ajustes o en «Arreglar y gestionar».</li><li>Guarda el archivo .vcf y súbelo aquí.</li></ol></details>
+        </div>
+        <div class="con-cuerpo" id="con-revision" hidden>
+          <div class="con-filtros">
+            <label class="campo" style="flex:1 1 170px"><span>Buscar</span><input type="search" id="con-buscar" placeholder="Nombre, teléfono o correo"></label>
+            <label class="campo"><span>Grupo</span><select id="con-grupo"></select></label>
+            <label class="campo"><span>Confirmación</span><select id="con-rsvp"></select></label>
+          </div>
+          <div class="con-filtros" style="align-items:center">
+            <button class="boton sec chico" type="button" data-accion="con-todos">Elegir visibles</button>
+            <button class="boton sec chico" type="button" data-accion="con-ninguno">Quitar visibles</button>
+            <label style="display:inline-flex;gap:6px;align-items:center"><input type="checkbox" id="con-fotos" checked> Incluir fotos</label>
+          </div>
+          <div id="con-lista"></div>
+        </div>
+        <div class="con-pie" id="con-pie" hidden>
+          <button class="boton sec chico" type="button" data-accion="con-volver">Volver</button>
+          <span id="con-cuenta" aria-live="polite"></span>
+          <button class="boton" type="button" id="con-importar" data-accion="con-importar">Importar</button>
+        </div>
+      </div>
+    </dialog>
+    <dialog id="nube-dialogo" aria-labelledby="nube-titulo">
+      <div class="con-marco">
+        <div class="con-cab"><h3 id="nube-titulo">Invitados en la nube</h3>
+          <button class="quitar" type="button" data-accion="nube-cerrar" aria-label="Cerrar">×</button></div>
+        <div class="con-cuerpo" id="nube-cuerpo"></div>
+      </div>
+    </dialog>
+
   <!-- ===================== MESAS ===================== -->
   <section class="panel" id="tab-mesas" role="tabpanel" hidden>
     <h2>Acomodo de mesas</h2>
-    <p class="bajada">Mesas largas rectangulares alrededor de la fuente del patio. Elige un invitado y toca un asiento (o arrástralo).</p>
+    <p class="bajada">Elige la forma del acomodo y el cuadrante de la fuente, la pista y el altar. Los invitados conservan su silla al cambiar de forma. Elige un invitado y toca un asiento (o arrástralo).</p>
     <div class="formulario tarjeta config-mesas no-imprimir">
       <label class="campo"><span>Distribución</span>
         <select id="mes-preset">
@@ -363,8 +497,19 @@
       </label>
       <div class="capacidad" id="mes-capacidad"></div>
     </div>
+    <div class="tarjeta config-mesas acomodo no-imprimir">
+      <div><h3>Forma del acomodo</h3><div class="formas" id="mes-formas"></div></div>
+      <div><h3>Fuente, pista y altar</h3><div class="elementos" id="mes-elementos"></div></div>
+    </div>
     <div class="mesas-layout">
-      <div class="tarjeta plano"><svg id="plano" role="img" aria-label="Plano de mesas alrededor de la fuente"></svg></div>
+      <div class="mesas-centro">
+        <div class="tarjeta plano"><svg id="plano" role="img" aria-label="Plano de mesas"></svg></div>
+        <div class="tarjeta vista3d no-imprimir">
+          <div class="vista-cab"><h3>Render en tiempo real</h3><span class="ayuda">Arrastra para girar e inclinar.</span>
+            <button class="boton sec chico" type="button" id="mes-girar" aria-pressed="false">Girar</button></div>
+          <canvas id="render3d" role="img" aria-label="Vista en tres dimensiones del acomodo de mesas"></canvas>
+        </div>
+      </div>
       <aside class="lateral">
         <div class="tarjeta seleccion" id="mes-seleccion"></div>
         <div class="tarjeta">
@@ -394,6 +539,7 @@
 
   /* ---------------- Constantes ---------------- */
   const CLAVE = "synode-planeacion-v1";
+  const FOTO_VALIDA = /^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/;
   const GRUPOS = ["Novia", "Novio", "Familia", "Amigos", "Trabajo", "Otros"];
   // [relleno, borde] por grupo — tonos de la invitación
   const COLOR = {
@@ -428,7 +574,7 @@
       presupuesto: { total: 0, items: CATS.map(c => ({ id: uid(), concepto: c, categoria: c, proveedor: "", estimado: 0, real: 0, pagado: 0, vence: "" })) },
       invitados: [],
       fechas: [{ id: uid(), titulo: "Ceremonia civil y celebración", fecha: BODA_ISO.slice(0, 10), tipo: "Hito", hecho: false }],
-      mesas: { n: 4, porLado: 7, cabeceras: true, nombres: [], asientos: {} }
+      mesas: { n: 4, porLado: 7, cabeceras: true, forma: "anillo", elementos: { fuente: "centro", pista: "", altar: "" }, nombres: [], asientos: {} }
     };
   }
   function cargar() {
@@ -444,9 +590,14 @@
       version: 1,
       meta: n0(d.meta) || base.meta,
       presupuesto: { total: n0(d.presupuesto?.total), items: Array.isArray(d.presupuesto?.items) ? d.presupuesto.items : base.presupuesto.items },
-      invitados: Array.isArray(d.invitados) ? d.invitados : [],
+      invitados: Array.isArray(d.invitados)
+        ? d.invitados.map(g => Object.assign({ telefono: "", correo: "" }, g, { foto: FOTO_VALIDA.test(g.foto || "") ? g.foto : "" }))
+        : [],
       fechas: Array.isArray(d.fechas) ? d.fechas : base.fechas,
-      mesas: Object.assign({}, base.mesas, d.mesas || {}, { asientos: (d.mesas && d.mesas.asientos) || {} })
+      mesas: Object.assign({}, base.mesas, d.mesas || {}, {
+        asientos: (d.mesas && d.mesas.asientos) || {},
+        elementos: Object.assign({}, base.mesas.elementos, (d.mesas && d.mesas.elementos) || {})
+      })
     };
   }
   let S = cargar();
@@ -458,18 +609,32 @@
     el.textContent = ok ? "Guardado ✓" : "No se pudo guardar — exporta un respaldo";
     clearTimeout(temporizador);
     if (ok) temporizador = setTimeout(() => (el.textContent = ""), 1800);
+    return ok;
   }
   const invitado = id => S.invitados.find(g => g.id === id);
 
   /* ---------------- Pestañas ---------------- */
   const RENDER = { resumen: renderResumen, presupuesto: renderPresupuesto, invitados: renderInvitados, fechas: renderFechas, mesas: renderMesas };
   let pestana = "resumen";
+  // Invitados y Mesas son Premium. Sin nube configurada no hay cómo validar un pago, así que no se bloquea a nadie.
+  const PESTANAS_PREMIUM = ["invitados", "mesas"], CLAVE_PREMIUM = "synode-premium-cuenta";
+  function tienePremium() {
+    if (!(window.SYNODE_NUBE && SYNODE_NUBE.url && SYNODE_NUBE.anonKey)) return true;
+    try {
+      const s = JSON.parse(localStorage.getItem("synode-nube-sesion"));
+      return !!(s && s.id && localStorage.getItem(CLAVE_PREMIUM) === s.id);
+    } catch (e) { return false; }
+  }
   function mostrar(tab) {
     if (!RENDER[tab]) tab = "resumen";
     pestana = tab;
     document.querySelectorAll("nav.pestanas button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === tab)));
-    Object.keys(RENDER).forEach(k => ($("#tab-" + k).hidden = k !== tab));
-    RENDER[tab]();
+    const bloqueada = PESTANAS_PREMIUM.includes(tab) && !tienePremium();
+    Object.keys(RENDER).forEach(k => ($("#tab-" + k).hidden = bloqueada || k !== tab));
+    $("#premium-bloqueo").hidden = !bloqueada;
+    document.querySelectorAll("nav.pestanas button").forEach(b => b.classList.toggle("con-candado", PESTANAS_PREMIUM.includes(b.dataset.tab) && !tienePremium()));
+    if (bloqueada) $("#premium-titulo").textContent = tab === "mesas" ? "Acomodo de mesas" : "Lista de invitados";
+    else RENDER[tab]();
     if (location.hash.slice(1) !== tab) history.replaceState(null, "", "#" + tab);
   }
   document.querySelectorAll("nav.pestanas button").forEach(b => b.addEventListener("click", () => mostrar(b.dataset.tab)));
@@ -600,23 +765,28 @@
       kpi("Invitados", `${tot}`, `Meta: ${S.meta}${tot > S.meta ? ` · ${tot - S.meta} de más` : ""}`, tot > S.meta ? "mal" : "") +
       kpi("Confirmados", `${c.confirmado}`, "", "bien") + kpi("Pendientes", `${c.pendiente}`) + kpi("No asisten", `${c.declinado}`);
     const q = $("#inv-buscar").value.trim().toLowerCase(), fg = $("#inv-f-grupo").value, fr = $("#inv-f-rsvp").value;
-    const lista = S.invitados.filter(g => (!fg || g.grupo === fg) && (!fr || g.rsvp === fr) && (!q || [g.nombre, g.dieta, g.notas].join(" ").toLowerCase().includes(q)));
+    const lista = S.invitados.filter(g => (!fg || g.grupo === fg) && (!fr || g.rsvp === fr) && (!q || [g.nombre, g.telefono, g.correo, g.dieta, g.notas].join(" ").toLowerCase().includes(q)));
     $("#inv-filas").innerHTML = lista.length ? lista.map(g => {
       const m = mesaDe(g.id);
       return `<tr data-id="${esc(g.id)}">
         <td class="num" style="color:var(--tinta-suave)">${S.invitados.indexOf(g) + 1}</td>
-        <td><input type="text" data-f="nombre" value="${esc(g.nombre)}" aria-label="Nombre" style="min-width:170px"></td>
+        <td><div class="inv-persona"><span class="avatar-caja">
+            <button class="avatar" type="button" data-accion="inv-foto" aria-label="${g.foto ? "Cambiar" : "Agregar"} foto de ${esc(g.nombre)}" title="${g.foto ? "Cambiar" : "Agregar"} foto">${g.foto ? `<img src="${esc(g.foto)}" alt="">` : esc(iniciales(g.nombre))}</button>
+            ${g.foto ? `<button class="avatar-quitar" type="button" data-accion="inv-foto-quitar" aria-label="Quitar foto de ${esc(g.nombre)}">×</button>` : ""}</span>
+          <input type="text" data-f="nombre" value="${esc(g.nombre)}" aria-label="Nombre" style="min-width:170px"></div></td>
+        <td><input type="tel" data-f="telefono" value="${esc(g.telefono)}" aria-label="Teléfono" placeholder="—" style="min-width:130px"></td>
+        <td><input type="email" data-f="correo" value="${esc(g.correo)}" aria-label="Correo electrónico" placeholder="—" style="min-width:180px"></td>
         <td><select data-f="grupo" aria-label="Grupo">${opciones(GRUPOS, g.grupo)}</select></td>
         <td><select data-f="rsvp" aria-label="Confirmación" style="color:${RSVP_COLOR[g.rsvp]};font-weight:600">${opciones(Object.keys(RSVP), g.rsvp, RSVP)}</select></td>
         <td><input type="text" data-f="dieta" value="${esc(g.dieta)}" aria-label="Dieta" placeholder="—" style="min-width:120px"></td>
         <td><input type="text" data-f="notas" value="${esc(g.notas)}" aria-label="Notas" style="min-width:140px"></td>
         <td style="white-space:nowrap;color:var(--tinta-suave)">${m ? esc(m.etiqueta) : "—"}</td>
         <td><button class="quitar" type="button" data-accion="inv-borrar" aria-label="Eliminar invitado">×</button></td></tr>`;
-    }).join("") : `<tr><td colspan="8" class="vacio">${tot ? "Nadie coincide con el filtro." : "Aún no hay invitados. Agrega el primero arriba."}</td></tr>`;
+    }).join("") : `<tr><td colspan="10" class="vacio">${tot ? "Nadie coincide con el filtro." : "Aún no hay invitados. Agrega el primero arriba."}</td></tr>`;
   }
   function agregarInvitado(nombre, grupo, rsvp) {
     nombre = nombre.trim(); if (!nombre) return;
-    S.invitados.push({ id: uid(), nombre, grupo, rsvp, dieta: "", notas: "" });
+    S.invitados.push({ id: uid(), nombre, telefono: "", correo: "", foto: "", grupo, rsvp, dieta: "", notas: "" });
   }
   $("#inv-form").addEventListener("submit", e => {
     e.preventDefault();
@@ -645,10 +815,429 @@
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
   function csvInvitados() {
-    const c = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
-    const filas = [["Nombre", "Grupo", "Confirmación", "Dieta", "Notas", "Mesa", "Silla"]].concat(
-      S.invitados.map(g => { const m = mesaDe(g.id); return [g.nombre, g.grupo, RSVP[g.rsvp], g.dieta, g.notas, m ? nombreMesa(m.mesa) : "", m ? m.asiento + 1 : ""]; }));
+    // Los nombres pueden venir de un archivo externo: evita que Excel los ejecute como fórmula
+    const seguro = v => { const s = String(v ?? ""); return /^[=@\t\r]|^[+-](?!\d)/.test(s) ? "'" + s : s; };
+    const c = v => `"${seguro(v).replace(/"/g, '""')}"`;
+    const filas = [["Nombre", "Teléfono", "Correo", "Grupo", "Confirmación", "Dieta", "Notas", "Mesa", "Silla"]].concat(
+      S.invitados.map(g => { const m = mesaDe(g.id); return [g.nombre, g.telefono, g.correo, g.grupo, RSVP[g.rsvp], g.dieta, g.notas, m ? nombreMesa(m.mesa) : "", m ? m.asiento + 1 : ""]; }));
     descargar("invitados-alejandra-eliav.csv", "﻿" + filas.map(f => f.map(c).join(",")).join("\r\n"), "text/csv;charset=utf-8");
+  }
+
+  /* ---------------- Contactos: lectura de vCard (Apple, Android, Google) ---------------- */
+  const TIPOS_FOTO = { JPEG: "image/jpeg", JPG: "image/jpeg", PNG: "image/png", GIF: "image/gif", WEBP: "image/webp", HEIC: "image/heic", HEIF: "image/heif" };
+  function base64ABlob(b64, tipo) {
+    try {
+      const bin = atob(b64.replace(/\s+/g, "")), u = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
+      return new Blob([u], { type: tipo });
+    } catch (e) { return null; }
+  }
+  function decodificarQP(v, charset) {
+    const b = [];
+    for (let i = 0; i < v.length; i++) {
+      if (v[i] === "=" && /^[0-9A-Fa-f]{2}$/.test(v.substr(i + 1, 2))) { b.push(parseInt(v.substr(i + 1, 2), 16)); i += 2; }
+      else b.push(v.charCodeAt(i) & 255);
+    }
+    try { return new TextDecoder(charset || "utf-8").decode(new Uint8Array(b)); }
+    catch (e) { return new TextDecoder("utf-8").decode(new Uint8Array(b)); }
+  }
+  function partesVCard(v) {
+    const r = []; let a = "";
+    for (let i = 0; i < v.length; i++) {
+      if (v[i] === "\\" && i + 1 < v.length) { a += v[i] + v[++i]; }
+      else if (v[i] === ";") { r.push(a); a = ""; }
+      else a += v[i];
+    }
+    r.push(a); return r;
+  }
+  const textoVCard = v => v.replace(/\\([nN,;\\])/g, (_, c) => (c === "n" || c === "N" ? " " : c)).replace(/\s+/g, " ").trim();
+  function leerVCards(texto) {
+    const crudas = texto.split(/\r\n|\n|\r/), lineas = [];
+    for (let i = 0; i < crudas.length; i++) {
+      let l = crudas[i];
+      if (/^[ \t]/.test(l) && lineas.length) { lineas[lineas.length - 1] += l.slice(1); continue; }
+      if (!l) continue;
+      if (/QUOTED-PRINTABLE/i.test(l.slice(0, l.indexOf(":") + 1))) while (l.endsWith("=") && i + 1 < crudas.length) l = l.slice(0, -1) + crudas[++i];
+      lineas.push(l);
+    }
+    const salida = []; let c = null;
+    for (const l of lineas) {
+      let dosPuntos = -1, comillas = false;
+      for (let i = 0; i < l.length; i++) { if (l[i] === '"') comillas = !comillas; else if (l[i] === ":" && !comillas) { dosPuntos = i; break; } }
+      if (dosPuntos < 0) continue;
+      const trozos = l.slice(0, dosPuntos).split(";"), prop = trozos[0].toUpperCase().replace(/^.*\./, "");
+      const params = trozos.slice(1).map(p => p.toUpperCase()), crudo = l.slice(dosPuntos + 1);
+      if (prop === "BEGIN" && crudo.trim().toUpperCase() === "VCARD") { c = { fn: "", n: "", org: "", tels: [], mails: [], blob: null }; continue; }
+      if (prop === "END" && crudo.trim().toUpperCase() === "VCARD") {
+        if (c) {
+          const mejor = (a, tipos) => a.map(x => ({ v: x.v, p: (/PREF/.test(x.t) ? 2 : 0) + (tipos.test(x.t) ? 1 : 0) })).sort((p, q) => q.p - p.p)[0]?.v || "";
+          const telefono = mejor(c.tels, /CELL|MOBILE|IPHONE/), correo = mejor(c.mails, /HOME|INTERNET/);
+          const nombre = c.fn || c.n || c.org || correo || telefono;
+          if (nombre) salida.push({ nombre, telefono, correo, blob: c.blob });
+        }
+        c = null; continue;
+      }
+      if (!c) continue;
+      if (prop === "PHOTO") {
+        if (c.blob) continue;
+        const uri = crudo.match(/^data:(image\/[\w.+-]+);base64,([\s\S]+)$/i);
+        if (uri) { if (Object.values(TIPOS_FOTO).includes(uri[1].toLowerCase())) c.blob = base64ABlob(uri[2], uri[1].toLowerCase()); }
+        else if (params.some(p => /^(ENCODING=)?(B|BASE64)$/.test(p))) {
+          const t = Object.keys(TIPOS_FOTO).find(k => params.some(p => p === k || p === "TYPE=" + k || p === "MEDIATYPE=IMAGE/" + k));
+          c.blob = base64ABlob(crudo, TIPOS_FOTO[t] || "image/jpeg");
+        }
+        continue;
+      }
+      if (!["FN", "N", "ORG", "TEL", "EMAIL"].includes(prop)) continue;
+      const cs = (params.find(p => p.startsWith("CHARSET=")) || "").slice(8);
+      const valor = params.some(p => /QUOTED-PRINTABLE/.test(p)) ? decodificarQP(crudo, cs) : crudo;
+      if (prop === "FN") c.fn = textoVCard(valor);
+      else if (prop === "N") { const p = partesVCard(valor).map(textoVCard); c.n = [p[1], p[2], p[0]].filter(Boolean).join(" "); }
+      else if (prop === "ORG") c.org = textoVCard(partesVCard(valor)[0]);
+      else if (prop === "TEL") { const v = textoVCard(valor).replace(/^tel:/i, ""); if (v) c.tels.push({ v, t: params.join(";") }); }
+      else { const v = textoVCard(valor).replace(/^mailto:/i, ""); if (v) c.mails.push({ v, t: params.join(";") }); }
+    }
+    return salida;
+  }
+  async function decodificarArchivo(f) {
+    const b = await f.arrayBuffer();
+    try { return new TextDecoder("utf-8", { fatal: true }).decode(b); }
+    catch (e) { return new TextDecoder("windows-1252").decode(b); }
+  }
+  // Foto cuadrada y ligera para que cientos de invitados quepan en la caché del navegador
+  async function miniatura(blob) {
+    let img = null;
+    try {
+      img = await createImageBitmap(blob);
+      const lado = Math.min(img.width, img.height), cv = document.createElement("canvas");
+      cv.width = cv.height = 96;
+      const c = cv.getContext("2d"); c.fillStyle = "#fff"; c.fillRect(0, 0, 96, 96);
+      c.drawImage(img, (img.width - lado) / 2, (img.height - lado) / 2, lado, lado, 0, 0, 96, 96);
+      const d = cv.toDataURL("image/jpeg", 0.72);
+      return FOTO_VALIDA.test(d) ? d : "";
+    } catch (e) { return ""; } finally { if (img) img.close(); }
+  }
+
+  /* ---------------- Contactos: coincidencias ---------------- */
+  const telClave = t => { const d = String(t || "").replace(/\D/g, ""); return d.length >= 7 ? d.slice(-10) : ""; };
+  const correoClave = c => String(c || "").trim().toLowerCase();
+  const nombreClave = n => String(n || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
+  function crearIndice() {
+    const ix = { tel: new Map(), mail: new Map(), nom: new Map() };
+    ix.poner = p => {
+      const t = telClave(p.telefono), m = correoClave(p.correo), n = nombreClave(p.nombre);
+      if (t && !ix.tel.has(t)) ix.tel.set(t, p);
+      if (m && !ix.mail.has(m)) ix.mail.set(m, p);
+      if (n) { if (!ix.nom.has(n)) ix.nom.set(n, []); ix.nom.get(n).push(p); }
+    };
+    // Mismo nombre solo cuenta si no se contradicen teléfono ni correo
+    ix.buscar = p => {
+      const t = telClave(p.telefono), m = correoClave(p.correo);
+      return (t && ix.tel.get(t)) || (m && ix.mail.get(m)) ||
+        (ix.nom.get(nombreClave(p.nombre)) || []).find(x => (!t || !telClave(x.telefono)) && (!m || !correoClave(x.correo))) || null;
+    };
+    return ix;
+  }
+
+  /* ---------------- Contactos: ventana de importación ---------------- */
+  const MAX_VCF = 150 * 1024 * 1024;
+  let candidatos = [];
+  const dlg = $("#con-dialogo");
+  $("#con-grupo").innerHTML = opciones(GRUPOS, "Otros");
+  $("#con-rsvp").innerHTML = opciones(Object.keys(RSVP), "pendiente", RSVP);
+  if ("contacts" in navigator && "ContactsManager" in window) $("#con-picker").hidden = false;
+  function errorContactos(t) { const e = $("#con-error"); e.textContent = t; e.hidden = !t; }
+  function limpiarCandidatos() { candidatos.forEach(c => c.url && URL.revokeObjectURL(c.url)); candidatos = []; }
+  function pasoContactos(revision) {
+    $("#con-origen").hidden = revision; $("#con-revision").hidden = !revision; $("#con-pie").hidden = !revision;
+    $("#con-titulo").textContent = revision ? "Elige a tus invitados" : "Importar contactos";
+  }
+  function prepararCandidatos(lista) {
+    limpiarCandidatos();
+    const propios = crearIndice(); const unicos = [];
+    lista.forEach(p => {
+      const previo = propios.buscar(p);
+      if (previo) { previo.telefono ||= p.telefono; previo.correo ||= p.correo; previo.blob ||= p.blob; return; }
+      const c = Object.assign({}, p); propios.poner(c); unicos.push(c);
+    });
+    const lista0 = crearIndice(); S.invitados.forEach(lista0.poner);
+    candidatos = unicos.sort((a, b) => a.nombre.localeCompare(b.nombre, "es")).map((c, k) => {
+      const dup = lista0.buscar(c);
+      return Object.assign(c, { k, dupId: dup ? dup.id : null, dupNombre: dup ? dup.nombre : "", sel: !dup, url: c.blob ? URL.createObjectURL(c.blob) : "" });
+    });
+    if (!candidatos.length) { errorContactos("No encontramos contactos en ese archivo."); pasoContactos(false); return; }
+    errorContactos(""); $("#con-buscar").value = ""; pasoContactos(true); renderCandidatos();
+  }
+  const candidatosVisibles = () => {
+    const q = $("#con-buscar").value.trim().toLowerCase();
+    return candidatos.filter(c => !q || [c.nombre, c.telefono, c.correo].join(" ").toLowerCase().includes(q));
+  };
+  function cuentaCandidatos() {
+    const n = candidatos.filter(c => c.sel).length;
+    $("#con-cuenta").textContent = `${n} de ${candidatos.length} elegidos`;
+    $("#con-importar").disabled = !n;
+    $("#con-importar").textContent = n ? `Importar ${n}` : "Importar";
+  }
+  function renderCandidatos() {
+    const v = candidatosVisibles();
+    $("#con-lista").innerHTML = v.length ? v.map(c => `<label class="con-fila">
+        <input type="checkbox" data-k="${c.k}" ${c.sel ? "checked" : ""}>
+        <span class="avatar">${c.url ? `<img src="${esc(c.url)}" alt="" loading="lazy">` : esc(iniciales(c.nombre))}</span>
+        <span class="con-datos"><b>${esc(c.nombre)}</b><small>${esc([c.telefono, c.correo].filter(Boolean).join(" · ") || "Sin teléfono ni correo")}</small></span>
+        ${c.dupId ? `<span class="con-dup" title="Si lo eliges, solo se completan los datos que le falten a ${esc(c.dupNombre)}">Ya en tu lista</span>` : ""}</label>`).join("")
+      : `<p class="ayuda" style="padding:8px">Nadie coincide.</p>`;
+    cuentaCandidatos();
+  }
+  $("#con-lista").addEventListener("change", e => { const c = candidatos[+e.target.dataset.k]; if (c) { c.sel = e.target.checked; cuentaCandidatos(); } });
+  $("#con-lista").addEventListener("error", e => { if (e.target.tagName === "IMG") e.target.remove(); }, true);
+  $("#con-buscar").addEventListener("input", renderCandidatos);
+  dlg.addEventListener("close", limpiarCandidatos);
+  $("#con-archivo").addEventListener("change", async e => {
+    const archivos = [...e.target.files]; e.target.value = "";
+    if (!archivos.length) return;
+    if (archivos.some(f => f.size > MAX_VCF)) { errorContactos("Ese archivo pesa más de 150 MB. Exporta menos contactos a la vez."); return; }
+    try {
+      const todos = [];
+      for (const f of archivos) todos.push(...leerVCards(await decodificarArchivo(f)));
+      prepararCandidatos(todos);
+    } catch (err) { errorContactos("No pudimos leer ese archivo. Revisa que sea un .vcf."); }
+  });
+  $("#con-picker").addEventListener("click", async () => {
+    try {
+      const disp = await navigator.contacts.getProperties();
+      const r = await navigator.contacts.select(["name", "tel", "email", "icon"].filter(p => disp.includes(p)), { multiple: true });
+      if (!r.length) return;
+      prepararCandidatos(r.map(x => {
+        const telefono = (x.tel || [])[0] || "", correo = (x.email || [])[0] || "";
+        return { nombre: ((x.name || [])[0] || correo || telefono).trim(), telefono, correo, blob: (x.icon || [])[0] || null };
+      }).filter(x => x.nombre));
+    } catch (err) { errorContactos("No se pudo abrir tu lista de contactos. Prueba subiendo un archivo .vcf."); }
+  });
+  async function importarCandidatos() {
+    const elegidos = candidatos.filter(c => c.sel); if (!elegidos.length) return;
+    const boton = $("#con-importar"), conFotos = $("#con-fotos").checked, grupo = $("#con-grupo").value, rsvp = $("#con-rsvp").value;
+    const antes = JSON.stringify(S.invitados), fotosNuevas = [];
+    boton.disabled = true;
+    let nuevos = 0, completados = 0, sinFoto = 0;
+    for (let i = 0; i < elegidos.length; i++) {
+      const c = elegidos[i];
+      if (i % 10 === 0) boton.textContent = `Importando ${i + 1} de ${elegidos.length}…`;
+      const destino = c.dupId && invitado(c.dupId);
+      let foto = "";
+      if (conFotos && c.blob && !(destino && destino.foto)) { foto = await miniatura(c.blob); if (!foto) sinFoto++; }
+      if (destino) {
+        const a = [destino.telefono, destino.correo, destino.foto].join("|");
+        destino.telefono ||= c.telefono; destino.correo ||= c.correo;
+        if (foto && !destino.foto) { destino.foto = foto; fotosNuevas.push(destino); }
+        if (a !== [destino.telefono, destino.correo, destino.foto].join("|")) completados++;
+      } else {
+        const g = { id: uid(), nombre: c.nombre, telefono: c.telefono, correo: c.correo, foto, grupo, rsvp, dieta: "", notas: "" };
+        S.invitados.push(g); nuevos++; if (foto) fotosNuevas.push(g);
+      }
+    }
+    let aviso = "";
+    if (!guardar()) {
+      fotosNuevas.forEach(g => (g.foto = ""));
+      if (guardar()) aviso = " Sin fotos, porque no cupieron en la caché.";
+      else {
+        S.invitados = JSON.parse(antes); guardar(); renderInvitados(); cuentaCandidatos();
+        alert("No hay espacio en este navegador para guardar esos contactos. Importa menos a la vez.");
+        return;
+      }
+    }
+    dlg.close(); renderInvitados();
+    const t = [`${nuevos} invitados agregados`]; if (completados) t.push(`${completados} completados`); if (sinFoto) t.push(`${sinFoto} fotos sin leer`);
+    $("#estado").textContent = t.join(" · ") + "." + aviso;
+  }
+
+  // Foto manual por invitado
+  let fotoPara = null;
+  $("#inv-foto-archivo").addEventListener("change", async e => {
+    const f = e.target.files[0]; e.target.value = "";
+    const g = fotoPara && invitado(fotoPara); fotoPara = null;
+    if (!f || !g) return;
+    const foto = await miniatura(f);
+    if (!foto) { $("#estado").textContent = "No se pudo leer esa imagen"; return; }
+    const previa = g.foto; g.foto = foto;
+    if (!guardar()) g.foto = previa;
+    renderInvitados();
+  });
+
+  /* ---------------- Nube de invitados (opcional, pago único) ---------------- */
+  // Valores públicos del proyecto. Vacíos = la nube aparece como «próximamente» y no se puede pagar.
+  const NUBE = window.SYNODE_NUBE || { url: "", anonKey: "" };
+  const NUBE_PAGO = "https://buy.stripe.com/00waEW4Vxgv0gq338Ddby00", NUBE_PRECIO = 38000;
+  const NUBE_ACTIVA = !!(NUBE.url && NUBE.anonKey), NUBE_SESION = "synode-nube-sesion", NUBE_MAX = 6000000;
+  const nubeDlg = $("#nube-dialogo");
+  let nubeSes = null, nubeInfo = null, nubeMsg = "", nubeOcupada = false, nubeEnviadoA = "";
+  try { nubeSes = JSON.parse(localStorage.getItem(NUBE_SESION)); } catch (e) { nubeSes = null; }
+  function guardarSesion(s) {
+    nubeSes = s;
+    try { s ? localStorage.setItem(NUBE_SESION, JSON.stringify(s)) : localStorage.removeItem(NUBE_SESION); } catch (e) { /* solo en memoria */ }
+  }
+  const sesionDe = d => ({ access: d.access_token, refresh: d.refresh_token, expira: Date.now() + (Number(d.expires_in) || 3600) * 1000, correo: d.user?.email || nubeSes?.correo || "", id: d.user?.id || nubeSes?.id || "" });
+  async function tokenNube() {
+    if (!nubeSes) throw new Error("sesion");
+    if (Date.now() < nubeSes.expira - 60000) return nubeSes.access;
+    const r = await fetch(`${NUBE.url}/auth/v1/token?grant_type=refresh_token`, { method: "POST", headers: { apikey: NUBE.anonKey, "content-type": "application/json" }, body: JSON.stringify({ refresh_token: nubeSes.refresh }) });
+    if (!r.ok) { if (r.status < 500) guardarSesion(null); throw new Error("sesion"); }
+    guardarSesion(sesionDe(await r.json()));
+    return nubeSes.access;
+  }
+  async function pedirNube(ruta, op = {}) {
+    const access = await tokenNube();
+    const r = await fetch(NUBE.url + ruta, Object.assign({}, op, { headers: Object.assign({ apikey: NUBE.anonKey, authorization: `Bearer ${access}`, "content-type": "application/json" }, op.headers) }));
+    if (r.status === 401) { guardarSesion(null); throw new Error("sesion"); }
+    if (!r.ok) throw new Error(r.status === 403 ? "sin-pago" : "red");
+    const texto = await r.text(); // subir con return=minimal responde 201 sin cuerpo
+    return texto ? JSON.parse(texto) : null;
+  }
+  function recordarAcceso(pagado) {
+    const antes = tienePremium();
+    try { pagado ? localStorage.setItem(CLAVE_PREMIUM, nubeSes.id) : localStorage.removeItem(CLAVE_PREMIUM); } catch (e) { /* sin almacenamiento */ }
+    if (antes !== tienePremium()) mostrar(pestana);
+  }
+  async function cargarNube() {
+    if (!nubeSes.id || !nubeSes.correo) {
+      const u = await pedirNube("/auth/v1/user");
+      guardarSesion(Object.assign({}, nubeSes, { id: u.id, correo: u.email }));
+    }
+    const id = encodeURIComponent(nubeSes.id);
+    const [acceso, lista] = await Promise.all([
+      pedirNube(`/rest/v1/nube_accesos?select=estado&user_id=eq.${id}`),
+      pedirNube(`/rest/v1/nube_listas?select=total,actualizado&user_id=eq.${id}`)
+    ]);
+    nubeInfo = { estado: acceso[0]?.estado || "", lista: lista[0] || null, precio: NUBE_PRECIO };
+    recordarAcceso(nubeInfo.estado === "pagado");
+  }
+  const textoError = e => e.message === "sesion" ? "Tu sesión terminó. Vuelve a entrar." : e.message === "sin-pago" ? "Tu cuenta no tiene la nube activa." : "No pudimos conectar con la nube. Tus invitados siguen seguros en este navegador.";
+  const dinero = c => (c / 100).toLocaleString("es-MX", { style: "currency", currency: "MXN" });
+  function renderNube() {
+    const b = $("#nube-cuerpo"), dis = nubeOcupada ? "disabled" : "", msg = nubeMsg ? `<p role="status" class="${nubeMsg.startsWith("!") ? "nube-error" : ""}">${esc(nubeMsg.replace(/^!/, ""))}</p>` : "";
+    if (!NUBE_ACTIVA) {
+      b.innerHTML = `<p><b>Próximamente.</b> La nube todavía no está disponible y no se te cobrará nada.</p><p>Tu lista sigue funcionando en este navegador. Mientras tanto, usa «Exportar respaldo» para guardar una copia.</p>`;
+      return;
+    }
+    if (!nubeSes) {
+      b.innerHTML = `${msg}${nubeEnviadoA
+        ? `<p>Te enviamos un enlace a <b>${esc(nubeEnviadoA)}</b>. Ábrelo en este mismo dispositivo para entrar.</p><button class="boton sec" type="button" data-accion="nube-otro">Usar otro correo</button>`
+        : `<p>Invitados, mesas y nube se activan con Premium. Inicia sesión con tu correo, sin contraseña, para entrar o activarlo.</p>
+           <form id="nube-form"><label class="campo"><span>Correo electrónico</span><input type="email" id="nube-correo" required autocomplete="email"></label>
+           <button class="boton" type="submit" ${dis}>Enviarme el enlace</button></form>`}`;
+      return;
+    }
+    const cuenta = `<p class="ayuda" style="margin-top:12px">Sesión: ${esc(nubeSes.correo)} · <button class="quitar" style="font-size:inherit;width:auto" type="button" data-accion="nube-salir">Cerrar sesión</button></p>`;
+    if (!nubeInfo) { b.innerHTML = `${msg}<p>Cargando…</p>${cuenta}`; return; }
+    const guardada = nubeInfo.lista ? `<p>En la nube: <b>${nubeInfo.lista.total}</b> invitados, actualizado el ${esc(new Date(nubeInfo.lista.actualizado).toLocaleString("es-MX", { dateStyle: "medium", timeStyle: "short" }))}.</p>` : "";
+    const recuperar = nubeInfo.lista ? `<div class="con-acciones"><button class="boton sec" type="button" data-accion="nube-traer" ${dis}>Traer de la nube</button><button class="boton peligro" type="button" data-accion="nube-borrar" ${dis}>Borrar de la nube</button></div>` : "";
+    if (nubeInfo.estado !== "pagado") {
+      const aviso = nubeInfo.estado === "disputa" ? `<p class="nube-error">Tu pago está en revisión. Mientras tanto no se puede subir la lista.</p>`
+        : nubeInfo.estado === "reembolsado" ? `<p>Tu pago fue reembolsado. Aún puedes traer o borrar tu lista.</p>` : "";
+      const pagar = nubeInfo.estado === "disputa" ? "" : nubeInfo.precio
+        ? `<p class="nube-precio">${esc(dinero(nubeInfo.precio))} <small style="font-size:1rem">MXN · pago único</small></p><p>Activa invitados, mesas, confirmaciones y plantillas, y guarda tu lista en la nube.</p><button class="boton" type="button" data-accion="nube-pagar" ${dis}>Pagar y activar</button>`
+        : `<p class="nube-error">No pudimos consultar el precio. Intenta más tarde.</p>`;
+      b.innerHTML = `${msg}${aviso}${guardada}${recuperar}${pagar}${cuenta}`;
+      return;
+    }
+    b.innerHTML = `${msg}${guardada}<p>En este navegador: <b>${S.invitados.length}</b> invitados.</p>
+      <label class="nube-permiso"><input type="checkbox" id="nube-permiso"> <span>Confirmo que puedo guardar los nombres, fotos, teléfonos y correos de estas personas para organizar mi boda.</span></label>
+      <div class="con-acciones"><button class="boton" type="button" data-accion="nube-subir" ${dis}>Subir ${S.invitados.length} invitados</button></div>${recuperar}${cuenta}`;
+  }
+  async function refrescarNube(msg = "") {
+    nubeMsg = msg; renderNube();
+    if (!NUBE_ACTIVA || !nubeSes) return;
+    try { await cargarNube(); }
+    catch (e) { nubeInfo = null; nubeMsg = "!" + textoError(e); }
+    renderNube();
+  }
+  async function conOcupada(fn) {
+    if (nubeOcupada) return;
+    nubeOcupada = true; nubeMsg = ""; renderNube();
+    try { await fn(); }
+    catch (e) { nubeMsg = "!" + textoError(e); }
+    nubeOcupada = false; renderNube();
+  }
+  $("#nube-cuerpo").addEventListener("submit", e => {
+    e.preventDefault();
+    const correo = $("#nube-correo").value.trim();
+    conOcupada(async () => {
+      const destino = encodeURIComponent(location.origin + location.pathname);
+      const r = await fetch(`${NUBE.url}/auth/v1/otp?redirect_to=${destino}`, { method: "POST", headers: { apikey: NUBE.anonKey, "content-type": "application/json" }, body: JSON.stringify({ email: correo, create_user: true }) });
+      if (r.status === 429) { nubeMsg = "!Espera un minuto antes de pedir otro enlace."; return; }
+      if (!r.ok) throw new Error("red");
+      nubeEnviadoA = correo;
+    });
+  });
+  const pagarNube = () => {
+    const u = new URL(NUBE_PAGO);
+    u.searchParams.set("client_reference_id", nubeSes.id);
+    if (nubeSes.correo) u.searchParams.set("prefilled_email", nubeSes.correo);
+    location.assign(u.href);
+  };
+  const subirNube = () => {
+    if (!$("#nube-permiso").checked) { nubeMsg = "!Marca la casilla de confirmación para subir tu lista."; renderNube(); return; }
+    const previa = nubeInfo.lista;
+    if (previa && previa.total > S.invitados.length && !confirm(`La nube tiene ${previa.total} invitados y aquí hay ${S.invitados.length}. Subir reemplazará la lista de la nube. ¿Continuar?`)) return;
+    conOcupada(async () => {
+      const datos = S.invitados.map(({ id, nombre, telefono, correo, foto, grupo, rsvp, dieta, notas }) => ({ id, nombre, telefono, correo, foto, grupo, rsvp, dieta, notas }));
+      const cuerpo = JSON.stringify({ user_id: nubeSes.id, datos, total: datos.length });
+      if (cuerpo.length > NUBE_MAX) { nubeMsg = "!La lista es demasiado grande para la nube. Quita algunas fotos."; return; }
+      await pedirNube("/rest/v1/nube_listas?on_conflict=user_id", { method: "POST", headers: { prefer: "resolution=merge-duplicates,return=minimal" }, body: cuerpo });
+      await cargarNube();
+      nubeMsg = `${datos.length} invitados guardados en la nube.`;
+    });
+  };
+  const traerNube = () => {
+    if (!confirm("Esto reemplaza la lista de este navegador con la de la nube. ¿Continuar?")) return;
+    conOcupada(async () => {
+      const f = await pedirNube(`/rest/v1/nube_listas?select=datos&user_id=eq.${encodeURIComponent(nubeSes.id)}`);
+      if (!f[0] || !Array.isArray(f[0].datos)) throw new Error("red");
+      const limpia = normalizar({ invitados: f[0].datos.filter(g => g && typeof g.id === "string" && typeof g.nombre === "string").map(g => Object.assign({}, g, {
+        grupo: GRUPOS.includes(g.grupo) ? g.grupo : "Otros", rsvp: RSVP[g.rsvp] ? g.rsvp : "pendiente"
+      })) }).invitados;
+      const antes = S.invitados; S.invitados = limpia;
+      if (!guardar()) { S.invitados = antes; guardar(); nubeMsg = "!No hay espacio en este navegador para esa lista."; return; }
+      limpiarAsientos(geometria(S.mesas)); guardar(); renderInvitados();
+      nubeMsg = `${limpia.length} invitados traídos de la nube.`;
+    });
+  };
+  const borrarNube = () => {
+    if (!confirm("¿Borrar definitivamente tu lista de la nube? La de este navegador no cambia.")) return;
+    conOcupada(async () => {
+      await pedirNube(`/rest/v1/nube_listas?user_id=eq.${encodeURIComponent(nubeSes.id)}`, { method: "DELETE", headers: { prefer: "return=minimal" } });
+      await cargarNube();
+      nubeMsg = "Tu lista se borró de la nube.";
+    });
+  };
+  function salirNube() {
+    const a = nubeSes?.access;
+    if (a) fetch(`${NUBE.url}/auth/v1/logout`, { method: "POST", headers: { apikey: NUBE.anonKey, authorization: `Bearer ${a}` } }).catch(() => {});
+    guardarSesion(null); nubeInfo = null; nubeEnviadoA = ""; nubeMsg = ""; try { localStorage.removeItem(CLAVE_PREMIUM); } catch (e) { /* sin almacenamiento */ } renderNube(); mostrar(pestana);
+  }
+  // Regreso del enlace de correo o de Stripe. Se limpia la URL para no dejar tokens en el historial.
+  async function regresoNube(hashInicial) {
+    if (!NUBE_ACTIVA) return;
+    const h = new URLSearchParams(hashInicial), q = new URLSearchParams(location.search);
+    if (h.get("access_token") && h.get("refresh_token")) {
+      guardarSesion({ access: h.get("access_token"), refresh: h.get("refresh_token"), expira: Date.now() + (Number(h.get("expires_in")) || 3600) * 1000, correo: "", id: "" });
+      history.replaceState(null, "", location.pathname + "#invitados");
+      nubeDlg.showModal(); refrescarNube();
+    } else if (h.get("error_code") || h.get("error")) {
+      history.replaceState(null, "", location.pathname + "#invitados");
+      nubeDlg.showModal(); refrescarNube("!Ese enlace ya no es válido. Pide uno nuevo.");
+    } else if (q.get("nube")) {
+      const ok = q.get("nube") === "ok";
+      history.replaceState(null, "", location.pathname + "#invitados");
+      nubeDlg.showModal();
+      if (!ok) { refrescarNube("El pago se canceló. No se te cobró nada."); return; }
+      nubeMsg = "Confirmando tu pago…"; renderNube();
+      for (let i = 0; i < 10 && nubeSes; i++) {
+        try { await cargarNube(); if (nubeInfo.estado === "pagado") { nubeMsg = "¡Pago confirmado! Ya puedes subir tu lista."; renderNube(); return; } }
+        catch (e) { /* reintenta */ }
+        await new Promise(r => setTimeout(r, 1500));
+      }
+      refrescarNube("Tu pago aún se está confirmando. Vuelve a abrir esta ventana en unos minutos.");
+    }
   }
 
   /* ---------------- Fechas ---------------- */
@@ -680,30 +1269,173 @@
   });
 
   /* ---------------- Mesas: geometría ---------------- */
-  // Mesas largas tangentes a un anillo alrededor de la fuente. Mesa 1 arriba, luego en sentido horario.
+  // Cada forma coloca las mismas n mesas; las claves de asiento (mesa-silla) no cambian al cambiar de forma.
   const SP = 46, ANCHO = 64, OFF = ANCHO / 2 + 22, FUENTE = 96, CAB = 24;
+  const FORMAS = [
+    { id: "anillo", nombre: "Anillo", min: 2 }, { id: "cuadrado", nombre: "Cuadrado", min: 4 },
+    { id: "u", nombre: "Forma U", min: 3 }, { id: "t", nombre: "Forma T", min: 2 },
+    { id: "l", nombre: "Forma L", min: 2 }, { id: "cruz", nombre: "Cruz", min: 4 },
+    { id: "peine", nombre: "Peine", min: 3 }, { id: "filas", nombre: "Filas", min: 2 },
+    { id: "imperial", nombre: "Imperial", min: 2 }, { id: "espiga", nombre: "Espiga", min: 2 }
+  ];
+  const ELEMENTOS = {
+    altar: { nombre: "Altar", a: 130, b: 62 },
+    pista: { nombre: "Pista", a: 150, b: 150 },
+    fuente: { nombre: "Fuente", a: FUENTE, b: FUENTE }
+  };
+  const CUADRANTES = { norte: 0, este: 90, sur: 180, oeste: 270 };
+  const formaDe = id => FORMAS.find(f => f.id === id) || FORMAS[0];
+
+  // Posición de cada mesa con el frente hacia el norte; v = medio hueco libre al centro (0 si no hay nada al centro).
+  function trazar(forma, n, E, H, v, rAnillo) {
+    const t = [], linea = (k, x, y, a) => {
+      for (let i = 0; i < k; i++) { const d = (i - (k - 1) / 2) * 2 * E; t.push({ x: x + (a ? 0 : d), y: y + (a ? d : 0), a }); }
+    };
+    switch (forma) {
+      case "cuadrado": {
+        const c = [0, 0, 0, 0]; for (let i = 0; i < n; i++) c[i % 4]++;
+        const s = Math.max(v, Math.max(...c) * E);
+        linea(c[0], 0, -(s + H), 0); linea(c[1], s + H, 0, 90); linea(c[2], 0, s + H, 0); linea(c[3], -(s + H), 0, 90);
+        break;
+      }
+      case "u": {
+        const a = Math.max(1, Math.round(n / 3)), b = n - 2 * a, hw = Math.max(v, b * E), hh = Math.max(v, a * E);
+        linea(b, 0, hh + H, 0);
+        for (let j = 0; j < a; j++) { const y = hh - E - 2 * E * j; t.push({ x: -(hw + H), y, a: 90 }, { x: hw + H, y, a: 90 }); }
+        break;
+      }
+      case "t": {
+        const b = Math.ceil(n / 2);
+        linea(b, 0, -(v + H), 0);
+        for (let j = 0; j < n - b; j++) t.push({ x: 0, y: v + E + 2 * E * j, a: 90 });
+        break;
+      }
+      case "l": {
+        const h = Math.ceil(n / 2);
+        for (let i = 0; i < h; i++) t.push({ x: -v + E + 2 * E * i, y: v + H, a: 0 });
+        for (let j = 0; j < n - h; j++) t.push({ x: -(v + H), y: v - E - 2 * E * j, a: 90 });
+        break;
+      }
+      case "cruz": {
+        const d = Math.max(v, H), dir = [[0, -1, 90], [1, 0, 0], [0, 1, 90], [-1, 0, 0]], c = [0, 0, 0, 0];
+        for (let i = 0; i < n; i++) { const q = i % 4, r = d + E + 2 * E * c[q]++; t.push({ x: dir[q][0] * r, y: dir[q][1] * r, a: dir[q][2] }); }
+        break;
+      }
+      case "peine": {
+        const s = Math.ceil(n / 3), dientes = n - s, px = 2 * H + 16, ini = v ? v + H : px / 2;
+        linea(s, 0, Math.max(E, v) + H, 0);
+        for (let i = 0; i < dientes; i++) t.push({ x: (i % 2 ? 1 : -1) * (ini + Math.floor(i / 2) * px), y: 0, a: 90 });
+        break;
+      }
+      case "filas": {
+        let c = Math.ceil(Math.sqrt(n)); if (v && c % 2) c++;
+        const r = Math.ceil(n / c), px = 2 * E + 24, py = 2 * H + 24;
+        for (let i = 0; i < n; i++) {
+          const x = ((i % c) - (c - 1) / 2) * px;
+          t.push({ x: x + Math.sign(x) * v, y: (Math.floor(i / c) - (r - 1) / 2) * py, a: 0 });
+        }
+        break;
+      }
+      case "imperial":
+        if (v) { const a = Math.ceil(n / 2); linea(a, 0, -(v + H), 0); linea(n - a, 0, v + H, 0); }
+        else linea(n, 0, 0, 0);
+        break;
+      case "espiga": {
+        const g = 35, rad = (g * Math.PI) / 180, ax = E * Math.cos(rad) + H * Math.sin(rad), py = (2 * H) / Math.cos(rad), r = Math.ceil(n / 2);
+        for (let i = 0; i < n; i++) { const lado = i % 2 ? 1 : -1; t.push({ x: lado * (Math.max(v, 20) + ax), y: (Math.floor(i / 2) - (r - 1) / 2) * py, a: -lado * g }); }
+        break;
+      }
+      default:
+        for (let i = 0; i < n; i++) { const th = (i * 2 * Math.PI) / n; t.push({ x: Math.sin(th) * rAnillo, y: -Math.cos(th) * rAnillo, a: (th * 180) / Math.PI }); }
+    }
+    return t;
+  }
+
   function geometria(m) {
-    const n = Math.min(10, Math.max(2, m.n | 0)), p = Math.min(14, Math.max(1, m.porLado | 0)), cab = !!m.cabeceras;
-    const L = p * SP + 16, extremo = L / 2 + (cab ? CAB + 18 : 0);
-    const R = Math.max((extremo + 26) / Math.tan(Math.PI / n) + OFF + 20, FUENTE + 70 + OFF);
+    const f = formaDe(m.forma), n = Math.min(10, Math.max(f.min, m.n | 0)), p = Math.min(14, Math.max(1, m.porLado | 0)), cab = !!m.cabeceras;
+    const L = p * SP + 16, extremo = L / 2 + (cab ? CAB + 18 : 0), E = L / 2 + (cab ? CAB + 21 : 8), H = OFF + 24;
+    const cuad = id => { const c = m.elementos && m.elementos[id]; return c === "centro" || c in CUADRANTES ? c : ""; };
+    const activos = Object.keys(ELEMENTOS).filter(cuad);
+
+    // Hueco central: los elementos al centro van lado a lado
+    const alCentro = activos.filter(id => cuad(id) === "centro");
+    const anchoCentro = alCentro.reduce((s, id) => s + 2 * ELEMENTOS[id].a, 0) + Math.max(0, alCentro.length - 1) * 40;
+    const rCentro = alCentro.length ? Math.max(anchoCentro / 2, ...alCentro.map(id => ELEMENTOS[id].b)) : 0;
+    const v = alCentro.length ? rCentro + 34 : 0;
+    // En el anillo el hueco es circular: debe librar las esquinas de la pista o del altar
+    const soloFuente = alCentro.length === 1 && alCentro[0] === "fuente";
+    const rCirculo = !alCentro.length ? 40 : soloFuente ? FUENTE : Math.hypot(anchoCentro / 2, Math.max(...alCentro.map(id => ELEMENTOS[id].b)));
+    const R = Math.max((extremo + 26) / Math.tan(Math.PI / n) + OFF + 20, rCirculo + 70 + OFF);
+
+    // El frente de la forma mira al altar; si no, a la pista o a la fuente
+    const guia = activos.find(id => cuad(id) in CUADRANTES);
+    const giroForma = f.id === "anillo" || !guia ? 0 : CUADRANTES[cuad(guia)];
+    const [gc, gs] = { 0: [1, 0], 90: [0, 1], 180: [-1, 0], 270: [0, -1] }[giroForma];
+
     const mesas = [], asientos = [];
     let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
-    const caja = (x, y, r) => { x0 = Math.min(x0, x - r); x1 = Math.max(x1, x + r); y0 = Math.min(y0, y - r); y1 = Math.max(y1, y + r); };
-    for (let i = 0; i < n; i++) {
-      const th = (i * 2 * Math.PI) / n, dx = Math.sin(th), dy = -Math.cos(th), tx = Math.cos(th), ty = Math.sin(th);
-      const punto = (u, v) => [dx * (R + v) + tx * u, dy * (R + v) + ty * u];
-      const [cx, cy] = punto(0, 0);
-      mesas.push({ i, cx, cy, grados: (th * 180) / Math.PI, L, cap: p * 2 + (cab ? 2 : 0) });
-      [[-L / 2, -ANCHO / 2], [L / 2, -ANCHO / 2], [-L / 2, ANCHO / 2], [L / 2, ANCHO / 2]].forEach(([u, v]) => caja(...punto(u, v), 4));
+    const caja = (x, y, rx, ry = rx) => { x0 = Math.min(x0, x - rx); x1 = Math.max(x1, x + rx); y0 = Math.min(y0, y - ry); y1 = Math.max(y1, y + ry); };
+    trazar(f.id, n, E, H, v, R).forEach((b, i) => {
+      const cx = b.x * gc - b.y * gs, cy = b.x * gs + b.y * gc, grados = b.a + giroForma, th = (grados * Math.PI) / 180;
+      const dx = Math.sin(th), dy = -Math.cos(th), tx = Math.cos(th), ty = Math.sin(th);
+      const punto = (u, w) => [cx + dx * w + tx * u, cy + dy * w + ty * u];
+      mesas.push({ i, cx, cy, grados, L, cap: p * 2 + (cab ? 2 : 0) });
+      [[-L / 2, -ANCHO / 2], [L / 2, -ANCHO / 2], [-L / 2, ANCHO / 2], [L / 2, ANCHO / 2]].forEach(([u, w]) => caja(...punto(u, w), 4));
       // Orden: cabecera izquierda, luego parejas frente a frente (afuera, adentro), cabecera derecha
       const locales = [];
       if (cab) locales.push([-(L / 2 + CAB), 0]);
       for (let k = 0; k < p; k++) { const u = -L / 2 + 8 + SP / 2 + k * SP; locales.push([u, OFF], [u, -OFF]); }
       if (cab) locales.push([L / 2 + CAB, 0]);
-      locales.forEach(([u, v], idx) => { const [x, y] = punto(u, v); asientos.push({ clave: `${i}-${idx}`, mesa: i, idx, x, y }); caja(x, y, 26); });
-    }
-    caja(0, 0, FUENTE + 10);
-    return { n, p, cab, R, mesas, asientos, vb: [x0 - 10, y0 - 10, x1 - x0 + 20, y1 - y0 + 20] };
+      locales.forEach(([u, w], idx) => { const [x, y] = punto(u, w); asientos.push({ clave: `${i}-${idx}`, mesa: i, idx, x, y, u, w }); caja(x, y, 26); });
+    });
+    if (!mesas.length) caja(0, 0, 100);
+
+    // Elementos: al centro lado a lado; en cada cuadrante, apilados hacia afuera de las mesas
+    const elementos = [];
+    let cursor = -anchoCentro / 2;
+    alCentro.forEach(id => {
+      const e = ELEMENTOS[id];
+      elementos.push({ id, nombre: e.nombre, x: cursor + e.a, y: 0, a: e.a, b: e.b, giro: 0 });
+      caja(cursor + e.a, 0, e.a + 10, e.b + (id === "fuente" ? 34 : 10));
+      cursor += 2 * e.a + 40;
+    });
+    let bx0 = x0, bx1 = x1;
+    const by0 = y0, by1 = y1, mx = (bx0 + bx1) / 2, my = (by0 + by1) / 2, SEP = 46;
+    // Norte y sur primero: este y oeste se colocan por fuera de lo que ya ocupan
+    ["norte", "sur", "este", "oeste"].forEach(q => {
+      if (q === "este") elementos.forEach(e => { bx0 = Math.min(bx0, e.x - e.a - 10); bx1 = Math.max(bx1, e.x + e.a + 10); });
+      let borde = q === "norte" ? by0 : q === "sur" ? by1 : q === "este" ? bx1 : bx0;
+      activos.filter(id => cuad(id) === q).forEach(id => {
+        const e = ELEMENTOS[id], vertical = q === "norte" || q === "sur", fondo = (vertical ? e.b : e.a === e.b ? e.a : e.b), s = q === "norte" || q === "oeste" ? -1 : 1;
+        const c = borde + s * (SEP + fondo);
+        const ha = vertical || e.a === e.b ? e.a : e.b, hb = vertical || e.a === e.b ? e.b : e.a;
+        elementos.push({ id, nombre: e.nombre, x: vertical ? mx : c, y: vertical ? c : my, a: ha, b: hb, giro: id === "altar" ? CUADRANTES[q] : 0 });
+        borde = c + s * (fondo + (id === "fuente" ? 26 : 0));
+      });
+    });
+    elementos.forEach(e => caja(e.x, e.y, e.a + 10, e.b + (e.id === "fuente" ? 34 : 10)));
+    return { n, p, cab, R, forma: f.id, mesas, asientos, elementos, vb: [x0 - 10, y0 - 10, x1 - x0 + 20, y1 - y0 + 20] };
+  }
+  function svgElemento(e) {
+    const et = t => `<text class="mesa-txt" style="font-size:14px;font-style:italic">${t}</text>`;
+    if (e.id === "fuente") return `<g aria-label="Fuente" transform="translate(${e.x.toFixed(1)} ${e.y.toFixed(1)})">
+        <circle r="${FUENTE}" fill="#E4D8C2" stroke="#A99A7E" stroke-width="2"/>
+        <circle r="${FUENTE - 14}" fill="url(#agua)" stroke="#8E8068" stroke-width="1.5"/>
+        <circle r="${FUENTE - 34}" fill="none" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="1.2"/>
+        <circle r="${FUENTE - 54}" fill="none" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="1"/>
+        <circle r="20" fill="#E4D8C2" stroke="#8E8068" stroke-width="1.5"/>
+        <circle r="8" fill="#BFD4D9"/>
+        <text y="${FUENTE + 22}" class="mesa-txt" style="font-size:13px;font-style:italic">Fuente</text></g>`;
+    if (e.id === "pista") return `<g aria-label="Pista de baile" transform="translate(${e.x.toFixed(1)} ${e.y.toFixed(1)})">
+        <rect x="${-e.a}" y="${-e.b}" width="${2 * e.a}" height="${2 * e.b}" fill="url(#parquet)" stroke="#8A6A3F" stroke-width="3" rx="3"/>
+        <rect x="-44" y="-15" width="88" height="30" rx="4" fill="#F7F1E5" fill-opacity=".92"/>${et("Pista")}</g>`;
+    return `<g aria-label="Altar" transform="translate(${e.x.toFixed(1)} ${e.y.toFixed(1)})">
+        <g transform="rotate(${e.giro})">
+          <rect x="-130" y="-62" width="260" height="124" rx="5" fill="#F4ECDD" stroke="#A99A7E" stroke-width="2"/>
+          <path d="M-92 -38 A92 40 0 0 1 92 -38" fill="none" stroke="#9B3D2E" stroke-width="7" stroke-linecap="round"/>
+          <circle cx="-92" cy="-38" r="9" fill="#9B3D2E"/><circle cx="92" cy="-38" r="9" fill="#9B3D2E"/>
+          <rect x="-38" y="-15" width="76" height="30" rx="3" fill="#E4D8C2" stroke="#A99A7E"/>
+        </g>${et("Altar")}</g>`;
   }
   const nombreMesa = i => (S.mesas.nombres[i] || "").trim() || `Mesa ${i + 1}`;
 
@@ -738,17 +1470,10 @@
     let svg = `<defs>
         <radialGradient id="agua" cx="45%" cy="40%" r="70%"><stop offset="0" stop-color="#C8DCE0"/><stop offset="1" stop-color="#7FA0A8"/></radialGradient>
         <pattern id="losas" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#F3ECDF"/><path d="M40 0H0V40" fill="none" stroke="#E6DCCA" stroke-width="1"/></pattern>
+        <pattern id="parquet" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="60" height="60" fill="#C99F68"/><rect width="30" height="30" fill="#B5864F"/><rect x="30" y="30" width="30" height="30" fill="#B5864F"/></pattern>
       </defs>
       <rect x="${geo.vb[0]}" y="${geo.vb[1]}" width="${geo.vb[2]}" height="${geo.vb[3]}" fill="url(#losas)" rx="12"/>
-      <g aria-label="Fuente">
-        <circle r="${FUENTE}" fill="#E4D8C2" stroke="#A99A7E" stroke-width="2"/>
-        <circle r="${FUENTE - 14}" fill="url(#agua)" stroke="#8E8068" stroke-width="1.5"/>
-        <circle r="${FUENTE - 34}" fill="none" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="1.2"/>
-        <circle r="${FUENTE - 54}" fill="none" stroke="#FFFFFF" stroke-opacity=".35" stroke-width="1"/>
-        <circle r="20" fill="#E4D8C2" stroke="#8E8068" stroke-width="1.5"/>
-        <circle r="8" fill="#BFD4D9"/>
-        <text y="${FUENTE + 22}" class="mesa-txt" style="font-size:13px;font-style:italic">Fuente</text>
-      </g>`;
+      ${geo.elementos.map(svgElemento).join("")}`;
     geo.mesas.forEach(t => {
       const g = ((t.grados % 360) + 360) % 360, giro = g > 90 && g <= 270 ? g - 180 : g > 270 ? g - 360 : g; // texto siempre legible
       const ocupadas = geo.asientos.filter(a => a.mesa === t.i && A[a.clave]).length;
@@ -770,6 +1495,8 @@
     const svgEl = $("#plano");
     svgEl.setAttribute("viewBox", geo.vb.map(v => v.toFixed(1)).join(" "));
     svgEl.innerHTML = svg;
+    renderControlesAcomodo(geo);
+    geoVista = geo; pedirVista();
 
     // Sin asiento
     const q = $("#mes-buscar").value.trim().toLowerCase();
@@ -809,6 +1536,188 @@
     }).join("");
   }
 
+  /* ---------------- Mesas: forma y cuadrantes ---------------- */
+  function renderControlesAcomodo(geo) {
+    $("#mes-formas").innerHTML = FORMAS.map(f => {
+      const g = geometria(Object.assign({}, S.mesas, { forma: f.id }));
+      const fig = g.mesas.map(t => `<rect x="${(-t.L / 2).toFixed(0)}" y="${-ANCHO}" width="${t.L}" height="${2 * ANCHO}" rx="8" fill="#A99A7E" transform="translate(${t.cx.toFixed(0)} ${t.cy.toFixed(0)}) rotate(${t.grados.toFixed(1)})"/>`).join("");
+      const els = g.elementos.map(e => e.id === "fuente"
+        ? `<circle cx="${e.x.toFixed(0)}" cy="${e.y.toFixed(0)}" r="${e.a}" fill="#7FA0A8"/>`
+        : `<rect x="${(e.x - e.a).toFixed(0)}" y="${(e.y - e.b).toFixed(0)}" width="${2 * e.a}" height="${2 * e.b}" fill="${e.id === "pista" ? "#C99F68" : "#9B3D2E"}"/>`).join("");
+      return `<button type="button" class="forma" data-forma="${f.id}" aria-pressed="${f.id === geo.forma}">
+        <svg viewBox="${g.vb.map(x => x.toFixed(0)).join(" ")}" aria-hidden="true">${els}${fig}</svg>${f.nombre}</button>`;
+    }).join("");
+    const letras = { norte: "N", oeste: "O", centro: "C", este: "E", sur: "S" };
+    $("#mes-elementos").innerHTML = ["fuente", "pista", "altar"].map(id => {
+      const actual = S.mesas.elementos[id] || "", nombre = ELEMENTOS[id].nombre;
+      return `<div class="elemento" data-el="${id}"><b>${nombre}</b>
+        <div class="brujula" role="group" aria-label="Cuadrante de ${nombre}">${Object.keys(letras).map(q =>
+          `<button type="button" style="grid-area:${q}" data-cuad="${q}" aria-pressed="${actual === q}" aria-label="${nombre} al ${q}" title="${q[0].toUpperCase() + q.slice(1)}">${letras[q]}</button>`).join("")}</div>
+        <button type="button" class="quitar" data-cuad="" aria-pressed="${!actual}">Sin ${nombre.toLowerCase()}</button></div>`;
+    }).join("");
+  }
+  $("#mes-formas").addEventListener("click", e => {
+    const b = e.target.closest("[data-forma]"); if (!b) return;
+    const f = formaDe(b.dataset.forma), subio = S.mesas.n < f.min;
+    S.mesas.forma = f.id; if (subio) S.mesas.n = f.min;
+    guardar(); renderMesas();
+    if (subio) $("#estado").textContent = `${f.nombre} necesita al menos ${f.min} mesas`;
+  });
+  $("#mes-elementos").addEventListener("click", e => {
+    const b = e.target.closest("[data-cuad]"); if (!b) return;
+    const id = b.closest("[data-el]").dataset.el;
+    S.mesas.elementos[id] = S.mesas.elementos[id] === b.dataset.cuad ? "" : b.dataset.cuad;
+    guardar(); renderMesas();
+  });
+
+  /* ---------------- Mesas: render 3D en tiempo real ---------------- */
+  let geoVista = null, marcoVista = 0, girando = false, ultimoGiro = 0;
+  const vista = { az: -0.55, inc: 0.88 };
+  function pedirVista() { if (!marcoVista) marcoVista = requestAnimationFrame(t => { marcoVista = 0; dibujarVista(); if (girando) avanzarGiro(t); }); }
+  function avanzarGiro(t) {
+    if (ultimoGiro) vista.az += Math.min(50, t - ultimoGiro) * 0.00035;
+    ultimoGiro = t; pedirVista();
+  }
+  function dibujarVista() {
+    const cv = $("#render3d"), geo = geoVista;
+    if (!cv || !geo) return;
+    const w = cv.clientWidth, h = cv.clientHeight; if (!w || !h) return;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+    const c = cv.getContext("2d"); c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, w, h);
+    const [vx, vy, vw, vh] = geo.vb, ox = vx + vw / 2, oy = vy + vh / 2, rad = Math.hypot(vw, vh) / 2;
+    const ca = Math.cos(vista.az), sa = Math.sin(vista.az), si = Math.sin(vista.inc), ci = Math.cos(vista.inc);
+    const e = Math.min(w / (2 * rad), h / (2 * rad * si + 150 * ci)) * 0.97;
+    const prof = (x, y) => (x - ox) * sa + (y - oy) * ca;
+    const P = (x, y, z = 0) => {
+      const dx = x - ox, dy = y - oy;
+      return [w / 2 + (dx * ca - dy * sa) * e, h / 2 + 40 * ci * e + ((dx * sa + dy * ca) * si - z * ci) * e];
+    };
+    const poli = (pts, fill, trazo) => {
+      c.beginPath(); pts.forEach((p, i) => (i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]))); c.closePath();
+      c.fillStyle = fill; c.fill(); if (trazo) { c.strokeStyle = trazo; c.lineWidth = 0.7; c.stroke(); }
+    };
+    const disco = (x, y, z, r, fill, trazo) => {
+      const [px, py] = P(x, y, z); c.beginPath(); c.ellipse(px, py, r * e, r * e * si, 0, 0, Math.PI * 2);
+      c.fillStyle = fill; c.fill(); if (trazo) { c.strokeStyle = trazo; c.lineWidth = 0.8; c.stroke(); }
+    };
+    const cilindro = (x, y, z0, z1, r, lado, tapa, trazo) => {
+      const [a, b0] = P(x, y, z0), [, b1] = P(x, y, z1);
+      c.fillStyle = lado; c.fillRect(a - r * e, b1, 2 * r * e, b0 - b1);
+      disco(x, y, z0, r, lado); disco(x, y, z1, r, tapa, trazo);
+    };
+    // Prisma: caras visibles (normal hacia la cámara) y tapa
+    const prisma = (x, y, ha, hb, grados, z0, z1, tapa, cara1, cara2) => {
+      const t = (grados * Math.PI) / 180, ux = Math.cos(t), uy = Math.sin(t), nx = Math.sin(t), ny = -Math.cos(t);
+      const q = (u, n) => [x + ux * u + nx * n, y + uy * u + ny * n];
+      const es = [[ha, -hb, ha, hb, ux, uy, cara2], [-ha, -hb, -ha, hb, -ux, -uy, cara2], [-ha, hb, ha, hb, nx, ny, cara1], [-ha, -hb, ha, -hb, -nx, -ny, cara1]];
+      es.forEach(([u1, n1, u2, n2, ex, ey, col]) => {
+        if (ex * sa + ey * ca <= 0) return;
+        const a = q(u1, n1), b = q(u2, n2);
+        poli([P(a[0], a[1], z0), P(b[0], b[1], z0), P(b[0], b[1], z1), P(a[0], a[1], z1)], col);
+      });
+      poli([q(-ha, -hb), q(ha, -hb), q(ha, hb), q(-ha, hb)].map(p => P(p[0], p[1], z1)), tapa, "#A99A7E");
+    };
+    const etiqueta = (x, y, z, txt, tam = 12) => {
+      const px = Math.max(9, Math.min(15, tam * e * 1.6)), [a, b] = P(x, y, z);
+      c.font = `600 ${px}px "Cormorant Garamond", Georgia, serif`; c.textAlign = "center"; c.textBaseline = "middle";
+      const an = c.measureText(txt).width + 8;
+      c.fillStyle = "rgba(251,247,239,.88)"; c.fillRect(a - an / 2, b - px * 0.72, an, px * 1.44);
+      c.fillStyle = "#3B3226"; c.fillText(txt, a, b);
+    };
+
+    // Piso
+    const m = 16, esq = [[vx - m, vy - m], [vx + vw + m, vy - m], [vx + vw + m, vy + vh + m], [vx - m, vy + vh + m]];
+    poli(esq.map(p => P(p[0], p[1])), "#F3ECDF", "#D9CDB7");
+    c.strokeStyle = "#E6DCCA"; c.lineWidth = 0.6; c.beginPath();
+    const paso = Math.max(60, Math.ceil(Math.max(vw, vh) / 24));
+    for (let x = vx + paso; x < vx + vw; x += paso) { const a = P(x, vy - m), b = P(x, vy + vh + m); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); }
+    for (let y = vy + paso; y < vy + vh; y += paso) { const a = P(vx - m, y), b = P(vx + vw + m, y); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); }
+    c.stroke();
+
+    const silla = a => {
+      const g = invitado(S.mesas.asientos[a.clave]), t = geo.mesas[a.mesa], th = (t.grados * Math.PI) / 180;
+      const lx = a.x - t.cx, ly = a.y - t.cy, ux = Math.cos(th), uy = Math.sin(th), nx = Math.sin(th), ny = -Math.cos(th);
+      const lat = Math.abs(a.w) < 1, sx = lat ? Math.sign(lx * ux + ly * uy) * ux : Math.sign(a.w) * nx, sy = lat ? Math.sign(lx * ux + ly * uy) * uy : Math.sign(a.w) * ny;
+      const col = g ? (COLOR[g.grupo] || COLOR.Otros) : ["#FBF7EF", "#B9AE9A"];
+      const bx = a.x + sx * 15, by = a.y + sy * 15, wx = -sy * 14, wy = sx * 14;
+      const respaldo = () => poli([P(bx - wx, by - wy, 22), P(bx + wx, by + wy, 22), P(bx + wx, by + wy, 58), P(bx - wx, by - wy, 58)], "#D8CBB3", "#A99A7E");
+      const atras = sx * sa + sy * ca < 0;
+      if (atras) respaldo();
+      cilindro(a.x, a.y, 0, 22, 15, "#CDBFA6", g ? col[0] : "#FBF7EF", col[1]);
+      if (g) { cilindro(a.x, a.y, 22, 50, 10, col[1], col[0]); disco(a.x, a.y, 66, 9, "#E8C9A8", col[1]); }
+      if (!atras) respaldo();
+    };
+
+    const objetos = [];
+    geo.elementos.forEach(el => objetos.push({
+      z: el.id === "pista" ? -1e7 : prof(el.x, el.y),
+      d() {
+        if (el.id === "fuente") {
+          cilindro(el.x, el.y, 0, 26, FUENTE, "#CFC2A9", "#E4D8C2", "#A99A7E");
+          disco(el.x, el.y, 26, FUENTE - 14, "#7FA0A8", "#8E8068");
+          disco(el.x, el.y, 26, FUENTE - 40, "#9DBAC1");
+          cilindro(el.x, el.y, 26, 76, 13, "#CFC2A9", "#E4D8C2", "#8E8068");
+          cilindro(el.x, el.y, 76, 88, 34, "#CFC2A9", "#BFD4D9", "#8E8068");
+          etiqueta(el.x, el.y, 118, "Fuente");
+        } else if (el.id === "pista") {
+          const k = 8, ta = (2 * el.a) / k, tb = (2 * el.b) / k;
+          for (let i = 0; i < k; i++) for (let j = 0; j < k; j++) {
+            const x = el.x - el.a + i * ta, y = el.y - el.b + j * tb;
+            poli([P(x, y, 3), P(x + ta, y, 3), P(x + ta, y + tb, 3), P(x, y + tb, 3)], (i + j) % 2 ? "#C99F68" : "#B5864F");
+          }
+          poli([P(el.x - el.a, el.y - el.b, 3), P(el.x + el.a, el.y - el.b, 3), P(el.x + el.a, el.y + el.b, 3), P(el.x - el.a, el.y + el.b, 3)], "rgba(0,0,0,0)", "#8A6A3F");
+          etiqueta(el.x, el.y, 5, "Pista");
+        } else {
+          const t = (el.giro * Math.PI) / 180, bx = Math.sin(t) * 38, by = -Math.cos(t) * 38, ux = Math.cos(t), uy = Math.sin(t);
+          prisma(el.x, el.y, 130, 62, el.giro, 0, 16, "#F4ECDD", "#D9CDB7", "#CDBFA6");
+          const cx = el.x + bx, cy = el.y + by, pts = [];
+          for (let i = 0; i <= 28; i++) { const f = (i / 28) * Math.PI, u = -Math.cos(f) * 92; pts.push(P(cx + ux * u, cy + uy * u, 16 + Math.sin(f) * 58 + 96)); }
+          const pie = s => [P(cx + ux * s * 92, cy + uy * s * 92, 16), P(cx + ux * s * 92, cy + uy * s * 92, 112)];
+          c.strokeStyle = "#9B3D2E"; c.lineCap = "round"; c.lineWidth = Math.max(2, 7 * e);
+          c.beginPath(); [pie(-1), pie(1)].forEach(([a, b]) => { c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); });
+          pts.forEach((p, i) => (i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]))); c.stroke(); c.lineCap = "butt";
+          prisma(el.x, el.y, 34, 15, el.giro, 16, 52, "#E4D8C2", "#CDBFA6", "#BFB196");
+          etiqueta(el.x, el.y, 84, "Altar");
+        }
+      }
+    }));
+    geo.mesas.forEach(t => objetos.push({
+      z: prof(t.cx, t.cy),
+      d() {
+        const sillas = geo.asientos.filter(a => a.mesa === t.i).map(a => ({ a, ld: prof(a.x, a.y) - prof(t.cx, t.cy) })).sort((p, q) => p.ld - q.ld);
+        const th = (t.grados * Math.PI) / 180, nx = Math.sin(th), ny = -Math.cos(th), ux = Math.cos(th), uy = Math.sin(th);
+        const delante = a => {
+          const lat = Math.abs(a.w) < 1, x = lat ? Math.sign(a.u) * ux : Math.sign(a.w) * nx, y = lat ? Math.sign(a.u) * uy : Math.sign(a.w) * ny;
+          return x * sa + y * ca > 0;
+        };
+        sillas.filter(s => !delante(s.a)).forEach(s => silla(s.a));
+        prisma(t.cx, t.cy, t.L / 2, ANCHO / 2, t.grados, 0, 40, "#EFE6D4", "#D9CDB7", "#CDBFA6");
+        sillas.filter(s => delante(s.a)).forEach(s => silla(s.a));
+        etiqueta(t.cx, t.cy, 42, nombreMesa(t.i));
+      }
+    }));
+    objetos.sort((a, b) => a.z - b.z).forEach(o => o.d());
+  }
+  (function () {
+    const cv = $("#render3d"); let ini = null;
+    cv.addEventListener("pointerdown", e => { ini = { x: e.clientX, y: e.clientY, az: vista.az, inc: vista.inc }; cv.setPointerCapture(e.pointerId); });
+    cv.addEventListener("pointermove", e => {
+      if (!ini) return;
+      vista.az = ini.az + (e.clientX - ini.x) * 0.008;
+      vista.inc = Math.min(1.45, Math.max(0.42, ini.inc + (e.clientY - ini.y) * 0.005));
+      pedirVista();
+    });
+    ["pointerup", "pointercancel"].forEach(t => cv.addEventListener(t, () => { ini = null; }));
+    $("#mes-girar").addEventListener("click", e => {
+      girando = !girando; ultimoGiro = 0;
+      e.currentTarget.setAttribute("aria-pressed", girando);
+      e.currentTarget.textContent = girando ? "Detener" : "Girar";
+      pedirVista();
+    });
+    if (window.ResizeObserver) new ResizeObserver(pedirVista).observe(cv);
+  })();
+
   function tocarAsiento(clave) {
     const ocupante = S.mesas.asientos[clave];
     if (sel) {
@@ -845,7 +1754,7 @@
   // Configuración de mesas
   function aplicarConfig(n, p, cab) {
     const antes = Object.keys(S.mesas.asientos).length;
-    Object.assign(S.mesas, { n: Math.min(10, Math.max(2, n | 0)), porLado: Math.min(14, Math.max(1, p | 0)), cabeceras: !!cab });
+    Object.assign(S.mesas, { n: Math.min(10, Math.max(formaDe(S.mesas.forma).min, n | 0)), porLado: Math.min(14, Math.max(1, p | 0)), cabeceras: !!cab });
     limpiarAsientos(geometria(S.mesas));
     const perdidos = antes - Object.keys(S.mesas.asientos).length;
     guardar(); renderMesas();
@@ -901,6 +1810,23 @@
         break;
       }
       case "inv-csv": csvInvitados(); break;
+      case "inv-foto": fotoPara = id; $("#inv-foto-archivo").click(); break;
+      case "inv-foto-quitar": { const g = invitado(id); if (g) { g.foto = ""; guardar(); renderInvitados(); } break; }
+      case "con-abrir": limpiarCandidatos(); errorContactos(""); pasoContactos(false); dlg.showModal(); break;
+      case "con-cerrar": dlg.close(); break;
+      case "con-elegir": $("#con-archivo").click(); break;
+      case "con-volver": limpiarCandidatos(); pasoContactos(false); break;
+      case "con-todos": candidatosVisibles().forEach(c => (c.sel = true)); renderCandidatos(); break;
+      case "con-ninguno": candidatosVisibles().forEach(c => (c.sel = false)); renderCandidatos(); break;
+      case "con-importar": importarCandidatos(); break;
+      case "nube-abrir": nubeDlg.showModal(); refrescarNube(); break;
+      case "nube-cerrar": nubeDlg.close(); break;
+      case "nube-otro": nubeEnviadoA = ""; nubeMsg = ""; renderNube(); break;
+      case "nube-pagar": pagarNube(); break;
+      case "nube-subir": subirNube(); break;
+      case "nube-traer": traerNube(); break;
+      case "nube-borrar": borrarNube(); break;
+      case "nube-salir": salirNube(); break;
       case "fec-borrar":
         S.fechas = S.fechas.filter(f => f.id !== id); guardar(); renderFechas(); break;
       case "mes-auto": autoAcomodar(); break;
@@ -930,7 +1856,11 @@
 
   /* ---------------- Inicio ---------------- */
   renderCabecera();
-  mostrar(location.hash.slice(1) || "resumen");
+  const hashInicial = location.hash.slice(1); // mostrar() reescribe el hash: los tokens se leen antes
+  const regresaDeNube = NUBE_ACTIVA && (/(^|&)(access_token|error_code|error)=/.test(hashInicial) || new URLSearchParams(location.search).has("nube"));
+  mostrar(regresaDeNube ? "invitados" : hashInicial || "resumen");
+  regresoNube(hashInicial);
+  if (NUBE_ACTIVA && nubeSes && !regresaDeNube) cargarNube().catch(() => {});
 })();
 </script>
 </body>

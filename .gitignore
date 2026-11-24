@@ -14,3 +14,11 @@ arte/svg/
 
 # Ilustraciones de origen (licencia de terceros): solo se publican los recortes WebP
 arte/fuentes/
+
+# Secretos y estado local de Supabase
+.env
+.env.*
+!.env.ejemplo
+.dev.vars
+supabase/.temp/
+supabase/.branches/

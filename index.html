@@ -1,344 +1,207 @@
 <!doctype html>
-<html lang="es">
+<html lang="es-MX">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Alejandra &amp; Eliav · Nuestra boda</title>
-  <meta name="description" content="Invitación a la ceremonia civil de Alejandra y Eliav en Casa Virreinal Roja, Villa Gustavo A. Madero, Ciudad de México.">
-  <meta name="robots" content="noindex, nofollow">
+  <script>
+    /* Los enlaces que ya se compartieron de la invitación siguen llegando a ella */
+    (function () {
+      var q = new URLSearchParams(location.search), h = location.hash.slice(1);
+      if (q.has("variante") || ["abierta", "inicio", "historia", "lugar", "cuenta", "itinerario", "detalles", "confirmar"].indexOf(h) >= 0)
+        location.replace("bodas/2027/0001-alejandra-y-eliav/" + location.search + location.hash);
+    })();
+  </script>
+  <title>Invitaciones de boda digitales y planeador · Synode</title>
+  <meta name="description" content="Planea tu boda gratis con presupuesto y fechas. Con Premium, por $380 MXN en pago único: invitados en la nube, confirmaciones, mesas y plantillas de invitación.">
+  <link rel="canonical" href="https://synode.space/">
   <meta name="theme-color" content="#F7F2E8">
-  <meta name="color-scheme" content="light">
-  <meta property="og:title" content="Alejandra &amp; Eliav · Nuestra boda">
-  <meta property="og:description" content="Te invitamos a celebrar con nosotros en Casa Virreinal Roja, Ciudad de México.">
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:site_name" content="Synode">
   <meta property="og:url" content="https://synode.space/">
+  <meta property="og:title" content="Tu boda merece una invitación que se abra como un regalo">
+  <meta property="og:description" content="Plantillas de invitación, invitados en la nube, confirmaciones y mesas. Pago único de $380 MXN.">
+  <meta property="og:image" content="https://synode.space/img/plantillas/vintage.webp">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,300;1,400;1,500&family=Pinyon+Script&display=swap">
-  <link rel="preload" as="image" href="img/escenas/fondo-damasco.webp" type="image/webp">
-  <link rel="preload" as="image" href="img/escenas/t-montes.webp" type="image/webp">
-  <link rel="stylesheet" href="css/site.css">
-  <script>document.documentElement.classList.add("js", "sellado");</script>
-  <script src="js/config.js"></script>
-  <script src="js/variantes.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="css/marca.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"Organization","@id":"https://synode.space/#org","name":"Synode","url":"https://synode.space/"},
+    {"@type":"Product","name":"Synode Premium","description":"Plantillas de invitación de boda digital, lista de invitados en la nube, confirmación con enlaces personales y acomodo de mesas.","brand":{"@id":"https://synode.space/#org"},"image":"https://synode.space/img/plantillas/vintage.webp","offers":{"@type":"Offer","price":"380.00","priceCurrency":"MXN","availability":"https://schema.org/InStock","url":"https://synode.space/#precio"}}
+  ]}
+  </script>
+  <style>
+    .hero { background: linear-gradient(rgba(247,242,232,.9), rgba(247,242,232,.94)), url("img/escenas/fondo-damasco.webp") center / 560px; border-bottom: 1px solid var(--linea); }
+    .hero .ancho { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: 36px; align-items: center; padding-block: clamp(42px, 8vw, 88px); }
+    .hero h1 { margin: 0 0 16px; font-family: var(--display); font-weight: 500; font-size: clamp(2.45rem, 6.2vw, 4.6rem); line-height: 1.02; }
+    .hero h1 em { color: var(--acento); font-weight: 400; }
+    .hero p.sub { max-width: 34em; margin: 0 0 22px; font-size: 1.32rem; line-height: 1.35; }
+    .cta { display: flex; flex-wrap: wrap; gap: 10px; }
+    .duo { position: relative; min-height: 460px; }
+    .duo img { position: absolute; width: 58%; aspect-ratio: 3 / 4; object-fit: cover; object-position: top; border: 7px solid #fff; border-radius: 6px; box-shadow: 0 16px 38px rgba(55, 42, 26, .24); }
+    .duo img:nth-child(1) { left: 2%; top: 0; transform: rotate(-4deg); }
+    .duo img:nth-child(2) { right: 2%; bottom: 0; transform: rotate(3deg); }
+    section.bloque { padding-block: clamp(46px, 7vw, 78px); }
+    .bloque.alterno { background: var(--claro); border-block: 1px solid var(--linea); }
+    .cabeza { max-width: 42em; margin-bottom: 28px; }
+    .cabeza h2 { margin: 0 0 8px; font-family: var(--display); font-weight: 500; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; }
+    .cabeza p { margin: 0; color: var(--suave); }
+    .rejilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 16px; }
+    .ficha { padding: 20px; border: 1px solid var(--linea); border-radius: 12px; background: var(--claro); }
+    .alterno .ficha { background: var(--papel); }
+    .ficha h3 { margin: 0 0 6px; font-family: var(--display); font-weight: 500; font-size: 1.28rem; }
+    .ficha p { margin: 0; color: var(--suave); }
+    .caminos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 16px; }
+    .plantillas { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 14px; }
+    .plantilla { display: grid; gap: 6px; text-decoration: none; }
+    .plantilla img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: top; border: 1px solid var(--linea); border-radius: 8px; transition: transform .2s; }
+    .plantilla:hover img { transform: translateY(-3px); }
+    .plantilla b { font-family: var(--display); font-weight: 500; }
+    .pasos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; counter-reset: p; }
+    .pasos li { counter-increment: p; }
+    .pasos li::before { content: counter(p); display: grid; place-items: center; width: 38px; height: 38px; margin-bottom: 8px; border: 1px solid var(--acento); border-radius: 50%; color: var(--acento); font-family: var(--display); }
+    .pasos b { display: block; font-family: var(--display); font-weight: 500; font-size: 1.2rem; }
+    .precio { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 30px; padding: clamp(24px, 5vw, 46px); border-radius: 16px; background: var(--tinta); color: var(--papel); }
+    .planes { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.7fr) minmax(0, .8fr); gap: 16px; align-items: stretch; }
+    .planes .ficha ul { margin: 0 0 16px; padding-left: 1.1em; color: var(--suave); }
+    .monto-chico { margin: 2px 0 12px !important; color: var(--tinta) !important; font-family: var(--display); font-size: 1.8rem; }
+    .precio h2 { margin: 0 0 8px; font-family: var(--display); font-weight: 500; font-size: clamp(1.9rem, 4vw, 2.7rem); }
+    .monto { margin: 6px 0 16px; font-family: var(--display); font-size: clamp(2.7rem, 7vw, 4.2rem); line-height: 1; }
+    .monto small { display: block; margin-top: 6px; font-family: var(--texto); font-size: 1.1rem; }
+    .precio ul { margin: 0; padding-left: 1.1em; }
+    .precio li { margin-bottom: 6px; }
+    details { padding: 12px 0; border-bottom: 1px solid var(--linea); }
+    summary { cursor: pointer; font-family: var(--display); font-size: 1.14rem; }
+    details p { margin: 8px 0 0; color: var(--suave); }
+    footer { padding-block: 26px; border-top: 1px solid var(--linea); background: var(--claro); color: var(--suave); }
+    footer .ancho { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; }
+    @media (max-width: 980px) { .planes { grid-template-columns: 1fr; } }
+    @media (max-width: 820px) {
+      .hero .ancho, .precio, .planes { grid-template-columns: 1fr; }
+      .duo { min-height: 104vw; max-height: 520px; }
+    }
+  </style>
 </head>
 <body>
-
-<!-- Papel de algodón fijo y la marca de la plancha: no se mueven nunca -->
-<div class="papel" aria-hidden="true"></div>
-<div class="plancha" aria-hidden="true"></div>
-
-<!-- Sello de cera crema: resina prensada con un sello de latón. Solo A & E, sin texto en la orilla.
-     Sello de tinta (variante tinta): estampa índigo con corona de laurel y A & E.
-     Variante vintage: el mismo sello en lacre rojo (colores por --cera, --cera-hundida y --cera-letra). -->
-<svg class="sprite" aria-hidden="true" focusable="false">
-  <defs>
-      <filter id="cera" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
-        <feGaussianBlur in="SourceAlpha" stdDeviation="5.5" result="h"/>
-        <feDiffuseLighting in="h" surfaceScale="7" diffuseConstant="1.14" lighting-color="#fff" result="dif"><feDistantLight azimuth="235" elevation="52"/></feDiffuseLighting>
-        <feSpecularLighting in="h" surfaceScale="7" specularConstant="0.5" specularExponent="18" lighting-color="#fff" result="esp"><feDistantLight azimuth="235" elevation="52"/></feSpecularLighting>
-        <feComposite in="dif" in2="SourceAlpha" operator="in" result="difIn"/>
-        <feComposite in="esp" in2="SourceAlpha" operator="in" result="espIn"/>
-        <feBlend in="SourceGraphic" in2="difIn" mode="multiply" result="base"/>
-        <feComposite in="base" in2="espIn" operator="arithmetic" k2="1" k3="1"/>
-      </filter>
-      <filter id="cera-hundida" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
-        <feGaussianBlur in="SourceAlpha" stdDeviation="2.4" result="h"/>
-        <feDiffuseLighting in="h" surfaceScale="-4.5" diffuseConstant="1.22" lighting-color="#fff" result="dif"><feDistantLight azimuth="235" elevation="52"/></feDiffuseLighting>
-        <feSpecularLighting in="h" surfaceScale="-4.5" specularConstant="0.28" specularExponent="14" lighting-color="#fff" result="esp"><feDistantLight azimuth="235" elevation="52"/></feSpecularLighting>
-        <feComposite in="dif" in2="SourceAlpha" operator="in" result="difIn"/>
-        <feComposite in="esp" in2="SourceAlpha" operator="in" result="espIn"/>
-        <feBlend in="SourceGraphic" in2="difIn" mode="multiply" result="base"/>
-        <feComposite in="base" in2="espIn" operator="arithmetic" k2="1" k3="1"/>
-      </filter>
-      <filter id="cera-letra" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
-        <feGaussianBlur in="SourceAlpha" stdDeviation="1.1" result="h"/>
-        <feDiffuseLighting in="h" surfaceScale="2.6" diffuseConstant="1.22" lighting-color="#fff" result="dif"><feDistantLight azimuth="235" elevation="52"/></feDiffuseLighting>
-        <feSpecularLighting in="h" surfaceScale="2.6" specularConstant="0.45" specularExponent="22" lighting-color="#fff" result="esp"><feDistantLight azimuth="235" elevation="52"/></feSpecularLighting>
-        <feComposite in="dif" in2="SourceAlpha" operator="in" result="difIn"/>
-        <feComposite in="esp" in2="SourceAlpha" operator="in" result="espIn"/>
-        <feBlend in="SourceGraphic" in2="difIn" mode="multiply" result="base"/>
-        <feComposite in="base" in2="espIn" operator="arithmetic" k2="1" k3="1"/>
-      </filter>
-      <filter id="tinta-sello" x="-6%" y="-6%" width="112%" height="112%" color-interpolation-filters="sRGB">
-        <feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="3" result="n"/>
-        <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G" result="d"/>
-        <feGaussianBlur in="d" stdDeviation="1.3" result="corrida"/>
-        <feColorMatrix in="corrida" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 .28 0" result="corridaSuave"/>
-        <feTurbulence type="fractalNoise" baseFrequency=".7" numOctaves="2" seed="12" result="g"/>
-        <feColorMatrix in="g" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1.2 0 0 0 1.4" result="ga"/>
-        <feTurbulence type="fractalNoise" baseFrequency=".022" numOctaves="2" seed="40" result="m"/>
-        <feColorMatrix in="m" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1 0 0 0 1.5" result="ma"/>
-        <feComposite in="ga" in2="ma" operator="arithmetic" k1="1" k2=".25" result="carga"/>
-        <feComposite in="d" in2="carga" operator="in" result="estampa"/>
-        <feMerge><feMergeNode in="corridaSuave"/><feMergeNode in="estampa"/></feMerge>
-      </filter>
-    <symbol id="sello-tinta" viewBox="0 0 240 240">
-      <g filter="url(#tinta-sello)">
-        <circle cx="120" cy="120" r="109" fill="none" stroke="#26357A" stroke-width="5.5"/>
-        <circle cx="120" cy="120" r="101" fill="none" stroke="#26357A" stroke-width="1.4"/>
-        <path d="M137.5 202.2L144.5 200.4L151.3 198.0L157.9 195.0L164.2 191.4L170.2 187.4L175.8 182.8L181.0 177.8L185.7 172.3L190.0 166.5L193.7 160.3L196.9 153.8L199.5 147.1L201.6 140.1L203.0 133.0L203.8 125.9L204.0 118.6L203.6 111.4L202.5 104.3L200.9 97.2L198.6 90.4L195.8 83.7L192.4 77.3L188.4 71.3L184.0 65.6L179.1 60.3L173.7 55.4L167.9 51.0L161.8 47.2L155.4 43.8L148.7 41.1M102.5 202.2L95.5 200.4L88.7 198.0L82.1 195.0L75.8 191.4L69.8 187.4L64.2 182.8L59.0 177.8L54.3 172.3L50.0 166.5L46.3 160.3L43.1 153.8L40.5 147.1L38.4 140.1L37.0 133.0L36.2 125.9L36.0 118.6L36.4 111.4L37.5 104.3L39.1 97.2L41.4 90.4L44.2 83.7L47.6 77.3L51.6 71.3L56.0 65.6L60.9 60.3L66.3 55.4L72.1 51.0L78.2 47.2L84.6 43.8L91.3 41.1" fill="none" stroke="#26357A" stroke-width="1.6" stroke-linecap="round"/>
-        <path d="M159.1 194.3Q165.7 198.6 173.0 196.0Q166.5 191.7 159.1 194.3ZM159.1 194.3Q165.4 189.8 165.6 182.0Q159.3 186.5 159.1 194.3ZM177.8 180.9Q185.0 183.2 191.2 178.8Q184.0 176.6 177.8 180.9ZM177.8 180.9Q182.5 175.0 180.7 167.7Q176.0 173.6 177.8 180.9ZM192.2 163.0Q199.5 163.2 204.0 157.5Q196.7 157.3 192.2 163.0ZM192.2 163.0Q195.0 156.2 191.4 149.9Q188.5 156.7 192.2 163.0ZM201.1 141.8Q207.9 140.0 210.7 133.6Q203.9 135.3 201.1 141.8ZM201.1 141.8Q202.0 134.8 197.0 129.9Q196.1 136.9 201.1 141.8ZM204.0 118.9Q209.9 115.5 210.7 108.8Q204.9 112.2 204.0 118.9ZM204.0 118.9Q203.0 112.2 197.0 109.0Q198.0 115.7 204.0 118.9ZM200.6 96.2Q205.1 91.5 204.1 85.1Q199.6 89.7 200.6 96.2ZM200.6 96.2Q197.8 90.3 191.5 88.8Q194.2 94.7 200.6 96.2ZM191.1 75.2Q194.1 69.7 191.5 64.0Q188.5 69.5 191.1 75.2ZM191.1 75.2Q187.0 70.4 180.8 70.8Q184.8 75.5 191.1 75.2ZM176.3 57.6Q177.6 51.8 173.7 47.2Q172.4 53.0 176.3 57.6ZM176.3 57.6Q171.3 54.3 165.6 56.2Q170.6 59.5 176.3 57.6ZM157.2 44.7Q156.9 39.0 152.2 35.7Q152.5 41.5 157.2 44.7ZM157.2 44.7Q151.8 42.9 147.0 46.1Q152.5 47.9 157.2 44.7ZM80.9 194.3Q80.7 186.5 74.4 182.0Q74.6 189.8 80.9 194.3ZM80.9 194.3Q73.5 191.7 67.0 196.0Q74.3 198.6 80.9 194.3ZM62.2 180.9Q64.0 173.6 59.3 167.7Q57.5 175.0 62.2 180.9ZM62.2 180.9Q56.0 176.6 48.8 178.8Q55.0 183.2 62.2 180.9ZM47.8 163.0Q51.5 156.7 48.6 149.9Q45.0 156.2 47.8 163.0ZM47.8 163.0Q43.3 157.3 36.0 157.5Q40.5 163.2 47.8 163.0ZM38.9 141.8Q43.9 136.9 43.0 129.9Q38.0 134.8 38.9 141.8ZM38.9 141.8Q36.1 135.3 29.3 133.6Q32.1 140.0 38.9 141.8ZM36.0 118.9Q42.0 115.7 43.0 109.0Q37.0 112.2 36.0 118.9ZM36.0 118.9Q35.1 112.2 29.3 108.8Q30.1 115.5 36.0 118.9ZM39.4 96.2Q45.8 94.7 48.5 88.8Q42.2 90.3 39.4 96.2ZM39.4 96.2Q40.4 89.7 35.9 85.1Q34.9 91.5 39.4 96.2ZM48.9 75.2Q55.2 75.5 59.2 70.8Q53.0 70.4 48.9 75.2ZM48.9 75.2Q51.5 69.5 48.5 64.0Q45.9 69.7 48.9 75.2ZM63.7 57.6Q69.4 59.5 74.4 56.2Q68.7 54.3 63.7 57.6ZM63.7 57.6Q67.6 53.0 66.3 47.2Q62.4 51.8 63.7 57.6ZM82.8 44.7Q87.5 47.9 93.0 46.1Q88.2 42.9 82.8 44.7ZM82.8 44.7Q87.5 41.5 87.8 35.7Q83.1 39.0 82.8 44.7Z" fill="#26357A"/>
-        <path d="M120 27l3.5 5.5-3.5 5.5-3.5-5.5z M120 203l3 4.5-3 4.5-3-4.5z" fill="#26357A"/>
-        <g fill="#26357A">
-          <text x="82" y="139" text-anchor="middle" font-family="'Bodoni Moda', Georgia, serif" font-size="50" font-weight="500">A</text>
-          <text x="120" y="142" text-anchor="middle" font-family="'Pinyon Script', cursive" font-size="54">&amp;</text>
-          <text x="159" y="139" text-anchor="middle" font-family="'Bodoni Moda', Georgia, serif" font-size="50" font-weight="500">E</text>
-        </g>
-      </g>
-    </symbol>
-    <symbol id="sello-cera" viewBox="0 0 240 240">
-      <path d="M227.5 120.0L228.0 123.8L228.0 127.6L227.8 131.3L227.1 135.1L226.1 138.7L224.7 142.3L223.1 145.7L221.4 149.1L219.5 152.3L217.7 155.5L215.9 158.7L214.1 161.9L212.5 165.1L210.9 168.3L209.4 171.6L207.7 174.8L206.0 178.0L204.1 181.1L202.0 184.1L199.8 186.9L197.3 189.6L194.6 192.1L191.9 194.4L189.1 196.7L186.3 199.1L183.7 201.5L181.1 204.0L178.5 206.7L175.9 209.5L173.2 212.1L170.3 214.5L167.1 216.5L163.7 218.1L160.0 219.1L156.3 219.7L152.5 220.0L148.7 220.0L144.9 219.8L141.2 219.5L137.5 219.2L133.9 218.8L130.3 218.4L126.9 218.2L123.4 218.0L120.0 218.0L116.6 218.1L113.1 218.3L109.6 218.5L106.1 218.8L102.6 218.9L99.0 218.9L95.4 218.6L91.9 218.1L88.4 217.4L84.9 216.5L81.5 215.3L78.1 214.1L74.8 212.8L71.4 211.4L68.0 210.1L64.6 208.7L61.1 207.4L57.5 206.0L54.0 204.5L50.5 202.8L47.1 201.0L43.9 198.8L40.9 196.4L38.3 193.6L35.9 190.6L33.9 187.3L32.2 183.8L30.7 180.2L29.5 176.6L28.4 172.9L27.3 169.3L26.3 165.7L25.3 162.2L24.3 158.7L23.3 155.2L22.3 151.7L21.4 148.3L20.7 144.8L20.2 141.2L19.9 137.6L19.9 134.1L20.1 130.5L20.5 127.0L21.0 123.5L21.5 120.0L22.1 116.6L22.5 113.2L22.9 109.8L23.1 106.4L23.2 102.9L23.2 99.4L23.2 95.9L23.3 92.3L23.5 88.7L24.0 85.0L24.7 81.5L25.6 78.0L26.8 74.6L28.3 71.2L29.9 68.0L31.6 64.7L33.3 61.6L35.2 58.4L37.1 55.2L39.1 52.1L41.2 49.0L43.4 46.1L45.9 43.2L48.5 40.6L51.3 38.1L54.3 35.9L57.4 33.9L60.7 32.1L64.1 30.5L67.5 29.1L71.0 27.8L74.5 26.7L77.9 25.5L81.4 24.4L84.7 23.1L88.1 21.8L91.4 20.4L94.8 18.9L98.2 17.4L101.7 16.0L105.2 14.6L108.8 13.5L112.5 12.6L116.2 12.1L120.0 12.0L123.8 12.2L127.5 12.8L131.2 13.7L134.8 14.8L138.3 16.0L141.8 17.4L145.2 18.7L148.6 20.1L152.0 21.5L155.4 22.9L158.7 24.3L161.9 25.9L165.1 27.6L168.1 29.5L171.0 31.7L173.7 34.0L176.3 36.6L178.7 39.2L181.0 41.9L183.3 44.6L185.6 47.1L188.1 49.5L190.7 51.7L193.3 54.0L196.0 56.2L198.5 58.6L201.0 61.2L203.2 63.9L205.4 66.6L207.6 69.4L209.7 72.3L211.7 75.3L213.6 78.3L215.3 81.5L216.9 84.7L218.2 88.1L219.5 91.5L220.6 94.9L221.7 98.4L222.8 101.9L223.9 105.4L225.0 109.0L226.0 112.6L226.9 116.3Z" style="fill: var(--cera, #E8D7B8)" filter="url(#cera)"/>
-      <circle cx="120" cy="121" r="74" style="fill: var(--cera-hundida, #E5D4B5)" filter="url(#cera-hundida)"/>
-      <g style="fill: var(--cera-letra, #EADBBF)" filter="url(#cera-letra)">
-        <text x="82" y="139" text-anchor="middle" font-family="'Bodoni Moda', Georgia, serif" font-size="50" font-weight="500">A</text>
-        <text x="120" y="142" text-anchor="middle" font-family="'Pinyon Script', cursive" font-size="54">&amp;</text>
-        <text x="159" y="139" text-anchor="middle" font-family="'Bodoni Moda', Georgia, serif" font-size="50" font-weight="500">E</text>
-      </g>
-    </symbol>
-  </defs>
-</svg>
-
-<!-- ============ SELLO DE ENTRADA: cera crema sobre papel blanco con flores en relieve; bloquea el scroll hasta abrirse ============ -->
-<div class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="intro-titulo">
-  <p class="intro__para" id="intro-titulo">Una invitación para ti</p>
-
-  <button class="sello" id="sello" type="button" aria-label="Abrir la invitación" disabled>
-    <svg class="sello__arte" viewBox="0 0 240 240" aria-hidden="true"><use href="#sello-cera"/></svg>
-    <!-- Variante papel: A & E impreso en el papel de algodón, sin sello -->
-    <span class="sello__mono" aria-hidden="true">A<i>&amp;</i>E</span>
-    <span class="sello__aro" aria-hidden="true"></span>
-  </button>
-
-  <!-- Variante mosaico: placa de papel sobre el damasco; al tocar, el mosaico se rompe -->
-  <button class="intro__placa" id="romper" type="button" disabled>
-    <span class="intro__placa-para">Una invitación para ti</span>
-    <span class="intro__placa-nombres">Alejandra <i>&amp;</i> Eliav</span>
-    <span class="intro__placa-toca">Toca para abrir</span>
-  </button>
-
-  <p class="intro__pista" aria-live="polite"><span class="intro__cargando">Preparando tu invitación…</span><span class="intro__toca">Toca <span class="intro__que">el sello </span>para abrir</span></p>
-</div>
+<header class="barra"><div class="ancho">
+  <a class="logo" href="./">Synode</a>
+  <nav aria-label="Principal">
+    <a href="#incluye">Qué incluye</a><a href="#plantillas">Plantillas</a><a href="#precio">Precio</a>
+    <a class="btn chico" href="plantillas/">Crear invitación</a>
+  </nav>
+</div></header>
 
 <main>
-
-  <!-- ============ ESCENA 1 · Tetelpan y aves del paraíso ============ -->
-  <section class="escena escena--tetelpan" id="inicio" data-escena aria-label="Nos casamos">
-    <div class="escena__escenario">
-      <div class="capas" aria-hidden="true">
-        <img class="capa capa--ancha capa--montes" data-capa data-y="-3" src="img/escenas/t-montes.webp" data-tinta="img/escenas/i-montes.webp" alt="" width="1440" height="900" fetchpriority="high">
-        <img class="capa capa--tallos" data-capa data-y="-6" data-s=".06" src="img/escenas/t-tallos.webp" data-tinta="img/escenas/i-tallos.webp" alt="" width="504" height="1000">
-        <img class="capa capa--pintura" data-capa data-y="-9" data-s=".1" src="img/escenas/t-pintura.webp" data-tinta="img/escenas/i-pintura.webp" alt="" width="564" height="757">
-      </div>
-
-      <div class="escena__texto">
-        <div class="fase fase--portada" data-fase="0 .64">
-          <p class="volada prensa">Gustavo A. Madero · Ciudad de México</p>
-          <h1 class="nombres">
-            <span class="nombres__uno prensa letras">Alejandra</span>
-            <span class="nombres__y prensa">&amp;</span>
-            <span class="nombres__dos prensa letras">Eliav</span>
-          </h1>
-          <div class="fase fase--anidada" data-fase=".3 .64">
-            <p class="sobrelinea prensa">Nos casamos · Ceremonia civil</p>
-            <div class="filete prensa" aria-hidden="true"><span></span><i></i><span></span></div>
-            <p class="fecha prensa" data-boda="fecha-larga">Fecha por confirmar</p>
-          </div>
-        </div>
-
-        <div class="fase fase--invitacion" data-fase=".64 1.01">
-          <span class="monograma prensa" aria-hidden="true">A<i>&amp;</i>E</span>
-          <p class="parrafo-grande prensa">Queremos invitarte a conmemorar esta unión.</p>
-          <div class="padres">
-            <div class="prensa"><h2 class="etiqueta">Padres del novio</h2><p>Por confirmar</p></div>
-            <div class="prensa"><h2 class="etiqueta">Padres de la novia</h2><p>Por confirmar</p></div>
-          </div>
-        </div>
-      </div>
-
-      <a class="desliza" href="#historia"><span>Desliza</span><i aria-hidden="true"></i></a>
+  <section class="hero"><div class="ancho">
+    <div>
+      <p class="volada">Invitaciones de boda digitales</p>
+      <h1>Una invitación que se abre <em>como un regalo</em></h1>
+      <p class="sub">Elige una plantilla o cotiza un diseño a tu medida. Envía un enlace personal a cada invitado y organiza tu boda desde un solo panel.</p>
+      <div class="cta"><a class="btn" href="plantillas/">Crear mi invitación</a><a class="btn sec" href="planeacion/">Planear gratis</a><a class="btn sec" href="bodas/2027/0001-alejandra-y-eliav/">Ver una invitación real</a></div>
     </div>
-  </section>
+    <div class="duo" aria-hidden="true"><img src="img/plantillas/sello.webp" alt="" width="360" height="480"><img src="img/plantillas/vintage.webp" alt="" width="360" height="480"></div>
+  </div></section>
 
-  <!-- ============ SECCIÓN 2 · Fotos de la pareja ============ -->
-  <section class="historia" id="historia" aria-labelledby="historia-titulo">
-    <header class="encabezado encabezado--historia">
-      <img class="historia__ramo prensa" src="img/escenas/t-ramo.webp" data-tinta="img/escenas/i-ramo.webp" alt="" width="807" height="841" loading="lazy" aria-hidden="true">
-      <p class="encabezado__script prensa">Nuestra historia</p>
-      <h2 class="encabezado__titulo prensa" id="historia-titulo">Alejandra <i>&amp;</i> Eliav</h2>
-      <div class="filete prensa" aria-hidden="true"><span></span><i></i><span></span></div>
-    </header>
-
-    <div class="album">
-      <figure class="lamina lamina--1" data-vel="-.06">
-        <div class="lamina__papel prensa">
-          <div class="foto" data-foto="img/foto-1.webp"><span class="foto__ciego" aria-hidden="true">A<i>&amp;</i>E</span></div>
-          <figcaption><span class="lamina__num">I</span>Cómo nos conocimos</figcaption>
-        </div>
-      </figure>
-      <figure class="lamina lamina--2" data-vel=".08">
-        <div class="lamina__papel prensa">
-          <div class="foto" data-foto="img/foto-2.webp"><span class="foto__ciego" aria-hidden="true">A<i>&amp;</i>E</span></div>
-          <figcaption><span class="lamina__num">II</span>La propuesta</figcaption>
-        </div>
-      </figure>
-      <figure class="lamina lamina--3" data-vel="-.03">
-        <div class="lamina__papel prensa">
-          <div class="foto" data-foto="img/foto-3.webp"><span class="foto__ciego" aria-hidden="true">A<i>&amp;</i>E</span></div>
-          <figcaption><span class="lamina__num">III</span>Para siempre</figcaption>
-        </div>
-      </figure>
+  <section class="bloque" id="incluye"><div class="ancho">
+    <div class="cabeza"><h2>Todo lo de tu boda, en un solo lugar</h2><p>De la primera invitación al acomodo de la última mesa.</p></div>
+    <div class="rejilla">
+      <article class="ficha"><h3>Invitación animada</h3><p>Sello que se abre, escenas ilustradas, cuenta regresiva, ubicación y calendario.</p></article>
+      <article class="ficha"><h3>Enlaces personales</h3><p>Cada invitado ve su nombre al abrir y lo encuentra listo al confirmar.</p></article>
+      <article class="ficha"><h3>Confirmaciones directas</h3><p>Las respuestas llegan a tu WhatsApp o correo, con número de personas y mensaje.</p></article>
+      <article class="ficha"><h3>Lista de invitados</h3><p>Importa contactos de iPhone o Android con foto, teléfono y correo.</p></article>
+      <article class="ficha"><h3>Acomodo de mesas</h3><p>Formas en U, T, L, cuadrado y más, con fuente, pista y altar en un render 3D.</p></article>
+      <article class="ficha"><h3>Presupuesto y fechas</h3><p>Lleva lo estimado, lo pagado y cada fecha límite sin perder de vista nada.</p></article>
     </div>
-  </section>
+  </div></section>
 
-  <!-- ============ ESCENA 3 · Fachada de Casa Virreinal Roja con su fuente ============ -->
-  <section class="escena escena--arco" id="lugar" data-escena aria-label="Dónde y cuándo">
-    <div class="escena__escenario">
-      <!-- La casa aparece completa y sin título; al bajar, la cámara se acerca a la puerta (data-zoom="desde hasta"),
-           el portón se abre y el título se imprime en blanco sobre el interior oscuro -->
-      <div class="capas capas--arco" aria-hidden="true" data-zoom=".12 .42" data-puerta=".5 .655" data-hueco=".139">
-        <img class="capa capa--ancha" data-capa data-y="-2" src="img/escenas/a-muro.webp" data-tinta="img/escenas/i-muro.webp" alt="" width="2400" height="1500" loading="lazy">
-        <!-- Portón: dos hojas que se abren hacia dentro (data-abre="desde hasta"); dentro está oscuro -->
-        <div class="capa capa--ancha puerta" data-capa data-y="-2" data-abre=".3 .46">
-          <img class="puerta__hoja puerta__hoja--izq" src="img/escenas/a-puerta-izq.webp" data-tinta="img/escenas/i-puerta-izq.webp" alt="" width="2400" height="1500" loading="lazy">
-          <img class="puerta__hoja puerta__hoja--der" src="img/escenas/a-puerta-der.webp" data-tinta="img/escenas/i-puerta-der.webp" alt="" width="2400" height="1500" loading="lazy">
-        </div>
-        <img class="capa capa--ancha" data-capa data-y="-3" src="img/escenas/a-fuente.webp" data-tinta="img/escenas/i-fuente.webp" alt="" width="2400" height="1500" loading="lazy">
-        <img class="capa capa--ancha capa--bajo" data-capa data-y="-5" src="img/escenas/a-plantas.webp" data-tinta="img/escenas/i-plantas.webp" alt="" width="2400" height="1500" loading="lazy">
-      </div>
-
-      <div class="escena__texto escena__texto--arco">
-        <div class="fase" data-fase=".44 .66">
-          <p class="encabezado__script prensa">Dónde y cuándo</p>
-          <!-- Fecha fija del título: si cambia la fecha en js/config.js, cámbiala aquí también -->
-          <h2 class="lugar__nombre prensa letras">31.01.27 CDMX</h2>
-          <p class="lugar__dir lugar__dir--grande prensa">5 de Mayo, Villa Gustavo A. Madero, 07050 Ciudad de México</p>
-        </div>
-        <div class="fase" data-fase=".66 .84">
-          <h3 class="etiqueta prensa">Ceremonia civil</h3>
-          <p class="lugar__hora prensa" data-boda="hora">Hora por confirmar</p>
-          <p class="lugar__dir prensa">Casa Virreinal Roja · Gustavo A. Madero</p>
-          <a class="boton prensa" href="https://www.google.com/maps/search/?api=1&amp;query=Casa%20Virreinal%20Roja%2C%205%20de%20Mayo%2C%20Villa%20Gustavo%20A.%20Madero%2C%2007050%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX" target="_blank" rel="noopener">Ver mapa</a>
-        </div>
-        <div class="fase" data-fase=".84 1.01">
-          <h3 class="etiqueta prensa">Recepción</h3>
-          <p class="lugar__hora prensa">Hora por confirmar</p>
-          <p class="lugar__dir prensa">Lugar por confirmar</p>
-        </div>
-      </div>
+  <section class="bloque alterno" id="plantillas"><div class="ancho">
+    <div class="cabeza"><h2>Elige tu estilo</h2><p>Toca una plantilla, responde una encuesta breve y mira tu invitación en vivo.</p></div>
+    <div class="plantillas">
+      <a class="plantilla" href="plantillas/?estilo=sello"><img src="img/plantillas/sello.webp" alt="Plantilla Papel prensado" width="360" height="480" loading="lazy"><b>Papel prensado</b></a>
+      <a class="plantilla" href="plantillas/?estilo=mosaico"><img src="img/plantillas/mosaico.webp" alt="Plantilla Mosaico" width="360" height="480" loading="lazy"><b>Mosaico</b></a>
+      <a class="plantilla" href="plantillas/?estilo=tinta"><img src="img/plantillas/tinta.webp" alt="Plantilla Tinta índigo" width="360" height="480" loading="lazy"><b>Tinta índigo</b></a>
+      <a class="plantilla" href="plantillas/?estilo=prensado-indigo"><img src="img/plantillas/prensado-indigo.webp" alt="Plantilla Prensado e índigo" width="360" height="480" loading="lazy"><b>Prensado e índigo</b></a>
+      <a class="plantilla" href="plantillas/?estilo=vintage"><img src="img/plantillas/vintage.webp" alt="Plantilla Vintage" width="360" height="480" loading="lazy"><b>Vintage</b></a>
     </div>
-  </section>
+  </div></section>
 
-  <!-- ============ Cuenta regresiva ============ -->
-  <section class="seccion" id="cuenta" aria-labelledby="cuenta-titulo">
-    <header class="encabezado">
-      <p class="encabezado__script prensa">Faltan</p>
-      <h2 class="encabezado__titulo prensa" id="cuenta-titulo">Cuenta regresiva</h2>
-    </header>
-    <div class="cuenta" data-cuenta>
-      <div class="prensa"><b data-c="d">—</b><span>Días</span></div>
-      <div class="prensa"><b data-c="h">—</b><span>Horas</span></div>
-      <div class="prensa"><b data-c="m">—</b><span>Minutos</span></div>
-      <div class="prensa"><b data-c="s">—</b><span>Segundos</span></div>
+  <section class="bloque"><div class="ancho">
+    <div class="cabeza"><h2>Dos caminos, el mismo cuidado</h2></div>
+    <div class="caminos">
+      <article class="ficha"><h3>Plantilla incluida</h3><p>Incluida en Premium. Escribe tus datos, mírala en vivo y compártela con enlaces personales.</p></article>
+      <article class="ficha"><h3>Diseño personalizado</h3><p>Partimos de tu historia, tu lugar y tus colores para crear una invitación propia. Se cotiza aparte según tu proyecto.</p></article>
     </div>
-    <p class="nota prensa" data-cuenta-nota>La fecha se anunciará muy pronto.</p>
-    <p class="nota hoy prensa" data-hoy hidden aria-live="off"></p>
-    <a class="boton boton--linea prensa" data-calendario href="#" target="_blank" rel="noopener" hidden>Agregar al calendario</a>
-  </section>
+  </div></section>
 
-  <!-- ============ Itinerario ============ -->
-  <section class="seccion" id="itinerario" aria-labelledby="itinerario-titulo">
-    <header class="encabezado">
-      <p class="encabezado__script prensa">El gran día</p>
-      <h2 class="encabezado__titulo prensa" id="itinerario-titulo">Itinerario</h2>
-    </header>
-    <ol class="programa">
-      <li class="prensa"><span class="programa__que">Ceremonia civil</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora" data-boda="hora">— : —</span></li>
-      <li class="prensa"><span class="programa__que">Cóctel de bienvenida</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
-      <li class="prensa"><span class="programa__que">Entrada de los novios</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
-      <li class="prensa"><span class="programa__que">Cena</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
-      <li class="prensa"><span class="programa__que">Primer baile</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
-      <li class="prensa"><span class="programa__que">¡A bailar!</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
+  <section class="bloque alterno"><div class="ancho">
+    <div class="cabeza"><h2>Lista en tres pasos</h2></div>
+    <ol class="pasos">
+      <li><b>Elige</b>Una plantilla o un diseño a tu medida.</li>
+      <li><b>Personaliza</b>Responde la encuesta con nombres, fecha, lugar y detalles.</li>
+      <li><b>Comparte</b>Envía su enlace a cada invitado y recibe sus confirmaciones.</li>
     </ol>
-  </section>
+  </div></section>
 
-  <!-- ============ Detalles ============ -->
-  <section class="seccion" id="detalles" aria-labelledby="detalles-titulo">
-    <header class="encabezado">
-      <p class="encabezado__script prensa">Para tomar en cuenta</p>
-      <h2 class="encabezado__titulo prensa" id="detalles-titulo">Detalles</h2>
-    </header>
-    <div class="detalles">
-      <article class="detalle prensa">
-        <h3 class="etiqueta">Código de vestimenta</h3>
-        <p class="detalle__grande">Formal rústico</p>
-        <p>Te sugerimos tonos suaves y naturales. Reservamos el blanco para la novia.</p>
-        <ul class="muestras" aria-label="Paleta sugerida">
-          <li style="--c:#E9D3C6" title="Rubor"></li>
-          <li style="--c:#EDE0BF" title="Mantequilla"></li>
-          <li style="--c:#C3CDB6" title="Salvia"></li>
-          <li style="--c:#B9C9CC" title="Maguey"></li>
-          <li style="--c:#A8502E" title="Terracota"></li>
+  <section class="bloque" id="precio"><div class="ancho">
+    <div class="cabeza"><h2>Empieza gratis, activa lo que necesitas</h2></div>
+    <div class="planes">
+      <article class="ficha">
+        <h3>Gratis</h3>
+        <p class="monto-chico">$0</p>
+        <ul>
+          <li>Resumen de tu boda</li>
+          <li>Presupuesto</li>
+          <li>Fechas importantes</li>
+          <li>Vista previa de las plantillas</li>
         </ul>
+        <a class="btn sec" href="planeacion/">Abrir panel</a>
       </article>
-      <article class="detalle prensa">
-        <h3 class="etiqueta">Mesa de regalos</h3>
-        <p class="detalle__grande">Tu presencia</p>
-        <p>Es nuestro mejor regalo. Si deseas tener un detalle con nosotros, la mesa de regalos estará disponible próximamente.</p>
-      </article>
-      <article class="detalle prensa">
-        <h3 class="etiqueta">Comparte</h3>
-        <p class="detalle__grande" data-boda="hashtag">#AlejandraYEliav</p>
-        <p>Usa nuestro hashtag en tus fotos para que podamos revivir el día contigo.</p>
+      <div class="precio">
+        <div>
+          <h2>Synode Premium</h2>
+          <p class="monto">$380 <small>MXN · pago único</small></p>
+          <p>Sin mensualidades.</p>
+          <a class="btn claro" data-comprar href="https://buy.stripe.com/00waEW4Vxgv0gq338Ddby00" rel="noopener">Comprar Premium</a>
+        </div>
+        <ul>
+          <li>Todo lo gratuito</li>
+          <li>Invitados en la nube</li>
+          <li>Confirmación con enlaces personales</li>
+          <li>Acomodo de mesas con render 3D</li>
+          <li>Importación de contactos</li>
+          <li>Plantillas de invitación incluidas</li>
+        </ul>
+      </div>
+      <article class="ficha">
+        <h3>Personalizada</h3>
+        <p class="monto-chico">Cotización</p>
+        <p>Una invitación diseñada desde cero con tu historia, tu lugar y tus colores.</p>
       </article>
     </div>
-  </section>
+  </div></section>
 
-  <!-- ============ RSVP ============ -->
-  <section class="seccion" id="confirmar" aria-labelledby="confirmar-titulo">
-    <header class="encabezado">
-      <p class="encabezado__script prensa">Te esperamos</p>
-      <h2 class="encabezado__titulo prensa" id="confirmar-titulo">Confirma tu asistencia</h2>
-      <p class="nota prensa" data-boda="confirmar-antes" hidden></p>
-    </header>
-
-    <form class="tarjeta rsvp prensa" id="rsvp" novalidate>
-      <label class="campo">
-        <span>Nombre completo</span>
-        <input name="nombre" type="text" autocomplete="name" required>
-      </label>
-      <fieldset class="campo campo--opciones">
-        <legend>¿Nos acompañas?</legend>
-        <label><input type="radio" name="asiste" value="Sí, ahí estaré" checked> <span>Sí, ahí estaré</span></label>
-        <label><input type="radio" name="asiste" value="No podré asistir"> <span>No podré asistir</span></label>
-      </fieldset>
-      <label class="campo">
-        <span>Número de personas</span>
-        <select name="personas">
-          <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-        </select>
-      </label>
-      <label class="campo">
-        <span>Mensaje para los novios <em>(opcional)</em></span>
-        <textarea name="mensaje" rows="3"></textarea>
-      </label>
-      <button class="boton" type="submit">Enviar confirmación</button>
-      <p class="rsvp__estado" role="status" aria-live="polite"></p>
-    </form>
-  </section>
-
-  <footer class="pie">
-    <span class="pie__mono prensa" aria-hidden="true">A<i>&amp;</i>E</span>
-    <svg class="pie__sello prensa" viewBox="0 0 240 240" aria-hidden="true"><use href="#sello-cera"/></svg>
-    <p class="pie__gracias prensa">Gracias por ser parte de nuestra historia</p>
-    <p class="pie__fecha prensa" data-boda="fecha-corta"></p>
-  </footer>
+  <section class="bloque alterno"><div class="ancho" style="max-width:820px">
+    <div class="cabeza"><h2>Preguntas frecuentes</h2></div>
+    <details><summary>¿Qué puedo usar gratis?</summary><p>Resumen, presupuesto y fechas importantes. También puedes llenar la encuesta y ver tu invitación antes de comprar.</p></details>
+    <details><summary>¿Qué activa el pago de $380?</summary><p>Invitados en la nube, confirmaciones con enlaces personales, acomodo de mesas, importación de contactos y las plantillas de invitación.</p></details>
+    <details><summary>¿La invitación personalizada está incluida?</summary><p>No. Las plantillas están incluidas y el diseño personalizado se cotiza aparte.</p></details>
+    <details><summary>¿Cómo confirman mis invitados?</summary><p>Abren su enlace personal, llenan un formulario breve y la respuesta se envía a tu WhatsApp o correo.</p></details>
+    <details><summary>¿Es un cobro mensual?</summary><p>No. Synode Premium es un pago único de $380 MXN, procesado de forma segura por Stripe.</p></details>
+    <details><summary>¿Puedo importar mis contactos?</summary><p>Sí. Puedes subir un archivo de contactos de iPhone, Mac, iCloud o Android, con foto, teléfono y correo opcionales.</p></details>
+  </div></section>
 </main>
 
-<script src="js/escenas.js"></script>
-<script src="js/sello.js"></script>
-<script src="js/invitacion.js"></script>
-<script src="js/recorrido.js"></script>
+<script src="js/nube-config.js"></script>
+<script>
+  /* Con la nube activa, la compra pasa por el panel para quedar ligada a una cuenta */
+  if (window.SYNODE_NUBE && SYNODE_NUBE.url && SYNODE_NUBE.anonKey)
+    document.querySelectorAll("[data-comprar]").forEach(function (a) { a.href = "planeacion/#invitados"; });
+</script>
+
+<footer><div class="ancho"><span>© 2026 Synode</span><span>Invitaciones de boda digitales · México</span></div></footer>
 </body>
 </html>

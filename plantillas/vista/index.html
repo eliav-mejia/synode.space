@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Tu invitación · Synode</title>
+  <meta name="description" content="Invitación de boda creada con Synode.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#F7F2E8">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,300;1,400;1,500&family=Pinyon+Script&display=swap">
+  <link rel="preload" as="image" href="../../img/escenas/fondo-damasco.webp" type="image/webp">
+  <link rel="preload" as="image" href="../../img/escenas/t-montes.webp" type="image/webp">
+  <link rel="stylesheet" href="../../css/site.css">
+  <script>document.documentElement.classList.add("js", "sellado");</script>
+  <script src="../../js/config.js"></script>
+  <script src="../../js/plantilla.js"></script>
+  <script src="../../js/variantes.js"></script>
+</head>
+<body>
+
+<!-- Papel de algodón fijo y la marca de la plancha: no se mueven nunca -->
+<div class="papel" aria-hidden="true"></div>
+<div class="plancha" aria-hidden="true"></div>
+
+<!-- Sello de cera crema: resina prensada con un sello de latón. Solo V & M, sin texto en la orilla.
+     Sello de tinta (variante tinta): estampa índigo con corona de laurel y V & M.
+     Variante vintage: el mismo sello en lacre rojo (colores por --cera, --cera-hundida y --cera-letra). -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+      <filter id="cera" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="5.5" result="h"/>
+        <feDiffuseLighting in="h" surfaceScale="7" diffuseConstant="1.14" lighting-color="#fff" result="dif"><feDistantLight azimuth="235" elevation="52"/></feDiffuseLighting>
+        <feSpecularLighting in="h" surfaceScale="7" specularConstant="0.5" specularExponent="18" lighting-color="#fff" result="esp"><feDistantLight azimuth="235" elevation="52"/></feSpecularLighting>
+        <feComposite in="dif" in2="SourceAlpha" operator="in" result="difIn"/>
+        <feComposite in="esp" in2="SourceAlpha" operator="in" result="espIn"/>
+        <feBlend in="SourceGraphic" in2="difIn" mode="multiply" result="base"/>
+        <feComposite in="base" in2="espIn" operator="arithmetic" k2="1" k3="1"/>
+      </filter>
+      <filter id="cera-hundida" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="2.4" result="h"/>
+        <feDiffuseLighting in="h" surfaceScale="-4.5" diffuseConstant="1.22" lighting-color="#fff" result="dif"><feDistantLight azimuth="235" elevation="52"/></feDiffuseLighting>
+        <feSpecularLighting in="h" surfaceScale="-4.5" specularConstant="0.28" specularExponent="14" lighting-color="#fff" result="esp"><feDistantLight azimuth="235" elevation="52"/></feSpecularLighting>
+        <feComposite in="dif" in2="SourceAlpha" operator="in" result="difIn"/>
+        <feComposite in="esp" in2="SourceAlpha" operator="in" result="espIn"/>
+        <feBlend in="SourceGraphic" in2="difIn" mode="multiply" result="base"/>
+        <feComposite in="base" in2="espIn" operator="arithmetic" k2="1" k3="1"/>
+      </filter>
+      <filter id="cera-letra" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="1.1" result="h"/>
+        <feDiffuseLighting in="h" surfaceScale="2.6" diffuseConstant="1.22" lighting-color="#fff" result="dif"><feDistantLight azimuth="235" elevation="52"/></feDiffuseLighting>
+        <feSpecularLighting in="h" surfaceScale="2.6" specularConstant="0.45" specularExponent="22" lighting-color="#fff" result="esp"><feDistantLight azimuth="235" elevation="52"/></feSpecularLighting>
+        <feComposite in="dif" in2="SourceAlpha" operator="in" result="difIn"/>
+        <feComposite in="esp" in2="SourceAlpha" operator="in" result="espIn"/>
+        <feBlend in="SourceGraphic" in2="difIn" mode="multiply" result="base"/>
+        <feComposite in="base" in2="espIn" operator="arithmetic" k2="1" k3="1"/>
+      </filter>
+      <filter id="tinta-sello" x="-6%" y="-6%" width="112%" height="112%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="3" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G" result="d"/>
+        <feGaussianBlur in="d" stdDeviation="1.3" result="corrida"/>
+        <feColorMatrix in="corrida" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 .28 0" result="corridaSuave"/>
+        <feTurbulence type="fractalNoise" baseFrequency=".7" numOctaves="2" seed="12" result="g"/>
+        <feColorMatrix in="g" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1.2 0 0 0 1.4" result="ga"/>
+        <feTurbulence type="fractalNoise" baseFrequency=".022" numOctaves="2" seed="40" result="m"/>
+        <feColorMatrix in="m" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1 0 0 0 1.5" result="ma"/>
+        <feComposite in="ga" in2="ma" operator="arithmetic" k1="1" k2=".25" result="carga"/>
+        <feComposite in="d" in2="carga" operator="in" result="estampa"/>
+        <feMerge><feMergeNode in="corridaSuave"/><feMergeNode in="estampa"/></feMerge>
+      </filter>
+    <symbol id="sello-tinta" viewBox="0 0 240 240">
+      <g filter="url(#tinta-sello)">
+        <circle cx="120" cy="120" r="109" fill="none" stroke="#26357A" stroke-width="5.5"/>
+        <circle cx="120" cy="120" r="101" fill="none" stroke="#26357A" stroke-width="1.4"/>
+        <path d="M137.5 202.2L144.5 200.4L151.3 198.0L157.9 195.0L164.2 191.4L170.2 187.4L175.8 182.8L181.0 177.8L185.7 172.3L190.0 166.5L193.7 160.3L196.9 153.8L199.5 147.1L201.6 140.1L203.0 133.0L203.8 125.9L204.0 118.6L203.6 111.4L202.5 104.3L200.9 97.2L198.6 90.4L195.8 83.7L192.4 77.3L188.4 71.3L184.0 65.6L179.1 60.3L173.7 55.4L167.9 51.0L161.8 47.2L155.4 43.8L148.7 41.1M102.5 202.2L95.5 200.4L88.7 198.0L82.1 195.0L75.8 191.4L69.8 187.4L64.2 182.8L59.0 177.8L54.3 172.3L50.0 166.5L46.3 160.3L43.1 153.8L40.5 147.1L38.4 140.1L37.0 133.0L36.2 125.9L36.0 118.6L36.4 111.4L37.5 104.3L39.1 97.2L41.4 90.4L44.2 83.7L47.6 77.3L51.6 71.3L56.0 65.6L60.9 60.3L66.3 55.4L72.1 51.0L78.2 47.2L84.6 43.8L91.3 41.1" fill="none" stroke="#26357A" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M159.1 194.3Q165.7 198.6 173.0 196.0Q166.5 191.7 159.1 194.3ZM159.1 194.3Q165.4 189.8 165.6 182.0Q159.3 186.5 159.1 194.3ZM177.8 180.9Q185.0 183.2 191.2 178.8Q184.0 176.6 177.8 180.9ZM177.8 180.9Q182.5 175.0 180.7 167.7Q176.0 173.6 177.8 180.9ZM192.2 163.0Q199.5 163.2 204.0 157.5Q196.7 157.3 192.2 163.0ZM192.2 163.0Q195.0 156.2 191.4 149.9Q188.5 156.7 192.2 163.0ZM201.1 141.8Q207.9 140.0 210.7 133.6Q203.9 135.3 201.1 141.8ZM201.1 141.8Q202.0 134.8 197.0 129.9Q196.1 136.9 201.1 141.8ZM204.0 118.9Q209.9 115.5 210.7 108.8Q204.9 112.2 204.0 118.9ZM204.0 118.9Q203.0 112.2 197.0 109.0Q198.0 115.7 204.0 118.9ZM200.6 96.2Q205.1 91.5 204.1 85.1Q199.6 89.7 200.6 96.2ZM200.6 96.2Q197.8 90.3 191.5 88.8Q194.2 94.7 200.6 96.2ZM191.1 75.2Q194.1 69.7 191.5 64.0Q188.5 69.5 191.1 75.2ZM191.1 75.2Q187.0 70.4 180.8 70.8Q184.8 75.5 191.1 75.2ZM176.3 57.6Q177.6 51.8 173.7 47.2Q172.4 53.0 176.3 57.6ZM176.3 57.6Q171.3 54.3 165.6 56.2Q170.6 59.5 176.3 57.6ZM157.2 44.7Q156.9 39.0 152.2 35.7Q152.5 41.5 157.2 44.7ZM157.2 44.7Q151.8 42.9 147.0 46.1Q152.5 47.9 157.2 44.7ZM80.9 194.3Q80.7 186.5 74.4 182.0Q74.6 189.8 80.9 194.3ZM80.9 194.3Q73.5 191.7 67.0 196.0Q74.3 198.6 80.9 194.3ZM62.2 180.9Q64.0 173.6 59.3 167.7Q57.5 175.0 62.2 180.9ZM62.2 180.9Q56.0 176.6 48.8 178.8Q55.0 183.2 62.2 180.9ZM47.8 163.0Q51.5 156.7 48.6 149.9Q45.0 156.2 47.8 163.0ZM47.8 163.0Q43.3 157.3 36.0 157.5Q40.5 163.2 47.8 163.0ZM38.9 141.8Q43.9 136.9 43.0 129.9Q38.0 134.8 38.9 141.8ZM38.9 141.8Q36.1 135.3 29.3 133.6Q32.1 140.0 38.9 141.8ZM36.0 118.9Q42.0 115.7 43.0 109.0Q37.0 112.2 36.0 118.9ZM36.0 118.9Q35.1 112.2 29.3 108.8Q30.1 115.5 36.0 118.9ZM39.4 96.2Q45.8 94.7 48.5 88.8Q42.2 90.3 39.4 96.2ZM39.4 96.2Q40.4 89.7 35.9 85.1Q34.9 91.5 39.4 96.2ZM48.9 75.2Q55.2 75.5 59.2 70.8Q53.0 70.4 48.9 75.2ZM48.9 75.2Q51.5 69.5 48.5 64.0Q45.9 69.7 48.9 75.2ZM63.7 57.6Q69.4 59.5 74.4 56.2Q68.7 54.3 63.7 57.6ZM63.7 57.6Q67.6 53.0 66.3 47.2Q62.4 51.8 63.7 57.6ZM82.8 44.7Q87.5 47.9 93.0 46.1Q88.2 42.9 82.8 44.7ZM82.8 44.7Q87.5 41.5 87.8 35.7Q83.1 39.0 82.8 44.7Z" fill="#26357A"/>
+        <path d="M120 27l3.5 5.5-3.5 5.5-3.5-5.5z M120 203l3 4.5-3 4.5-3-4.5z" fill="#26357A"/>
+        <g fill="#26357A">
+          <text x="82" y="139" text-anchor="middle" font-family="'Bodoni Moda', Georgia, serif" font-size="50" font-weight="500">A</text>
+          <text x="120" y="142" text-anchor="middle" font-family="'Pinyon Script', cursive" font-size="54">&amp;</text>
+          <text x="159" y="139" text-anchor="middle" font-family="'Bodoni Moda', Georgia, serif" font-size="50" font-weight="500">E</text>
+        </g>
+      </g>
+    </symbol>
+    <symbol id="sello-cera" viewBox="0 0 240 240">
+      <path d="M227.5 120.0L228.0 123.8L228.0 127.6L227.8 131.3L227.1 135.1L226.1 138.7L224.7 142.3L223.1 145.7L221.4 149.1L219.5 152.3L217.7 155.5L215.9 158.7L214.1 161.9L212.5 165.1L210.9 168.3L209.4 171.6L207.7 174.8L206.0 178.0L204.1 181.1L202.0 184.1L199.8 186.9L197.3 189.6L194.6 192.1L191.9 194.4L189.1 196.7L186.3 199.1L183.7 201.5L181.1 204.0L178.5 206.7L175.9 209.5L173.2 212.1L170.3 214.5L167.1 216.5L163.7 218.1L160.0 219.1L156.3 219.7L152.5 220.0L148.7 220.0L144.9 219.8L141.2 219.5L137.5 219.2L133.9 218.8L130.3 218.4L126.9 218.2L123.4 218.0L120.0 218.0L116.6 218.1L113.1 218.3L109.6 218.5L106.1 218.8L102.6 218.9L99.0 218.9L95.4 218.6L91.9 218.1L88.4 217.4L84.9 216.5L81.5 215.3L78.1 214.1L74.8 212.8L71.4 211.4L68.0 210.1L64.6 208.7L61.1 207.4L57.5 206.0L54.0 204.5L50.5 202.8L47.1 201.0L43.9 198.8L40.9 196.4L38.3 193.6L35.9 190.6L33.9 187.3L32.2 183.8L30.7 180.2L29.5 176.6L28.4 172.9L27.3 169.3L26.3 165.7L25.3 162.2L24.3 158.7L23.3 155.2L22.3 151.7L21.4 148.3L20.7 144.8L20.2 141.2L19.9 137.6L19.9 134.1L20.1 130.5L20.5 127.0L21.0 123.5L21.5 120.0L22.1 116.6L22.5 113.2L22.9 109.8L23.1 106.4L23.2 102.9L23.2 99.4L23.2 95.9L23.3 92.3L23.5 88.7L24.0 85.0L24.7 81.5L25.6 78.0L26.8 74.6L28.3 71.2L29.9 68.0L31.6 64.7L33.3 61.6L35.2 58.4L37.1 55.2L39.1 52.1L41.2 49.0L43.4 46.1L45.9 43.2L48.5 40.6L51.3 38.1L54.3 35.9L57.4 33.9L60.7 32.1L64.1 30.5L67.5 29.1L71.0 27.8L74.5 26.7L77.9 25.5L81.4 24.4L84.7 23.1L88.1 21.8L91.4 20.4L94.8 18.9L98.2 17.4L101.7 16.0L105.2 14.6L108.8 13.5L112.5 12.6L116.2 12.1L120.0 12.0L123.8 12.2L127.5 12.8L131.2 13.7L134.8 14.8L138.3 16.0L141.8 17.4L145.2 18.7L148.6 20.1L152.0 21.5L155.4 22.9L158.7 24.3L161.9 25.9L165.1 27.6L168.1 29.5L171.0 31.7L173.7 34.0L176.3 36.6L178.7 39.2L181.0 41.9L183.3 44.6L185.6 47.1L188.1 49.5L190.7 51.7L193.3 54.0L196.0 56.2L198.5 58.6L201.0 61.2L203.2 63.9L205.4 66.6L207.6 69.4L209.7 72.3L211.7 75.3L213.6 78.3L215.3 81.5L216.9 84.7L218.2 88.1L219.5 91.5L220.6 94.9L221.7 98.4L222.8 101.9L223.9 105.4L225.0 109.0L226.0 112.6L226.9 116.3Z" style="fill: var(--cera, #E8D7B8)" filter="url(#cera)"/>
+      <circle cx="120" cy="121" r="74" style="fill: var(--cera-hundida, #E5D4B5)" filter="url(#cera-hundida)"/>
+      <g style="fill: var(--cera-letra, #EADBBF)" filter="url(#cera-letra)">
+        <text x="82" y="139" text-anchor="middle" font-family="'Bodoni Moda', Georgia, serif" font-size="50" font-weight="500">A</text>
+        <text x="120" y="142" text-anchor="middle" font-family="'Pinyon Script', cursive" font-size="54">&amp;</text>
+        <text x="159" y="139" text-anchor="middle" font-family="'Bodoni Moda', Georgia, serif" font-size="50" font-weight="500">E</text>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============ SELLO DE ENTRADA: cera crema sobre papel blanco con flores en relieve; bloquea el scroll hasta abrirse ============ -->
+<div class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="intro-titulo">
+  <p class="intro__para" id="intro-titulo">Una invitación para ti</p>
+
+  <button class="sello" id="sello" type="button" aria-label="Abrir la invitación" disabled>
+    <svg class="sello__arte" viewBox="0 0 240 240" aria-hidden="true"><use href="#sello-cera"/></svg>
+    <!-- Variante papel: V & M impreso en el papel de algodón, sin sello -->
+    <span class="sello__mono" aria-hidden="true">V<i>&amp;</i>M</span>
+    <span class="sello__aro" aria-hidden="true"></span>
+  </button>
+
+  <!-- Variante mosaico: placa de papel sobre el damasco; al tocar, el mosaico se rompe -->
+  <button class="intro__placa" id="romper" type="button" disabled>
+    <span class="intro__placa-para">Una invitación para ti</span>
+    <span class="intro__placa-nombres">Valeria <i>&amp;</i> Mateo</span>
+    <span class="intro__placa-toca">Toca para abrir</span>
+  </button>
+
+  <p class="intro__pista" aria-live="polite"><span class="intro__cargando">Preparando tu invitación…</span><span class="intro__toca">Toca <span class="intro__que">el sello </span>para abrir</span></p>
+</div>
+
+<main>
+
+  <!-- ============ ESCENA 1 · Tetelpan y aves del paraíso ============ -->
+  <section class="escena escena--tetelpan" id="inicio" data-escena aria-label="Nos casamos">
+    <div class="escena__escenario">
+      <div class="capas" aria-hidden="true">
+        <img class="capa capa--ancha capa--montes" data-capa data-y="-3" src="../../img/escenas/t-montes.webp" data-tinta="../../img/escenas/i-montes.webp" alt="" width="1440" height="900" fetchpriority="high">
+        <img class="capa capa--tallos" data-capa data-y="-6" data-s=".06" src="../../img/escenas/t-tallos.webp" data-tinta="../../img/escenas/i-tallos.webp" alt="" width="504" height="1000">
+        <img class="capa capa--pintura" data-capa data-y="-9" data-s=".1" src="../../img/escenas/t-pintura.webp" data-tinta="../../img/escenas/i-pintura.webp" alt="" width="564" height="757">
+      </div>
+
+      <div class="escena__texto">
+        <div class="fase fase--portada" data-fase="0 .64">
+          <p class="volada prensa">Ciudad de México</p>
+          <h1 class="nombres">
+            <span class="nombres__uno prensa letras">Valeria</span>
+            <span class="nombres__y prensa">&amp;</span>
+            <span class="nombres__dos prensa letras">Mateo</span>
+          </h1>
+          <div class="fase fase--anidada" data-fase=".3 .64">
+            <p class="sobrelinea prensa">Nos casamos · Ceremonia civil</p>
+            <div class="filete prensa" aria-hidden="true"><span></span><i></i><span></span></div>
+            <p class="fecha prensa" data-boda="fecha-larga">Fecha por confirmar</p>
+          </div>
+        </div>
+
+        <div class="fase fase--invitacion" data-fase=".64 1.01">
+          <span class="monograma prensa" aria-hidden="true">V<i>&amp;</i>M</span>
+          <p class="parrafo-grande prensa">Queremos invitarte a conmemorar esta unión.</p>
+          <div class="padres">
+            <div class="prensa"><h2 class="etiqueta">Padres del novio</h2><p>Por confirmar</p></div>
+            <div class="prensa"><h2 class="etiqueta">Padres de la novia</h2><p>Por confirmar</p></div>
+          </div>
+        </div>
+      </div>
+
+      <a class="desliza" href="#historia"><span>Desliza</span><i aria-hidden="true"></i></a>
+    </div>
+  </section>
+
+  <!-- ============ SECCIÓN 2 · Fotos de la pareja ============ -->
+  <section class="historia" id="historia" aria-labelledby="historia-titulo">
+    <header class="encabezado encabezado--historia">
+      <img class="historia__ramo prensa" src="../../img/escenas/t-ramo.webp" data-tinta="../../img/escenas/i-ramo.webp" alt="" width="807" height="841" loading="lazy" aria-hidden="true">
+      <p class="encabezado__script prensa">Nuestra historia</p>
+      <h2 class="encabezado__titulo prensa" id="historia-titulo">Valeria <i>&amp;</i> Mateo</h2>
+      <div class="filete prensa" aria-hidden="true"><span></span><i></i><span></span></div>
+    </header>
+
+    <div class="album">
+      <figure class="lamina lamina--1" data-vel="-.06">
+        <div class="lamina__papel prensa">
+          <div class="foto"><span class="foto__ciego" aria-hidden="true">V<i>&amp;</i>M</span></div>
+          <figcaption><span class="lamina__num">I</span>Cómo nos conocimos</figcaption>
+        </div>
+      </figure>
+      <figure class="lamina lamina--2" data-vel=".08">
+        <div class="lamina__papel prensa">
+          <div class="foto"><span class="foto__ciego" aria-hidden="true">V<i>&amp;</i>M</span></div>
+          <figcaption><span class="lamina__num">II</span>La propuesta</figcaption>
+        </div>
+      </figure>
+      <figure class="lamina lamina--3" data-vel="-.03">
+        <div class="lamina__papel prensa">
+          <div class="foto"><span class="foto__ciego" aria-hidden="true">V<i>&amp;</i>M</span></div>
+          <figcaption><span class="lamina__num">III</span>Para siempre</figcaption>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ ESCENA 3 · Fachada de Casa Virreinal Roja con su fuente ============ -->
+  <section class="escena escena--arco" id="lugar" data-escena aria-label="Dónde y cuándo">
+    <div class="escena__escenario">
+      <!-- La casa aparece completa y sin título; al bajar, la cámara se acerca a la puerta (data-zoom="desde hasta"),
+           el portón se abre y el título se imprime en blanco sobre el interior oscuro -->
+      <div class="capas capas--arco" aria-hidden="true" data-zoom=".12 .42" data-puerta=".5 .655" data-hueco=".139">
+        <img class="capa capa--ancha" data-capa data-y="-2" src="../../img/escenas/a-muro.webp" data-tinta="../../img/escenas/i-muro.webp" alt="" width="2400" height="1500" loading="lazy">
+        <!-- Portón: dos hojas que se abren hacia dentro (data-abre="desde hasta"); dentro está oscuro -->
+        <div class="capa capa--ancha puerta" data-capa data-y="-2" data-abre=".3 .46">
+          <img class="puerta__hoja puerta__hoja--izq" src="../../img/escenas/a-puerta-izq.webp" data-tinta="../../img/escenas/i-puerta-izq.webp" alt="" width="2400" height="1500" loading="lazy">
+          <img class="puerta__hoja puerta__hoja--der" src="../../img/escenas/a-puerta-der.webp" data-tinta="../../img/escenas/i-puerta-der.webp" alt="" width="2400" height="1500" loading="lazy">
+        </div>
+        <img class="capa capa--ancha" data-capa data-y="-3" src="../../img/escenas/a-fuente.webp" data-tinta="../../img/escenas/i-fuente.webp" alt="" width="2400" height="1500" loading="lazy">
+        <img class="capa capa--ancha capa--bajo" data-capa data-y="-5" src="../../img/escenas/a-plantas.webp" data-tinta="../../img/escenas/i-plantas.webp" alt="" width="2400" height="1500" loading="lazy">
+      </div>
+
+      <div class="escena__texto escena__texto--arco">
+        <div class="fase" data-fase=".44 .66">
+          <p class="encabezado__script prensa">Dónde y cuándo</p>
+          <h2 class="lugar__nombre prensa letras">Próximamente</h2>
+          <p class="lugar__dir lugar__dir--grande prensa">Dirección por confirmar</p>
+        </div>
+        <div class="fase" data-fase=".66 .84">
+          <h3 class="etiqueta prensa">Ceremonia civil</h3>
+          <p class="lugar__hora prensa" data-boda="hora">Hora por confirmar</p>
+          <p class="lugar__dir prensa">Lugar por confirmar</p>
+          <a class="boton prensa" href="#" target="_blank" rel="noopener">Ver mapa</a>
+        </div>
+        <div class="fase" data-fase=".84 1.01">
+          <h3 class="etiqueta prensa">Recepción</h3>
+          <p class="lugar__hora prensa">Hora por confirmar</p>
+          <p class="lugar__dir prensa">Lugar por confirmar</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Cuenta regresiva ============ -->
+  <section class="seccion" id="cuenta" aria-labelledby="cuenta-titulo">
+    <header class="encabezado">
+      <p class="encabezado__script prensa">Faltan</p>
+      <h2 class="encabezado__titulo prensa" id="cuenta-titulo">Cuenta regresiva</h2>
+    </header>
+    <div class="cuenta" data-cuenta>
+      <div class="prensa"><b data-c="d">—</b><span>Días</span></div>
+      <div class="prensa"><b data-c="h">—</b><span>Horas</span></div>
+      <div class="prensa"><b data-c="m">—</b><span>Minutos</span></div>
+      <div class="prensa"><b data-c="s">—</b><span>Segundos</span></div>
+    </div>
+    <p class="nota prensa" data-cuenta-nota>La fecha se anunciará muy pronto.</p>
+    <p class="nota hoy prensa" data-hoy hidden aria-live="off"></p>
+    <a class="boton boton--linea prensa" data-calendario href="#" target="_blank" rel="noopener" hidden>Agregar al calendario</a>
+  </section>
+
+  <!-- ============ Itinerario ============ -->
+  <section class="seccion" id="itinerario" aria-labelledby="itinerario-titulo">
+    <header class="encabezado">
+      <p class="encabezado__script prensa">El gran día</p>
+      <h2 class="encabezado__titulo prensa" id="itinerario-titulo">Itinerario</h2>
+    </header>
+    <ol class="programa">
+      <li class="prensa"><span class="programa__que">Ceremonia civil</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora" data-boda="hora">— : —</span></li>
+      <li class="prensa"><span class="programa__que">Cóctel de bienvenida</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
+      <li class="prensa"><span class="programa__que">Entrada de los novios</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
+      <li class="prensa"><span class="programa__que">Cena</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
+      <li class="prensa"><span class="programa__que">Primer baile</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
+      <li class="prensa"><span class="programa__que">¡A bailar!</span><span class="programa__puntos" aria-hidden="true"></span><span class="programa__hora">— : —</span></li>
+    </ol>
+  </section>
+
+  <!-- ============ Detalles ============ -->
+  <section class="seccion" id="detalles" aria-labelledby="detalles-titulo">
+    <header class="encabezado">
+      <p class="encabezado__script prensa">Para tomar en cuenta</p>
+      <h2 class="encabezado__titulo prensa" id="detalles-titulo">Detalles</h2>
+    </header>
+    <div class="detalles">
+      <article class="detalle prensa">
+        <h3 class="etiqueta">Código de vestimenta</h3>
+        <p class="detalle__grande">Formal rústico</p>
+        <p>Te sugerimos tonos suaves y naturales. Reservamos el blanco para la novia.</p>
+        <ul class="muestras" aria-label="Paleta sugerida">
+          <li style="--c:#E9D3C6" title="Rubor"></li>
+          <li style="--c:#EDE0BF" title="Mantequilla"></li>
+          <li style="--c:#C3CDB6" title="Salvia"></li>
+          <li style="--c:#B9C9CC" title="Maguey"></li>
+          <li style="--c:#A8502E" title="Terracota"></li>
+        </ul>
+      </article>
+      <article class="detalle prensa">
+        <h3 class="etiqueta">Mesa de regalos</h3>
+        <p class="detalle__grande">Tu presencia</p>
+        <p>Es nuestro mejor regalo. Si deseas tener un detalle con nosotros, la mesa de regalos estará disponible próximamente.</p>
+      </article>
+      <article class="detalle prensa">
+        <h3 class="etiqueta">Comparte</h3>
+        <p class="detalle__grande" data-boda="hashtag">#ValeriaYMateo</p>
+        <p>Usa nuestro hashtag en tus fotos para que podamos revivir el día contigo.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ RSVP ============ -->
+  <section class="seccion" id="confirmar" aria-labelledby="confirmar-titulo">
+    <header class="encabezado">
+      <p class="encabezado__script prensa">Te esperamos</p>
+      <h2 class="encabezado__titulo prensa" id="confirmar-titulo">Confirma tu asistencia</h2>
+      <p class="nota prensa" data-boda="confirmar-antes" hidden></p>
+    </header>
+
+    <form class="tarjeta rsvp prensa" id="rsvp" novalidate>
+      <label class="campo">
+        <span>Nombre completo</span>
+        <input name="nombre" type="text" autocomplete="name" required>
+      </label>
+      <fieldset class="campo campo--opciones">
+        <legend>¿Nos acompañas?</legend>
+        <label><input type="radio" name="asiste" value="Sí, ahí estaré" checked> <span>Sí, ahí estaré</span></label>
+        <label><input type="radio" name="asiste" value="No podré asistir"> <span>No podré asistir</span></label>
+      </fieldset>
+      <label class="campo">
+        <span>Número de personas</span>
+        <select name="personas">
+          <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+        </select>
+      </label>
+      <label class="campo">
+        <span>Mensaje para los novios <em>(opcional)</em></span>
+        <textarea name="mensaje" rows="3"></textarea>
+      </label>
+      <button class="boton" type="submit">Enviar confirmación</button>
+      <p class="rsvp__estado" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <footer class="pie">
+    <span class="pie__mono prensa" aria-hidden="true">V<i>&amp;</i>M</span>
+    <svg class="pie__sello prensa" viewBox="0 0 240 240" aria-hidden="true"><use href="#sello-cera"/></svg>
+    <p class="pie__gracias prensa">Gracias por ser parte de nuestra historia</p>
+    <p class="pie__fecha prensa" data-boda="fecha-corta"></p>
+  </footer>
+</main>
+
+<script>window.PLANTILLA.aplicar();</script>
+<script src="../../js/escenas.js"></script>
+<script src="../../js/sello.js"></script>
+<script src="../../js/invitacion.js"></script>
+<script src="../../js/recorrido.js"></script>
+</body>
+</html>
