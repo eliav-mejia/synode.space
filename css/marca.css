@@ -29,3 +29,16 @@ a { color: inherit; }
 .btn.claro { background: var(--claro); border-color: var(--claro); color: var(--tinta); }
 .btn.claro:hover { background: #fff; color: var(--acento-osc); }
 .btn.chico { min-height: 34px; padding: 3px 14px; font-size: .95rem; flex: none; }
+
+/* Páginas legales: aviso de privacidad, términos y reembolsos */
+.legal { max-width: 780px; padding-block: clamp(36px, 7vw, 72px); }
+.legal h2 { margin: 34px 0 8px; font-family: var(--display); font-weight: 500; font-size: 1.6rem; line-height: 1.15; }
+.legal li { margin-bottom: 6px; }
+.legal .fecha { color: var(--suave); }
+.legal .caja { padding: 16px 20px; border: 1px solid var(--linea); border-radius: 10px; background: var(--claro); }
+.pendiente { padding: 0 4px; border-radius: 4px; background: #F3D9A4; }
+.pie-legal { padding-block: 26px; border-top: 1px solid var(--linea); background: var(--claro); color: var(--suave); }
+.pie-legal .ancho { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; }
+.pie-legal nav { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.acepta { margin: 10px 0 0; font-size: .92rem; opacity: .85; }
+.acepta a { text-decoration: underline; }

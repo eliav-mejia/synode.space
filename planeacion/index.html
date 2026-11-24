@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Planeación de boda</title>
-  <meta name="description" content="Panel privado de planeación de la boda de Alejandra y Eliav: presupuesto, invitados, fechas y acomodo de mesas alrededor de la fuente.">
+  <meta name="description" content="Panel de planeación de boda de Synode: resumen, presupuesto, invitados, fechas importantes y acomodo de mesas.">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#F7F2E8">
   <meta name="color-scheme" content="light">
@@ -12,8 +12,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap">
-  <!-- Fecha de la boda: misma fuente única que la invitación -->
-  <script src="../js/config.js"></script>
   <script src="../js/nube-config.js"></script>
   <style>
     /* synode.space · Panel de planeación. Misma paleta de la invitación (tinta de prensa sobre papel de algodón). */
@@ -284,8 +282,8 @@
 
 <header class="cabeza">
   <div>
-    <h1>Alejandra <em>&amp;</em> Eliav · Planeación</h1>
-    <p id="sub-cabeza">Casa Virreinal Roja · Ciudad de México</p>
+    <h1 id="titulo-cabeza">Planeación de tu boda</h1>
+    <p id="sub-cabeza">Resumen, presupuesto y fechas en un solo lugar.</p>
   </div>
   <div class="acciones-globales">
     <span class="estado-guardado" id="estado" aria-live="polite"></span>
@@ -399,6 +397,12 @@
   <section class="panel" id="tab-fechas" role="tabpanel" hidden>
     <h2>Fechas importantes</h2>
     <p class="bajada">Citas, pagos, pruebas y fechas límite. Marca cada una cuando quede lista.</p>
+    <form class="formulario tarjeta" id="boda-form" style="margin-bottom:14px" aria-label="Tu boda">
+      <label class="campo crece"><span>Nombres</span><input type="text" id="boda-nombres" autocomplete="off" placeholder="Ej. Ana &amp; Luis"></label>
+      <label class="campo"><span>Fecha de la boda</span><input type="date" id="boda-fecha"></label>
+      <label class="campo"><span>Hora</span><input type="time" id="boda-hora"></label>
+      <label class="campo crece"><span>Lugar</span><input type="text" id="boda-lugar" autocomplete="off" placeholder="Ej. Hacienda, ciudad"></label>
+    </form>
     <form class="formulario tarjeta no-imprimir" id="fec-form" style="margin-bottom:14px">
       <label class="campo crece"><span>Qué</span><input type="text" id="fec-titulo" required autocomplete="off" placeholder="Ej. Prueba de menú"></label>
       <label class="campo"><span>Fecha</span><input type="date" id="fec-fecha" required></label>
@@ -423,7 +427,7 @@
         <li>Plantillas de invitación incluidas</li>
       </ul>
       <button class="boton" type="button" data-accion="nube-abrir">Entrar o activar Premium</button>
-      <p class="ayuda">Resumen, Presupuesto y Fechas importantes siguen gratis. Si ya tenías invitados aquí, se conservan.</p>
+      <p class="ayuda">Resumen, Presupuesto y Fechas importantes siguen gratis. Si ya tenías invitados aquí, se conservan. <a href="../reembolsos/" target="_blank">Política de reembolso</a> · <a href="../aviso-de-privacidad/" target="_blank">Aviso de privacidad</a></p>
     </div>
   </section>
 
@@ -550,7 +554,6 @@
   const RSVP_COLOR = { confirmado: "#5E7550", pendiente: "#B6975E", declinado: "#A8502E" };
   const CATS = ["Lugar", "Banquete", "Bebidas", "Música", "Fotografía y video", "Flores y decoración", "Vestuario", "Invitaciones", "Transporte", "Otros"];
   const TIPOS = ["Hito", "Proveedor", "Pago", "Cita", "Invitados"];
-  const BODA_ISO = (window.BODA && window.BODA.fecha) || "2027-01-31T13:00:00-06:00";
 
   /* ---------------- Utilidades ---------------- */
   const $ = (s, r = document) => r.querySelector(s);
@@ -572,8 +575,9 @@
       version: 1,
       meta: 60,
       presupuesto: { total: 0, items: CATS.map(c => ({ id: uid(), concepto: c, categoria: c, proveedor: "", estimado: 0, real: 0, pagado: 0, vence: "" })) },
+      boda: { nombres: "", fecha: "", hora: "", lugar: "" },
       invitados: [],
-      fechas: [{ id: uid(), titulo: "Ceremonia civil y celebración", fecha: BODA_ISO.slice(0, 10), tipo: "Hito", hecho: false }],
+      fechas: [],
       mesas: { n: 4, porLado: 7, cabeceras: true, forma: "anillo", elementos: { fuente: "centro", pista: "", altar: "" }, nombres: [], asientos: {} }
     };
   }
@@ -594,6 +598,11 @@
         ? d.invitados.map(g => Object.assign({ telefono: "", correo: "" }, g, { foto: FOTO_VALIDA.test(g.foto || "") ? g.foto : "" }))
         : [],
       fechas: Array.isArray(d.fechas) ? d.fechas : base.fechas,
+      boda: Object.assign({}, base.boda, d.boda || (() => {
+        // Datos guardados antes de este campo: la fecha de la boda era el hito sembrado en Fechas importantes
+        const h = Array.isArray(d.fechas) && d.fechas.find(x => x.tipo === "Hito" && /^Ceremonia/.test(x.titulo || ""));
+        return h ? { fecha: h.fecha || "" } : {};
+      })()),
       mesas: Object.assign({}, base.mesas, d.mesas || {}, {
         asientos: (d.mesas && d.mesas.asientos) || {},
         elementos: Object.assign({}, base.mesas.elementos, (d.mesas && d.mesas.elementos) || {})
@@ -641,9 +650,22 @@
   window.addEventListener("hashchange", () => mostrar(location.hash.slice(1)));
 
   /* ---------------- Cabecera ---------------- */
+  // Nombres de la boda si ya se capturaron; si no, el nombre de la cuenta con sesión; si no, texto genérico.
+  function nombreSesion() {
+    try {
+      const s = JSON.parse(localStorage.getItem("synode-nube-sesion"));
+      return s ? (s.nombre || s.correo || "") : "";
+    } catch (e) { return ""; }
+  }
   function renderCabecera() {
-    const f = new Date(BODA_ISO);
-    $("#sub-cabeza").textContent = `${f.toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long", year: "numeric" })} · Casa Virreinal Roja · Ciudad de México`;
+    const b = S.boda, quien = nombreSesion();
+    const titulo = b.nombres.trim() ? `${b.nombres.trim()} · Planeación` : quien ? `Hola, ${quien}` : "Planeación de tu boda";
+    $("#titulo-cabeza").textContent = titulo;
+    document.title = b.nombres.trim() ? `${b.nombres.trim()} · Planeación de boda` : "Planeación de boda · Synode";
+    const partes = [];
+    if (b.fecha) partes.push(aFecha(b.fecha).toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long", year: "numeric" }) + (b.hora ? ` · ${b.hora} h` : ""));
+    if (b.lugar.trim()) partes.push(b.lugar.trim());
+    $("#sub-cabeza").textContent = partes.length ? partes.join(" · ") : "Define la fecha y el lugar en Fechas importantes.";
   }
 
   /* ---------------- Cálculos compartidos ---------------- */
@@ -666,13 +688,15 @@
 
   /* ---------------- Resumen ---------------- */
   function renderResumen() {
-    const dias = Math.ceil((new Date(BODA_ISO) - new Date()) / 864e5);
+    const dias = diasHasta(S.boda.fecha);
     const c = conteoRsvp(), s = sumas(), t = S.presupuesto.total;
     const geo = geometria(S.mesas);
     const sentados = Object.values(S.mesas.asientos).filter(id => invitado(id)).length;
     const asistentes = c.confirmado + c.pendiente;
     $("#res-kpis").innerHTML =
-      kpi("Faltan", dias > 0 ? `${dias} días` : dias === 0 ? "¡Hoy!" : "Celebrado", new Date(BODA_ISO).toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" })) +
+      (dias === null
+        ? kpi("Faltan", "—", "Define la fecha en Fechas importantes")
+        : kpi("Faltan", dias > 1 ? `${dias} días` : dias === 1 ? "1 día" : dias === 0 ? "¡Hoy!" : "Celebrado", aFecha(S.boda.fecha).toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" }))) +
       kpi("Confirmados", `${c.confirmado} / ${S.meta}`, `${c.pendiente} pendientes · ${c.declinado} no asisten`) +
       kpi("Gastado (real)", mxn.format(s.real), t ? `${Math.round((s.real / t) * 100)}% de ${mxn.format(t)}` : "Define el presupuesto total", t && s.real > t ? "mal" : "") +
       kpi("Asientos asignados", `${sentados} / ${geo.asientos.length}`, asistentes > geo.asientos.length ? `Faltan ${asistentes - geo.asientos.length} sillas` : `${geo.asientos.length - asistentes} sillas de sobra`, asistentes > geo.asientos.length ? "mal" : "");
@@ -820,7 +844,7 @@
     const c = v => `"${seguro(v).replace(/"/g, '""')}"`;
     const filas = [["Nombre", "Teléfono", "Correo", "Grupo", "Confirmación", "Dieta", "Notas", "Mesa", "Silla"]].concat(
       S.invitados.map(g => { const m = mesaDe(g.id); return [g.nombre, g.telefono, g.correo, g.grupo, RSVP[g.rsvp], g.dieta, g.notas, m ? nombreMesa(m.mesa) : "", m ? m.asiento + 1 : ""]; }));
-    descargar("invitados-alejandra-eliav.csv", "﻿" + filas.map(f => f.map(c).join(",")).join("\r\n"), "text/csv;charset=utf-8");
+    descargar(`invitados-${(S.boda.nombres.trim() || "boda").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "boda"}.csv`, "﻿" + filas.map(f => f.map(c).join(",")).join("\r\n"), "text/csv;charset=utf-8");
   }
 
   /* ---------------- Contactos: lectura de vCard (Apple, Android, Google) ---------------- */
@@ -1074,8 +1098,9 @@
   function guardarSesion(s) {
     nubeSes = s;
     try { s ? localStorage.setItem(NUBE_SESION, JSON.stringify(s)) : localStorage.removeItem(NUBE_SESION); } catch (e) { /* solo en memoria */ }
+    if (typeof renderCabecera === "function") renderCabecera();
   }
-  const sesionDe = d => ({ access: d.access_token, refresh: d.refresh_token, expira: Date.now() + (Number(d.expires_in) || 3600) * 1000, correo: d.user?.email || nubeSes?.correo || "", id: d.user?.id || nubeSes?.id || "" });
+  const sesionDe = d => ({ access: d.access_token, refresh: d.refresh_token, expira: Date.now() + (Number(d.expires_in) || 3600) * 1000, correo: d.user?.email || nubeSes?.correo || "", nombre: d.user?.user_metadata?.full_name || d.user?.user_metadata?.name || nubeSes?.nombre || "", id: d.user?.id || nubeSes?.id || "" });
   async function tokenNube() {
     if (!nubeSes) throw new Error("sesion");
     if (Date.now() < nubeSes.expira - 60000) return nubeSes.access;
@@ -1091,6 +1116,11 @@
     if (!r.ok) throw new Error(r.status === 403 ? "sin-pago" : "red");
     const texto = await r.text(); // subir con return=minimal responde 201 sin cuerpo
     return texto ? JSON.parse(texto) : null;
+  }
+  // Registro de uso Premium para la política de reembolso. Silencioso: nunca bloquea al usuario.
+  function registrarUso(accion) {
+    if (!NUBE_ACTIVA || !nubeSes || !tienePremium()) return;
+    pedirNube("/rest/v1/nube_uso", { method: "POST", headers: { prefer: "return=minimal" }, body: JSON.stringify({ user_id: nubeSes.id, accion }) }).catch(() => {});
   }
   function recordarAcceso(pagado) {
     const antes = tienePremium();
@@ -1123,7 +1153,8 @@
         ? `<p>Te enviamos un enlace a <b>${esc(nubeEnviadoA)}</b>. Ábrelo en este mismo dispositivo para entrar.</p><button class="boton sec" type="button" data-accion="nube-otro">Usar otro correo</button>`
         : `<p>Invitados, mesas y nube se activan con Premium. Inicia sesión con tu correo, sin contraseña, para entrar o activarlo.</p>
            <form id="nube-form"><label class="campo"><span>Correo electrónico</span><input type="email" id="nube-correo" required autocomplete="email"></label>
-           <button class="boton" type="submit" ${dis}>Enviarme el enlace</button></form>`}`;
+           <button class="boton" type="submit" ${dis}>Enviarme el enlace</button>
+           <p class="ayuda">Usamos tu correo solo para darte acceso. Consulta el <a href="../aviso-de-privacidad/" target="_blank">Aviso de privacidad</a>.</p></form>`}`;
       return;
     }
     const cuenta = `<p class="ayuda" style="margin-top:12px">Sesión: ${esc(nubeSes.correo)} · <button class="quitar" style="font-size:inherit;width:auto" type="button" data-accion="nube-salir">Cerrar sesión</button></p>`;
@@ -1134,7 +1165,7 @@
       const aviso = nubeInfo.estado === "disputa" ? `<p class="nube-error">Tu pago está en revisión. Mientras tanto no se puede subir la lista.</p>`
         : nubeInfo.estado === "reembolsado" ? `<p>Tu pago fue reembolsado. Aún puedes traer o borrar tu lista.</p>` : "";
       const pagar = nubeInfo.estado === "disputa" ? "" : nubeInfo.precio
-        ? `<p class="nube-precio">${esc(dinero(nubeInfo.precio))} <small style="font-size:1rem">MXN · pago único</small></p><p>Activa invitados, mesas, confirmaciones y plantillas, y guarda tu lista en la nube.</p><button class="boton" type="button" data-accion="nube-pagar" ${dis}>Pagar y activar</button>`
+        ? `<p class="nube-precio">${esc(dinero(nubeInfo.precio))} <small style="font-size:1rem">MXN · pago único</small></p><p>Activa invitados, mesas, confirmaciones y plantillas, y guarda tu lista en la nube.</p><button class="boton" type="button" data-accion="nube-pagar" ${dis}>Pagar y activar</button><p class="ayuda">Al pagar aceptas los <a href="../terminos/" target="_blank">Términos</a>, la <a href="../reembolsos/" target="_blank">Política de reembolso</a> (7 días, no aplica si ya exportaste archivos o usaste funciones Premium) y el <a href="../aviso-de-privacidad/" target="_blank">Aviso de privacidad</a>.</p>`
         : `<p class="nube-error">No pudimos consultar el precio. Intenta más tarde.</p>`;
       b.innerHTML = `${msg}${aviso}${guardada}${recuperar}${pagar}${cuenta}`;
       return;
@@ -1183,6 +1214,7 @@
       const cuerpo = JSON.stringify({ user_id: nubeSes.id, datos, total: datos.length });
       if (cuerpo.length > NUBE_MAX) { nubeMsg = "!La lista es demasiado grande para la nube. Quita algunas fotos."; return; }
       await pedirNube("/rest/v1/nube_listas?on_conflict=user_id", { method: "POST", headers: { prefer: "resolution=merge-duplicates,return=minimal" }, body: cuerpo });
+      registrarUso("subir-nube");
       await cargarNube();
       nubeMsg = `${datos.length} invitados guardados en la nube.`;
     });
@@ -1243,6 +1275,7 @@
   /* ---------------- Fechas ---------------- */
   $("#fec-tipo").innerHTML = opciones(TIPOS, "Cita");
   function renderFechas() {
+    renderBoda();
     const lista = [...S.fechas].sort((a, b) => (a.fecha || "9999").localeCompare(b.fecha || "9999"));
     $("#fec-lista").innerHTML = lista.length ? lista.map(f => {
       const d = diasHasta(f.fecha);
@@ -1259,6 +1292,15 @@
     e.preventDefault();
     S.fechas.push({ id: uid(), titulo: $("#fec-titulo").value.trim(), fecha: $("#fec-fecha").value, tipo: $("#fec-tipo").value, hecho: false });
     $("#fec-titulo").value = ""; guardar(); renderFechas(); $("#fec-titulo").focus();
+  });
+  function renderBoda() {
+    for (const k of ["nombres", "fecha", "hora", "lugar"]) { const el = $(`#boda-${k}`); if (document.activeElement !== el) el.value = S.boda[k] || ""; }
+  }
+  $("#boda-form").addEventListener("submit", e => e.preventDefault());
+  $("#boda-form").addEventListener("input", e => {
+    const k = e.target.id.replace("boda-", ""); if (!(k in S.boda)) return;
+    S.boda[k] = e.target.value;
+    guardar(); renderCabecera();
   });
   $("#fec-lista").addEventListener("input", e => {
     const li = e.target.closest("li[data-id]"), f = e.target.dataset.f; if (!li || !f) return;
@@ -1809,7 +1851,7 @@
         $("#estado").textContent = `${lineas.length} invitados agregados`;
         break;
       }
-      case "inv-csv": csvInvitados(); break;
+      case "inv-csv": csvInvitados(); registrarUso("exportar-csv"); break;
       case "inv-foto": fotoPara = id; $("#inv-foto-archivo").click(); break;
       case "inv-foto-quitar": { const g = invitado(id); if (g) { g.foto = ""; guardar(); renderInvitados(); } break; }
       case "con-abrir": limpiarCandidatos(); errorContactos(""); pasoContactos(false); dlg.showModal(); break;
@@ -1818,7 +1860,7 @@
       case "con-volver": limpiarCandidatos(); pasoContactos(false); break;
       case "con-todos": candidatosVisibles().forEach(c => (c.sel = true)); renderCandidatos(); break;
       case "con-ninguno": candidatosVisibles().forEach(c => (c.sel = false)); renderCandidatos(); break;
-      case "con-importar": importarCandidatos(); break;
+      case "con-importar": importarCandidatos(); registrarUso("importar-contactos"); break;
       case "nube-abrir": nubeDlg.showModal(); refrescarNube(); break;
       case "nube-cerrar": nubeDlg.close(); break;
       case "nube-otro": nubeEnviadoA = ""; nubeMsg = ""; renderNube(); break;
@@ -1842,6 +1884,7 @@
   $("#btn-exportar").addEventListener("click", () => {
     const f = new Date().toISOString().slice(0, 10);
     descargar(`planeacion-boda-${f}.json`, JSON.stringify(S, null, 2), "application/json");
+    registrarUso("exportar-respaldo");
   });
   $("#btn-importar").addEventListener("change", async e => {
     const archivo = e.target.files[0]; e.target.value = "";
@@ -1850,7 +1893,7 @@
       const d = JSON.parse(await archivo.text());
       if (!d || !Array.isArray(d.invitados)) throw new Error("formato");
       if (!confirm("Esto reemplaza todos los datos actuales con el respaldo. ¿Continuar?")) return;
-      S = normalizar(d); sel = null; guardar(); mostrar(pestana);
+      S = normalizar(d); sel = null; guardar(); renderCabecera(); mostrar(pestana);
     } catch (err) { alert("Ese archivo no parece un respaldo válido de este panel."); }
   });
 
